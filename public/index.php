@@ -1,9 +1,10 @@
 <?php
 
-$app = new Phalcon\Mvc\Micro();
+use Phalcon\Mvc\Micro\Collection,
+    Phalcon\Mvc\Micro;
 
-$app->get('/', function () {
-    echo "Welcome!";
-});
+$app = new Micro();
 
-$app->handle();
+$users = new Collection();
+
+$app->mount($users);
