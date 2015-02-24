@@ -1,10 +1,19 @@
 <?php
 
-use Phalcon\Mvc\Micro\Collection,
-    Phalcon\Mvc\Micro;
+use \Phalcon\Mvc\Micro\Collection,
+    \Phalcon\Mvc\Micro,
+    \App\Controllers\UserController;
 
-$app = new Micro();
+(new \Phalcon\Loader())
+    ->registerNamespaces([
+        'App' => '../app',
+    ])
+    ->register();
 
-$users = new Collection();
+$users = (new Collection())
+    ->setHandler(new UserController())
+    ->get('/', 'listAction');
 
-$app->mount($users);
+$app = (new Micro())
+    ->mount($users)
+    ->handle();

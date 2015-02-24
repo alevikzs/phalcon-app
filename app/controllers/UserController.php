@@ -1,10 +1,12 @@
 <?php
 
-class UserController extends \Phalcon\Mvc\Controller
-{
+namespace App\Controllers;
 
-    public function listAction()
-    {
+use \Phalcon\Mvc\Controller;
+
+class UserController extends Controller {
+
+    public function listAction() {
         echo 'user list';
     }
 
