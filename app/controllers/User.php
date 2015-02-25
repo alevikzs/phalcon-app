@@ -19,7 +19,7 @@ class User extends Controller {
     }
 
     public function index() {
-        echo 'user delete';
+        echo 'users';
     }
 
 }

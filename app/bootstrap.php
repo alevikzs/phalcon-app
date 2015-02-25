@@ -29,7 +29,8 @@ class Bootstrap {
 
         foreach ($routes as $handler => $group) {
             $collection = (new Collection())
-                ->setHandler('\\App\\Controllers\\' . $handler, true);
+                ->setHandler('\\App\\Controllers\\' . $handler)
+                ->setLazy(true);
 
             foreach ($group as $route) {
                 $method = $route['method'];
