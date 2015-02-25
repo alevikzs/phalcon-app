@@ -18,4 +18,4 @@ class User extends Model {
         return 'users';
     }
 
-} 
+}

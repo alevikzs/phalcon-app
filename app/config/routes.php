@@ -9,22 +9,22 @@ class Routes {
             'User' => [
                 [
                     'route' => '/users',
-                    'action' => 'index',
+                    'class' => 'Collection',
                     'method' => 'get'
                 ],
                 [
                     'route' => '/user/create',
-                    'action' => 'create',
+                    'class' => 'Create',
                     'method' => 'post'
                 ],
                 [
                     'route' => '/user/update',
-                    'action' => 'update',
+                    'class' => 'Update',
                     'method' => 'put'
                 ],
                 [
                     'route' => '/user/delete',
-                    'action' => 'delete',
+                    'class' => 'Delete',
                     'method' => 'delete'
                 ]
             ]

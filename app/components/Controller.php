@@ -5,9 +5,11 @@ namespace App\Components;
 use \Phalcon\Mvc\Controller as BaseController,
     \Phalcon\Http\Response;
 
-class Controller extends BaseController {
+abstract class Controller extends BaseController {
 
-    /**
+    public abstract function run();
+
+        /**
      * @param array $data
      * @return Response
      */

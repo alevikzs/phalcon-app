@@ -57,20 +57,15 @@ class Bootstrap {
     private static function mountRoutes() {
         $routes = Routes::get();
 
-        foreach ($routes as $handler => $group) {
-            $collection = (new Collection())
-                ->setHandler('\\App\\Controllers\\' . $handler)
-                ->setLazy(true);
-
-            foreach ($group as $route) {
-                $method = $route['method'];
-                $collection->$method($route['route'], $route['action']);
+        foreach ($routes as $group => $controllers) {
+            foreach ($controllers as $controller) {
+                $method = $controller['method'];
+                $handler = "$group\\";
+                self::getInstance()->$method($controller['route'], $group . $controller['class']);
             }
-
-            self::getInstance()->mount($collection);
         }
 
-        return self::getInstance();
+        return self::getInstance()->getRouter();
     }
 
 }
