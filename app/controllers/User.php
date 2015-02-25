@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use \Phalcon\Mvc\Controller,
-
+use \App\Components\Controller,
     \App\Models\User as UserModel;
 
 class User extends Controller {
@@ -21,10 +20,8 @@ class User extends Controller {
     }
 
     public function index() {
-        $users = UserModel::find();
-        foreach ($users as $user) {
-            echo $user->name . '<br>';
-        }
+        $users = UserModel::find()->toArray();
+        return $this->response($users);
     }
 
 }
