@@ -9,7 +9,7 @@ use \Phalcon\Mvc\Micro\Collection,
     \App\Config\Routes,
     \App\Config\Database;
 
-class Application {
+class Bootstrap {
 
     /**
      * @var Micro

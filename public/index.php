@@ -6,4 +6,4 @@
     ])
     ->register();
 
-\App\Application::go();
+\App\Bootstrap::go();
