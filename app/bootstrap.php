@@ -4,8 +4,10 @@ namespace App;
 
 use \Phalcon\Mvc\Micro\Collection,
     \Phalcon\Mvc\Micro,
+    \Phalcon\DI\FactoryDefault,
 
-    \App\Config\Routes;
+    \App\Config\Routes,
+    \App\Config\Database;
 
 class Bootstrap {
 
@@ -14,17 +16,38 @@ class Bootstrap {
      */
     private $application;
 
+    /**
+     * @return Micro
+     */
+    private function getApplication() {
+        return $this->application;
+    }
+
     public function __construct () {
-        $this->application = new Micro();
+        $this->application = new Micro($this->createDbDependency());
     }
 
     public function go() {
-        $this->routes();
-
-        $this->application->handle();
+        $this->mountRoutes()->handle();
     }
 
-    private function routes() {
+    /**
+     * @return FactoryDefault
+     */
+    private function createDbDependency() {
+        $dependency = new FactoryDefault();
+
+        $dependency->set('db', function() {
+            return Database::get();
+        });
+
+        return $dependency;
+    }
+
+    /**
+     * @return Micro
+     */
+    private function mountRoutes() {
         $routes = Routes::get();
 
         foreach ($routes as $handler => $group) {
@@ -37,8 +60,10 @@ class Bootstrap {
                 $collection->$method($route['route'], $route['action']);
             }
 
-            $this->application->mount($collection);
+            $this->getApplication()->mount($collection);
         }
+
+        return $this->getApplication();
     }
 
 }
