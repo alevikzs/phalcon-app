@@ -2,8 +2,7 @@
 
 namespace App;
 
-use \Phalcon\Mvc\Micro\Collection,
-    \Phalcon\Mvc\Micro,
+use \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
 
     \App\Config\Routes,
@@ -60,12 +59,13 @@ class Bootstrap {
         foreach ($routes as $group => $controllers) {
             foreach ($controllers as $controller) {
                 $method = $controller['method'];
-                $handler = "$group\\";
-                self::getInstance()->$method($controller['route'], $group . $controller['class']);
+                $handlerClass = $controller['class'];
+                $handlerClass = "\\App\\controllers\\$group\\$handlerClass";
+                self::getInstance()->$method($controller['route'], [new $handlerClass(), 'run']);
             }
         }
 
-        return self::getInstance()->getRouter();
+        return self::getInstance();
     }
 
 }
