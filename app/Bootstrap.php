@@ -47,13 +47,24 @@ final class Bootstrap {
     }
 
     public static function go() {
-        self::getDependency()->set('db', function() {
-            return Database::get();
-        });
+        self::setCustomErrorHandler();
 
-        self::mountRoutes();
+        try {
+            self::getDependency()->set('db', function() {
+                return Database::get();
+            });
 
-        self::getApplication()->handle();
+            self::mountRoutes();
+
+            self::getApplication()->handle();
+        } catch (\Exception $error) {
+            return json_encode([
+                'code' => $error->getCode(),
+                'message' => $error->getMessage()
+            ]);
+        }
+
+        return true;
     }
 
     private static function mountRoutes() {
@@ -66,6 +77,16 @@ final class Bootstrap {
                 self::getApplication()->$method($controller['route'], [new $handlerClass(), 'run']);
             }
         }
+    }
+
+    public static function setCustomErrorHandler() {
+        $handler = function($no, $str, $file, $line) {
+            if (0 === error_reporting()) {
+                return false;
+            }
+            throw new \ErrorException($str, 0, $no, $file, $line);
+        };
+        set_error_handler($handler);
     }
 
 }
