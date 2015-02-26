@@ -62,8 +62,7 @@ final class Bootstrap {
         foreach ($routes as $group => $controllers) {
             foreach ($controllers as $controller) {
                 $method = $controller['method'];
-                $handlerClass = $controller['class'];
-                $handlerClass = "\\App\\controllers\\$group\\$handlerClass";
+                $handlerClass = "\\App\\controllers\\$group\\" . $controller['class'];
                 self::getApplication()->$method($controller['route'], [new $handlerClass(), 'run']);
             }
         }
