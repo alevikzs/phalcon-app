@@ -4,7 +4,7 @@ namespace App\Config;
 
 use \Phalcon\Db\Adapter\Pdo\Postgresql;
 
-class Database {
+final class Database {
 
     public static function get() {
         return new Postgresql([

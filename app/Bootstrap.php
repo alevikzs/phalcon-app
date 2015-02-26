@@ -8,14 +8,16 @@ use \Phalcon\Mvc\Micro,
     \App\Config\Routes,
     \App\Config\Database;
 
-class Bootstrap {
+final class Bootstrap {
 
     /**
      * @var Micro
      */
     private static $application;
 
-    protected function __construct () {}
+    private static $dependency;
+
+    private function __construct () {}
 
     /**
      * @return void
@@ -25,34 +27,35 @@ class Bootstrap {
     /**
      * @return Micro
      */
-    public static function getInstance() {
+    public static function getApplication() {
         if (!self::$application) {
-            self::$application = new Micro(self::createDbDependency());
+            self::$application = new Micro(self::getDependency());
         }
 
         return self::$application;
     }
 
-    public static function go() {
-        self::mountRoutes()->handle();
-    }
-
     /**
      * @return FactoryDefault
      */
-    private static function createDbDependency() {
-        $dependency = new FactoryDefault();
+    private static function getDependency() {
+        if (!self::$dependency) {
+            self::$dependency = new FactoryDefault();
+        }
 
-        $dependency->set('db', function() {
+        return self::$dependency;
+    }
+
+    public static function go() {
+        self::getDependency()->set('db', function() {
             return Database::get();
         });
 
-        return $dependency;
+        self::mountRoutes();
+
+        self::getApplication()->handle();
     }
 
-    /**
-     * @return Micro
-     */
     private static function mountRoutes() {
         $routes = Routes::get();
 
@@ -61,11 +64,9 @@ class Bootstrap {
                 $method = $controller['method'];
                 $handlerClass = $controller['class'];
                 $handlerClass = "\\App\\controllers\\$group\\$handlerClass";
-                self::getInstance()->$method($controller['route'], [new $handlerClass(), 'run']);
+                self::getApplication()->$method($controller['route'], [new $handlerClass(), 'run']);
             }
         }
-
-        return self::getInstance();
     }
 
 }
