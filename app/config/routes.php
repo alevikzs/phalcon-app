@@ -2,7 +2,7 @@
 
 namespace App\Config;
 
-class Routes {
+final class Routes {
 
     public static function get() {
         return [
