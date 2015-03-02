@@ -68,20 +68,19 @@ final class Bootstrap {
     public static function go() {
         self::setCustomErrorHandler();
 
-//        try {
+        try {
             self::setDatabaseDependency();
 
             self::mountRoutes();
 
             self::getApplication()->handle();
-//        } catch (\Exception $error) {
-//            return json_encode([
-//                'code' => $error->getCode(),
-//                'message' => $error->getMessage()
-//            ]);
-//        }
-//
-//        return true;
+        } catch (\Exception $error) {
+            echo json_encode([
+                'code' => $error->getCode(),
+                'message' => $error->getMessage()
+            ]);
+        }
+
     }
 
     private static function setDatabaseDependency() {
@@ -111,9 +110,9 @@ final class Bootstrap {
 
     public static function setCustomErrorHandler() {
         $handler = function($no, $str, $file, $line) {
-//            if (0 === error_reporting()) {
-//                return false;
-//            }
+            if (0 === error_reporting()) {
+                return false;
+            }
             throw new \ErrorException($str, 0, $no, $file, $line);
         };
         set_error_handler($handler);
