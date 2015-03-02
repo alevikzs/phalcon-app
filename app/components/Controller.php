@@ -9,7 +9,7 @@ abstract class Controller extends BaseController {
 
     public abstract function run();
 
-        /**
+    /**
      * @param array $data
      * @return Response
      */

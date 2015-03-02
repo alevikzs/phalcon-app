@@ -3,12 +3,12 @@
 namespace App\Controllers\User;
 
 use \App\Components\Controller,
-    \App\Models\User as UserModel;
+    \App\Models\User;
 
 class Collection extends Controller {
 
     public function run() {
-        $users = UserModel::find()->toArray();
+        $users = User::find()->toArray();
         return $this->response($users);
     }
 

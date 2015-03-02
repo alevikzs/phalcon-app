@@ -13,19 +13,24 @@ final class Routes {
                     'method' => 'get'
                 ],
                 [
-                    'route' => '/user/create',
+                    'route' => '/user',
                     'class' => 'Create',
                     'method' => 'post'
                 ],
                 [
-                    'route' => '/user/update',
+                    'route' => '/user/{id}',
                     'class' => 'Update',
                     'method' => 'put'
                 ],
                 [
-                    'route' => '/user/delete',
+                    'route' => '/user/{id}',
                     'class' => 'Delete',
                     'method' => 'delete'
+                ],
+                [
+                    'route' => '/user/{id}',
+                    'class' => 'View',
+                    'method' => 'get'
                 ]
             ]
         ];
