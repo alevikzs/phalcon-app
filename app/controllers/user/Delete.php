@@ -5,11 +5,13 @@ namespace App\Controllers\User;
 use \App\Components\Controller,
     \App\Models\User;
 
+/**
+ * @method int getId()
+ */
 class Delete extends Controller {
 
     public function run() {
-        $params = $this->router->getParams();
-        User::findFirst(['id' => $params['id']])
+        User::findFirst(['id' => $this->getId()])
             ->delete();
         return $this->response();
     }

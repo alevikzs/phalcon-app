@@ -5,17 +5,14 @@ namespace App\Controllers\User;
 use \App\Components\Controller,
     \App\Models\User;
 
+/**
+ * @method int getId()
+ */
 class Update extends Controller {
 
     public function run() {
-        $request = $this->request->getJsonRawBody();
-        $params = $this->router->getParams();
-        /** @var User $user */
-        $user = User::findFirst(['id' => $params['id']]);
-        $user
-            ->setName($request->name)
-            ->setEmail($request->email)
-            ->save();
+        User::findFirst(['id' => $this->getId()])
+            ->save($this->getPayload());
         return $this->response();
     }
 

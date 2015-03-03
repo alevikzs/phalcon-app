@@ -5,11 +5,14 @@ namespace App\Controllers\User;
 use \App\Components\Controller,
     \App\Models\User;
 
+/**
+ * @method int getId()
+ */
 class View extends Controller {
 
     public function run() {
-        $params = $this->router->getParams();
-        $user = User::findFirst(['id' => $params['id']])->toArray();
+        $user = User::findFirst(['id' => $this->getId()])
+            ->toArray();
         return $this->response($user);
     }
 

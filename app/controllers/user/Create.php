@@ -8,11 +8,8 @@ use \App\Components\Controller,
 class Create extends Controller {
 
     public function run() {
-        $request = $this->request->getJsonRawBody();
         (new User())
-            ->setName($request->name)
-            ->setEmail($request->email)
-            ->save();
+            ->save($this->getPayload());
         return $this->response();
     }
 
