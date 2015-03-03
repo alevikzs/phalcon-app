@@ -2,13 +2,15 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller;
-use Phalcon\Http\Request;
+use \App\Components\Controller,
+    \App\Models\User;
 
 class View extends Controller {
 
     public function run() {
-        return $this->response();
+        $params = $this->router->getParams();
+        $user = User::findFirst(['id' => $params['id']])->toArray();
+        return $this->response($user);
     }
 
 }
