@@ -11,7 +11,7 @@ use \App\Components\Controller,
 class Update extends Controller {
 
     public function run() {
-        User::findFirst(['id' => $this->getId()])
+        User::findFirst($this->getId())
             ->save($this->getPayload());
         return $this->response();
     }

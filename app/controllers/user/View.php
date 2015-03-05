@@ -11,7 +11,7 @@ use \App\Components\Controller,
 class View extends Controller {
 
     public function run() {
-        $user = User::findFirst(['id' => $this->getId()])
+        $user = User::findFirst($this->getId())
             ->toArray();
         return $this->response($user);
     }

@@ -11,7 +11,7 @@ use \App\Components\Controller,
 class Delete extends Controller {
 
     public function run() {
-        User::findFirst(['id' => $this->getId()])
+        User::findFirst($this->getId())
             ->delete();
         return $this->response();
     }
