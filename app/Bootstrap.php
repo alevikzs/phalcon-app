@@ -6,7 +6,8 @@ use \Phalcon\Config,
     \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
 
-    \App\Config\Routes;
+    \App\Config\Routes,
+    \App\Config\Database;
 
 final class Bootstrap {
 
@@ -44,17 +45,6 @@ final class Bootstrap {
     }
 
     /**
-     * @return Config
-     */
-    public static function getConfig() {
-        if (!self::$config) {
-            self::$config = require('Config/config.php');
-        }
-
-        return self::$config;
-    }
-
-    /**
      * @return FactoryDefault
      */
     private static function getDependency() {
@@ -85,14 +75,7 @@ final class Bootstrap {
 
     private static function setDatabaseDependency() {
         self::getDependency()->set('db', function() {
-            self::getConfig()->database->adapter;
-            $adapter = "\\Phalcon\\Db\\Adapter\\Pdo\\" . self::getConfig()->database->adapter;
-            return new $adapter([
-                "host" => self::getConfig()->database->host,
-                "username" => self::getConfig()->database->username,
-                "password" => self::getConfig()->database->password,
-                "dbname" => self::getConfig()->database->dbname
-            ]);
+            return Database::get();
         });
     }
 
