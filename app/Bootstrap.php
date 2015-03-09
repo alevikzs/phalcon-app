@@ -48,7 +48,7 @@ final class Bootstrap {
      */
     public static function getConfig() {
         if (!self::$config) {
-            self::$config = require('config/config.php');
+            self::$config = require('Config/config.php');
         }
 
         return self::$config;
@@ -102,7 +102,7 @@ final class Bootstrap {
         foreach ($routes as $group => $controllers) {
             foreach ($controllers as $controller) {
                 $method = $controller['method'];
-                $handlerClass = "\\App\\controllers\\$group\\" . $controller['class'];
+                $handlerClass = "\\App\\Controllers\\$group\\" . $controller['class'];
                 self::getApplication()->$method($controller['route'], [new $handlerClass(), 'run']);
             }
         }

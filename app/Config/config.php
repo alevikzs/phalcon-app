@@ -5,7 +5,7 @@ return new \Phalcon\Config([
         'adapter' => 'Postgresql',
         'host' => 'localhost',
         'username' => 'postgres',
-        'password' => '',
+        'password' => 'postgres',
         'dbname' => 'phrest'
     ]
 ]);
