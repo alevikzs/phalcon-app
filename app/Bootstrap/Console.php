@@ -2,8 +2,8 @@
 
 namespace App\Bootstrap;
 
-use Phalcon\DI\FactoryDefault\CLI,
-    Phalcon\CLI\Console as BaseConsole,
+use \Phalcon\DI\FactoryDefault\CLI,
+    \Phalcon\CLI\Console as BaseConsole,
 
     \App\Config\Database;
 
@@ -60,6 +60,12 @@ class Console extends BaseConsole {
             ->createFormattedArguments();
     }
 
+    public function go() {
+        $this
+            ->createDependencies()
+            ->handle($this->getFormattedArguments());
+    }
+
     protected function createFormattedArguments() {
         $formattedArguments = [];
 
@@ -76,16 +82,10 @@ class Console extends BaseConsole {
         $this->setFormattedArguments($formattedArguments);
     }
 
-    public function go() {
-        $this
-            ->createDependencies()
-            ->handle($this->getFormattedArguments());
-    }
-
     /**
      * @return Console
      */
-    public function createDependencies() {
+    protected function createDependencies() {
         $dependency = new CLI();
         $dependency->set('db', function() {
             return Database::get();
