@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Bootstrap;
 
-use \Phalcon\Config,
-    \Phalcon\Mvc\Micro,
+use \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
 
     \App\Config\Routes,
     \App\Config\Database;
 
-final class Bootstrap {
+final class Web {
 
     /**
      * @var Micro
@@ -20,11 +19,6 @@ final class Bootstrap {
      * @var FactoryDefault
      */
     private static $dependency;
-
-    /**
-     * @var Config
-     */
-    private static $config;
 
     private function __construct () {}
 
@@ -70,7 +64,6 @@ final class Bootstrap {
                 'message' => $error->getMessage()
             ]);
         }
-
     }
 
     private static function setDatabaseDependency() {
