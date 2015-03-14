@@ -2,12 +2,26 @@
 
 namespace App\Tasks;
 
-use \Phalcon\CLI\Task;
+use \Phalcon\Db\Adapter,
+
+    \App\Components\Task;
 
 class MigrationTask extends Task {
 
+    public function getMigrationDirectory() {
+        return getcwd() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Migrations';
+    }
+
     public function mainAction() {
-        echo "\nThis is the migration task and the main action with \n";
+        echo "\nMigration task\n";
+    }
+
+    public function upAction() {
+        echo "\nMigration up\n";
+    }
+
+    public function downAction() {
+        echo "\nMigration down\n";
     }
 
 }
