@@ -66,26 +66,40 @@ class Console extends BaseConsole {
             ->handle($this->getFormattedArguments());
     }
 
-    protected function createFormattedArguments() {
+    private function createFormattedArguments() {
         $formattedArguments = [];
 
-        foreach($this->getRawArguments() as $index => $argument) {
-            if($index == 1) {
-                $formattedArguments['task'] = $argument;
-            } elseif($index == 2) {
-                $formattedArguments['action'] = $argument;
-            } elseif($index >= 3) {
-                $formattedArguments['params'][] = $argument;
+        if (count($this->getRawArguments()) > 1) {
+            foreach($this->getRawArguments() as $index => $argument) {
+                if($index == 1) {
+                    $formattedArguments['task'] = $this->createHandlerName($argument);
+                } elseif($index == 2) {
+                    $formattedArguments['action'] = $argument;
+                } elseif($index >= 3) {
+                    $formattedArguments['params'][] = $argument;
+                }
             }
+        } else {
+            $formattedArguments['task'] = $this->createHandlerName();
         }
 
         $this->setFormattedArguments($formattedArguments);
     }
 
     /**
+     * @param string $argument
+     * @return string
+     */
+    private function createHandlerName($argument = 'main') {
+        $className = ucfirst($argument);
+
+        return '\\App\\Tasks\\' . $className;
+    }
+
+    /**
      * @return Console
      */
-    protected function createDependencies() {
+    private function createDependencies() {
         $dependency = new CLI();
         $dependency->set('db', function() {
             return Database::get();
