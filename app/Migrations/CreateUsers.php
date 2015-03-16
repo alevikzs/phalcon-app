@@ -1,8 +1,10 @@
-<?php 
+<?php
 
-use \Phalcon\Mvc\Model\Migration;
+namespace App\Migrations;
 
-class UsersMigration_100 extends Migration {
+use \App\Components\Migration;
+
+class CreateUsers extends Migration {
 
     public function up() {
         $sql = 'CREATE TABLE users (
@@ -11,12 +13,12 @@ class UsersMigration_100 extends Migration {
             email varchar(40) NOT NULL,
             PRIMARY KEY(id)
         )';
-        self::$_connection->execute($sql);
+        $this->getDb()->execute($sql);
     }
 
     public function down() {
         $sql = 'DROP TABLE users';
-        self::$_connection->execute($sql);
+        $this->getDb()->execute($sql);
     }
 
 }

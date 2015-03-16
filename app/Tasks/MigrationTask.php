@@ -2,9 +2,7 @@
 
 namespace App\Tasks;
 
-use \Phalcon\Db\Adapter,
-
-    \App\Components\Task;
+use \App\Components\Task;
 
 class MigrationTask extends Task {
 
