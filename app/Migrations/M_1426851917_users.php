@@ -4,7 +4,7 @@ namespace App\Migrations;
 
 use \App\Components\Migration;
 
-class CreateUsers extends Migration {
+class M_1426851917_users extends Migration {
 
     public function up() {
         $sql = 'CREATE TABLE users (
