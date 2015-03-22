@@ -2,7 +2,8 @@
 
 namespace App\Tasks;
 
-use \App\Components\Task;
+use \App\Components\Task,
+    \App\Components\Migration;
 
 class MigrationTask extends Task {
 
@@ -15,7 +16,7 @@ class MigrationTask extends Task {
      */
     public function addAction(array $params) {
         $name = $this->createName(array_pop($params));
-        $template = file_get_contents($this->getTemplatePath());
+        $template = file_get_contents($this->getTemplateFile());
         $template = str_replace('#name#', $name, $template);
         file_put_contents($this->getMigrationDirectory() . $name . '.php', $template);
         echo "\nMigration $name was created\n";
@@ -25,7 +26,9 @@ class MigrationTask extends Task {
         $files = scandir($this->getMigrationDirectory());
         foreach ($files as $file) {
             if ($file !== '.' && $file !== '..') {
-
+                if (!$this->isAlreadySuccess($file)) {
+                    $this->run($file);
+                }
             }
         }
         echo "\nMigration up\n";
@@ -45,7 +48,7 @@ class MigrationTask extends Task {
     /**
      * @return string
      */
-    public function getTemplatePath() {
+    public function getTemplateFile() {
         return dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migration.tpl';
     }
 
@@ -60,15 +63,59 @@ class MigrationTask extends Task {
     /**
      * @return string
      */
-    private function getCompletedLog() {
-        return $this->getTemporaryPhalconDirectory() . '.migrations';
+    private function getSuccessLogFIle() {
+        return $this->getPhalconDirectory() . '.migrations';
     }
 
     /**
      * @return string
      */
-    private function getTemporaryPhalconDirectory() {
+    private function getPhalconDirectory() {
         return getcwd() . DIRECTORY_SEPARATOR . '.phalcon' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @param string $fileName
+     * @return boolean
+     */
+    private function isAlreadySuccess($fileName) {
+        $result = false;
+
+        if (is_file($this->getSuccessLogFIle())) {
+            $successLog = file_get_contents($this->getSuccessLogFIle());
+            $clearName = $this->getClearName($fileName);
+            if (strpos($successLog, $clearName) !== false) {
+                $result = true;
+            }
+        } else {
+            file_put_contents($this->getSuccessLogFIle(), '');
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $fileName
+     * @return string
+     */
+    private function getClearName($fileName) {
+        $pattern = '/^(.+)\.php$/';
+        preg_match($pattern, $fileName, $matches);
+        return $matches[1];
+    }
+
+    /**
+     * @param string $fileName
+     */
+    private function run($fileName) {
+        $clearName = $this->getClearName($fileName);
+
+        $class = '\\App\\Migrations\\' . $clearName;
+        /** @var Migration $instance */
+        $instance = new $class();
+        $instance->up();
+
+        file_put_contents($this->getSuccessLogFIle(), "$clearName\n", FILE_APPEND);
     }
 
 }
