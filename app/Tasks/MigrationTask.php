@@ -8,7 +8,7 @@ use \App\Components\Task,
 class MigrationTask extends Task {
 
     public function mainAction() {
-        echo "\nMigration task\n";
+       $this->upAction();
     }
 
     /**
@@ -23,19 +23,29 @@ class MigrationTask extends Task {
     }
 
     public function upAction() {
-        $files = scandir($this->getMigrationDirectory());
+        $files = $this->getMigrationFiles();
         foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..') {
-                if (!$this->isAlreadySuccess($file)) {
-                    $this->run($file);
-                }
+            if (!$this->isAlreadySuccess($file)) {
+                $this->up($file);
             }
         }
-        echo "\nMigration up\n";
     }
 
-    public function downAction() {
-        echo "\nMigration down\n";
+    /**
+     * @param array $params
+     */
+    public function downAction(array $params) {
+        $count = (int) array_pop($params);
+
+        $migrations = $this->getSuccessMigrations(true);
+
+        for ($index = 0; $index < $count; $index++) {
+            if (isset($migrations[$index])) {
+                $this->down($migrations[$index]);
+            } else {
+                break;
+            }
+        }
     }
 
     /**
@@ -63,7 +73,7 @@ class MigrationTask extends Task {
     /**
      * @return string
      */
-    private function getSuccessLogFIle() {
+    private function getSuccessLogFile() {
         return $this->getPhalconDirectory() . '.migrations';
     }
 
@@ -81,14 +91,14 @@ class MigrationTask extends Task {
     private function isAlreadySuccess($fileName) {
         $result = false;
 
-        if (is_file($this->getSuccessLogFIle())) {
-            $successLog = file_get_contents($this->getSuccessLogFIle());
+        if (is_file($this->getSuccessLogFile())) {
+            $successLog = file_get_contents($this->getSuccessLogFile());
             $clearName = $this->getClearName($fileName);
             if (strpos($successLog, $clearName) !== false) {
                 $result = true;
             }
         } else {
-            file_put_contents($this->getSuccessLogFIle(), '');
+            file_put_contents($this->getSuccessLogFile(), '');
         }
 
         return $result;
@@ -107,7 +117,7 @@ class MigrationTask extends Task {
     /**
      * @param string $fileName
      */
-    private function run($fileName) {
+    private function up($fileName) {
         $clearName = $this->getClearName($fileName);
 
         $class = '\\App\\Migrations\\' . $clearName;
@@ -115,7 +125,70 @@ class MigrationTask extends Task {
         $instance = new $class();
         $instance->up();
 
-        file_put_contents($this->getSuccessLogFIle(), "$clearName\n", FILE_APPEND);
+        $this->addSuccessMigration($clearName);
+    }
+
+    /**
+     * @param string $name
+     */
+    private function down($name) {
+        $class = '\\App\\Migrations\\' . $name;
+        /** @var Migration $instance */
+        $instance = new $class();
+        $instance->down();
+
+        $this->removeSuccessMigration($name);
+    }
+
+    /**
+     * @param boolean $reverse
+     * @return array
+     */
+    private function getMigrationFiles($reverse = false) {
+        $files = scandir($this->getMigrationDirectory());
+        $files = array_diff($files, ['.', '..']);
+
+        if ($reverse) {
+            $files = array_reverse($files);
+        }
+
+        return $files;
+    }
+
+    /**
+     * @param boolean $reverse
+     * @return array
+     */
+    private function getSuccessMigrations($reverse = false) {
+        $successLog = file_get_contents($this->getSuccessLogFile());
+        $migrations = explode("\n", $successLog);
+
+        if(($key = array_search('', $migrations)) !== false) {
+            unset($migrations[$key]);
+        }
+
+        if ($reverse) {
+            $migrations = array_reverse($migrations);
+        }
+
+        return $migrations;
+    }
+
+    /**
+     * @param string $name
+     */
+    private function removeSuccessMigration($name) {
+        $successLog = file_get_contents($this->getSuccessLogFile());
+        $successLog = str_replace("$name\n", '', $successLog);
+
+        file_put_contents($this->getSuccessLogFile(), $successLog);
+    }
+
+    /**
+     * @param string $name
+     */
+    private function addSuccessMigration($name) {
+        file_put_contents($this->getSuccessLogFile(), "$name\n", FILE_APPEND);
     }
 
 }
