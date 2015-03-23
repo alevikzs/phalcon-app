@@ -1,3 +1,3 @@
 @ECHO OFF
-SET BIN_TARGET=%~dp0/../vendor/phalcon/devtools/phalcon.php
+SET BIN_TARGET=%~dp0/../cli/index.php
 php "%BIN_TARGET%" %*
