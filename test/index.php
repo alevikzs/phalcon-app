@@ -6,4 +6,4 @@
     ])
     ->register();
 
-(new \App\Bootstrap\Web())->go();
+(new \App\Bootstrap\Test())->go();

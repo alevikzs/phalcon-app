@@ -6,13 +6,32 @@ use Phalcon\Db\Adapter\Pdo\Postgresql;
 
 final class Database {
 
-    public static function get() {
-        return new Postgresql([
+    /**
+     * @param string $name
+     * @return Postgresql
+     */
+    private static function instance($name) {
+        $settings = [
             'host' => 'localhost',
             'username' => 'postgres',
             'password' => '',
-            'dbname' => 'phrest'
-        ]);
+            'dbname' => $name
+        ];
+        return new Postgresql($settings);
+    }
+
+    /**
+     * @return Postgresql
+     */
+    public static function get() {
+        return self::instance('phrest');
+    }
+
+    /**
+     * @return Postgresql
+     */
+    public static function getTest() {
+        return self::instance('phrest_test');
     }
 
 }
