@@ -5,6 +5,10 @@ namespace App\Tasks;
 use \App\Components\Task,
     \App\Components\Migration;
 
+/**
+ * Class MigrationTask
+ * @package App\Tasks
+ */
 class MigrationTask extends Task {
 
     public function mainAction() {
@@ -123,7 +127,7 @@ class MigrationTask extends Task {
         $class = '\\App\\Migrations\\' . $clearName;
         /** @var Migration $instance */
         $instance = new $class();
-        $instance->up();
+        $instance->safeUp();
 
         $this->addSuccessMigration($clearName);
     }
@@ -135,7 +139,7 @@ class MigrationTask extends Task {
         $class = '\\App\\Migrations\\' . $name;
         /** @var Migration $instance */
         $instance = new $class();
-        $instance->down();
+        $instance->safeDown();
 
         $this->removeSuccessMigration($name);
     }

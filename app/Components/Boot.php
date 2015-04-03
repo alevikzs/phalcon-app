@@ -9,6 +9,10 @@ use \Phalcon\Mvc\Micro,
     \App\Config\Routes,
     \App\Config\Database;
 
+/**
+ * Class Boot
+ * @package App\Components
+ */
 abstract class Boot extends Micro {
 
     public function go() {

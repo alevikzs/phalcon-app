@@ -4,6 +4,10 @@ namespace App\Config;
 
 use Phalcon\Db\Adapter\Pdo\Postgresql;
 
+/**
+ * Class Database
+ * @package App\Config
+ */
 final class Database {
 
     /**

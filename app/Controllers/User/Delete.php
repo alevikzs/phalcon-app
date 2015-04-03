@@ -6,6 +6,8 @@ use \App\Components\Controller,
     \App\Models\User;
 
 /**
+ * Class Delete
+ * @package App\Controllers\User
  * @method int getId()
  */
 class Delete extends Controller {

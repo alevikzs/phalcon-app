@@ -4,6 +4,10 @@ namespace App\Models;
 
 use \Phalcon\Mvc\Model;
 
+/**
+ * Class User
+ * @package App\Models
+ */
 class User extends Model {
 
     /**

@@ -4,6 +4,10 @@ namespace App\Tasks;
 
 use \Phalcon\CLI\Task;
 
+/**
+ * Class MainTask
+ * @package App\Tasks
+ */
 class MainTask extends Task {
 
     public function mainAction() {

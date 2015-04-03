@@ -5,6 +5,10 @@ namespace App\Components;
 use \Phalcon\Mvc\Controller as BaseController,
     \Phalcon\Http\Response;
 
+/**
+ * Class Controller
+ * @package App\Components
+ */
 abstract class Controller extends BaseController {
 
     /**

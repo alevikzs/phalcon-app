@@ -2,6 +2,10 @@
 
 namespace App\Config;
 
+/**
+ * Class Routes
+ * @package App\Config
+ */
 final class Routes {
 
     public static function get() {

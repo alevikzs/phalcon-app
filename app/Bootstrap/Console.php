@@ -7,6 +7,10 @@ use \Phalcon\DI\FactoryDefault\CLI,
 
     \App\Config\Database;
 
+/**
+ * Class Console
+ * @package App\Bootstrap
+ */
 class Console extends BaseConsole {
 
     /**
@@ -103,6 +107,9 @@ class Console extends BaseConsole {
         $dependency = new CLI();
         $dependency->set('db', function() {
             return Database::get();
+        });
+        $dependency->set('db_test', function() {
+            return Database::getTest();
         });
         $this->setDI($dependency);
         return $this;
