@@ -2,13 +2,13 @@
 
 namespace App\Tests;
 
-use GuzzleHttp\Client;
+use \App\Components\ApiTestCase;
 
 /**
  * Class UserTest
  * @package App\Tests
  */
-class UserTest extends \PHPUnit_Framework_TestCase {
+class UserTest extends ApiTestCase {
 
     public function testCollection() {
     }
