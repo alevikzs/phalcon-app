@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \Phalcon\Mvc\Model;
+use \App\Components\Model;
 
 /**
  * Class User

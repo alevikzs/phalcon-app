@@ -2,7 +2,9 @@
 
 namespace App\Components;
 
-use \GuzzleHttp\Client;
+use \GuzzleHttp\Client,
+    \Phalcon\DiInterface,
+    \Phalcon\DI;
 
 /**
  * Class ApiTestCase
@@ -12,6 +14,11 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /** @var  Client */
     private $http;
+
+    /**
+     * @var DiInterface
+     */
+    private $di;
 
     /**
      * @return Client
@@ -27,8 +34,60 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
         $this->http = $http;
     }
 
+    /**
+     * @return DiInterface
+     */
+    public function getDi() {
+        return $this->di;
+    }
+
+    /**
+     * @param DiInterface $di
+     */
+    public function setDi($di) {
+        $this->di = $di;
+    }
+
     protected final function setUp() {
-        $this->setHttp(new Client('http://test.ph.com'));
+        $client = new Client([
+            'base_url' => [
+                'http://test.ph.com',
+                ['version' => '1']
+            ]
+        ]);
+        $this->setHttp($client);
+    }
+
+    /**
+     * @param string $prefix
+     * @return string
+     */
+    public function getUniqueName($prefix = '') {
+        return uniqid($prefix);
+    }
+
+    /**
+     * @param string $url
+     * @param array $data
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     */
+    public function post($url, array $data) {
+        $body = json_encode($data);
+        return $this
+            ->getHttp()
+            ->post($url, ['body' => $body]);
+    }
+
+    /**
+     * @param string $url
+     * @param array $data
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     */
+    public function put($url, array $data) {
+        $body = json_encode($data);
+        return $this
+            ->getHttp()
+            ->put($url, ['body' => $body]);
     }
 
 }

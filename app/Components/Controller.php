@@ -56,7 +56,9 @@ abstract class Controller extends BaseController {
     public function response(array $data = []) {
         $response = new Response();
         $response->setContentType('application/json');
-        $response->setJsonContent($data);
+        if ($data) {
+            $response->setJsonContent($data);
+        }
         return $response;
     }
 
