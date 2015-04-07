@@ -2,6 +2,8 @@
 
 namespace App\Components;
 
+use Phalcon\Exception;
+use Phalcon\Http\Response;
 use \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
@@ -67,7 +69,11 @@ abstract class Boot extends Micro {
             }
         }
 
-        return $this;
+        return $this->notFound(function () {
+            $this->response->setStatusCode(404, 'Not Found')->sendHeaders();
+            throw new Exception('Not Found', 404);
+        });
+
     }
 
     protected static function setCustomErrorHandler() {
