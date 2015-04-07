@@ -39,7 +39,6 @@ class UserTest extends ApiTestCase {
             'email' => $newName . '@email.com'
         ];
         $response = $this->put('/user/' . $user->getId(), $data);
-        print_r($response->json());
         $this->assertEmpty($response->json());
         $this->assertEquals(200, $response->getStatusCode());
 
