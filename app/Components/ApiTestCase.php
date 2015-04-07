@@ -69,7 +69,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * @param string $url
      * @param array $data
-     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface
      */
     public function post($url, array $data) {
         $body = json_encode($data);
@@ -81,13 +81,29 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * @param string $url
      * @param array $data
-     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface
      */
     public function put($url, array $data) {
         $body = json_encode($data);
         return $this
             ->getHttp()
             ->put($url, ['body' => $body]);
+    }
+
+    /**
+     * @param $url
+     * @return \GuzzleHttp\Message\ResponseInterface
+     */
+    public function get($url) {
+        return $this->getHttp()->get($url);
+    }
+
+    /**
+     * @param $url
+     * @return \GuzzleHttp\Message\ResponseInterface
+     */
+    public function delete($url) {
+        return $this->getHttp()->delete($url);
     }
 
 }

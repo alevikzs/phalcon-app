@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Api;
 
-use \App\Components\ApiTestCase;
-use App\Models\User;
+use \App\Components\ApiTestCase,
+    \App\Models\User;
 
 /**
  * Class UserTest
@@ -50,12 +50,29 @@ class UserTest extends ApiTestCase {
     }
 
     public function testView() {
+        /** @var User $user */
+        $user = User::findFirst();
+        $response = $this->get('/user/' . $user->getId());
+        $responseUser = $response->json();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals($user->getId(), $responseUser['id']);
+        $this->assertEquals($user->getName(), $responseUser['name']);
+        $this->assertEquals($user->getEmail(), $responseUser['email']);
     }
 
     public function testCollection() {
     }
 
     public function testDelete() {
+        /** @var User $user */
+        $user = User::findFirst();
+        $response = $this->delete('/user/' . $user->getId());
+        $this->assertEmpty($response->json());
+        $this->assertEquals(200, $response->getStatusCode());
+
+        /** @var User $user */
+        $user = User::findFirst($user->getId());
+        $this->assertFalse($user);
     }
 
 }
