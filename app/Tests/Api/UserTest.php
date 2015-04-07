@@ -13,7 +13,7 @@ class UserTest extends ApiTestCase {
 
     public function testCreate() {
         $id = User::getNextId();
-        $name = 'userName' . $id;
+        $name = $this->getUniqueName('userName');
         $data = [
             'name' => $name,
             'email' => $name . '@email.com'
@@ -61,6 +61,9 @@ class UserTest extends ApiTestCase {
     }
 
     public function testCollection() {
+        $users = User::find()->toArray();
+        $response = $this->get('/users');
+        $this->assertEquals($users, $response->json());
     }
 
     public function testDelete() {

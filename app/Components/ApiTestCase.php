@@ -2,9 +2,11 @@
 
 namespace App\Components;
 
-use \GuzzleHttp\Client,
-    \Phalcon\DiInterface,
-    \Phalcon\DI;
+use \Phalcon\DiInterface,
+    \Phalcon\DI,
+
+    \GuzzleHttp\Client,
+    \GuzzleHttp\Message\ResponseInterface;
 
 /**
  * Class ApiTestCase
@@ -69,7 +71,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * @param string $url
      * @param array $data
-     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface
+     * @return ResponseInterface
      */
     public function post($url, array $data) {
         $body = json_encode($data);
@@ -81,7 +83,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * @param string $url
      * @param array $data
-     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface
+     * @return ResponseInterface
      */
     public function put($url, array $data) {
         $body = json_encode($data);
@@ -92,7 +94,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * @param $url
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function get($url) {
         return $this->getHttp()->get($url);
@@ -100,7 +102,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * @param $url
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function delete($url) {
         return $this->getHttp()->delete($url);
