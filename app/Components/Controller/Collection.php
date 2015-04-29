@@ -6,12 +6,16 @@ use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
- * Class ListController
- * @package App\Components
+ * Class Collection
+ * @package App\Components\Controller
  * @method int getLimit()
  * @method int getPage()
  */
 abstract class Collection extends Base {
+
+    public function getOffset () {
+        return $this->getLimit() * ($this->getPage() - 1);
+    }
 
     /**
      * @param Simple $query

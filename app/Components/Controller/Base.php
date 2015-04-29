@@ -6,8 +6,8 @@ use \Phalcon\Mvc\Controller,
     \Phalcon\Http\Response;
 
 /**
- * Class Controller
- * @package App\Components
+ * Class Base
+ * @package App\Components\Controller
  */
 abstract class Base extends Controller {
 
