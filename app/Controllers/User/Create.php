@@ -14,7 +14,7 @@ class Create extends Controller {
     public function run() {
         (new User())
             ->save($this->getPayload());
-        return $this->response();
+        return $this->responseEmpty();
     }
 
 }

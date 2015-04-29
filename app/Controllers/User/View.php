@@ -6,7 +6,7 @@ use \App\Components\Controller,
     \App\Models\User;
 
 /**
- * Class Delete
+ * Class View
  * @package App\Controllers\User
  * @method int getId()
  */

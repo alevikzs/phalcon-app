@@ -20,7 +20,7 @@ class UserTest extends ApiTestCase {
         ];
         $response = $this->post('/user', $data);
 
-        $this->assertEmpty($response->json());
+        $this->assertEmptyStr($response->json());
         $this->assertEquals(200, $response->getStatusCode());
 
         /** @var User $user */
@@ -39,7 +39,7 @@ class UserTest extends ApiTestCase {
             'email' => $newName . '@email.com'
         ];
         $response = $this->put('/user/' . $user->getId(), $data);
-        $this->assertEmpty($response->json());
+        $this->assertEmptyStr($response->json());
         $this->assertEquals(200, $response->getStatusCode());
 
         /** @var User $user */
@@ -70,7 +70,7 @@ class UserTest extends ApiTestCase {
         /** @var User $user */
         $user = User::findFirst();
         $response = $this->delete('/user/' . $user->getId());
-        $this->assertEmpty($response->json());
+        $this->assertEmptyStr($response->json());
         $this->assertEquals(200, $response->getStatusCode());
 
         /** @var User $user */

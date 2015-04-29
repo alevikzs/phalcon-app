@@ -15,7 +15,7 @@ class Delete extends Controller {
     public function run() {
         User::findFirst($this->getId())
             ->delete();
-        return $this->response();
+        return $this->responseEmpty();
     }
 
 }

@@ -108,4 +108,11 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
         return $this->getHttp()->delete($url);
     }
 
+    /**
+     * @param mixed $actual
+     */
+    public function assertEmptyStr($actual) {
+        $this->assertEquals('', $actual);
+    }
+
 }
