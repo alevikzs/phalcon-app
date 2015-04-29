@@ -2,7 +2,9 @@
 
 namespace App\Tests\Api;
 
-use \App\Components\ApiTestCase,
+use \Phalcon\Mvc\Model\Resultset\Simple,
+
+    \App\Components\ApiTestCase,
     \App\Models\User;
 
 /**
@@ -61,9 +63,14 @@ class UserTest extends ApiTestCase {
     }
 
     public function testCollection() {
-        $users = User::find()->toArray();
+        /** @var Simple $userQuery */
+        $userQuery = User::find();
+        $expected = [
+            'list' => $userQuery->toArray(),
+            'count' => $userQuery->count()
+        ];
         $response = $this->get('/users');
-        $this->assertEquals($users, $response->json());
+        $this->assertEquals($expected, $response->json());
     }
 
     public function testDelete() {

@@ -2,7 +2,7 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller,
+use \App\Components\Controller\Base,
     \App\Models\User;
 
 /**
@@ -10,7 +10,7 @@ use \App\Components\Controller,
  * @package App\Controllers\User
  * @method int getId()
  */
-class Update extends Controller {
+class Update extends Base {
 
     public function run() {
         User::findFirst($this->getId())

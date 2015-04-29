@@ -2,17 +2,20 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller,
+use \Phalcon\Mvc\Model\Resultset\Simple as Query,
+
+    \App\Components\Controller\Collection as CollectionController,
     \App\Models\User;
 
 /**
  * Class Collection
  * @package App\Controllers\User
  */
-class Collection extends Controller {
+class Collection extends CollectionController {
 
     public function run() {
-        $users = User::find()->toArray();
+        /** @var Query $users */
+        $users = User::find();
         return $this->response($users);
     }
 

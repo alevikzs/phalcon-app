@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Components;
+namespace App\Components\Controller;
 
-use \Phalcon\Mvc\Controller as BaseController,
+use \Phalcon\Mvc\Controller,
     \Phalcon\Http\Response;
 
 /**
  * Class Controller
  * @package App\Components
  */
-abstract class Controller extends BaseController {
+abstract class Base extends Controller {
 
     /**
      * @return Response
@@ -47,16 +47,6 @@ abstract class Controller extends BaseController {
         return $this
             ->router
             ->getParams();
-    }
-
-    /**
-     * @param array $data
-     * @return Response
-     */
-    public function response(array $data = []) {
-        return $this
-            ->responseEmpty()
-            ->setJsonContent($data);
     }
 
     /**

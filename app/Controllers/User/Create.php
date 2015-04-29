@@ -2,14 +2,14 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller,
+use \App\Components\Controller\Base,
     \App\Models\User;
 
 /**
  * Class Create
  * @package App\Controllers\User
  */
-class Create extends Controller {
+class Create extends Base {
 
     public function run() {
         (new User())
