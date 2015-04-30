@@ -12,6 +12,9 @@ use \App\Components\Controller\Simple,
  */
 class View extends Simple {
 
+    /**
+     * @return \Phalcon\Http\Response
+     */
     public function run() {
         $user = User::findFirst($this->getId())
             ->toArray();

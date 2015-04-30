@@ -13,7 +13,10 @@ use \Phalcon\Http\Response,
  */
 abstract class Collection extends Base {
 
-    public function getOffset () {
+    /**
+     * @return int
+     */
+    public function getOffset() {
         return $this->getLimit() * ($this->getPage() - 1);
     }
 

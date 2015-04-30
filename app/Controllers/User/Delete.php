@@ -12,6 +12,9 @@ use \App\Components\Controller\Base,
  */
 class Delete extends Base {
 
+    /**
+     * @return \Phalcon\Http\Response
+     */
     public function run() {
         User::findFirst($this->getId())
             ->delete();

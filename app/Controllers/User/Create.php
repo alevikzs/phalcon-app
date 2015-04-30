@@ -11,6 +11,9 @@ use \App\Components\Controller\Base,
  */
 class Create extends Base {
 
+    /**
+     * @return \Phalcon\Http\Response
+     */
     public function run() {
         (new User())
             ->save($this->getPayload());

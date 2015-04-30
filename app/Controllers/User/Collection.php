@@ -13,6 +13,9 @@ use \Phalcon\Mvc\Model\Resultset\Simple as Query,
  */
 class Collection extends CollectionController {
 
+    /**
+     * @return \Phalcon\Http\Response
+     */
     public function run() {
         /** @var Query $users */
         $users = User::find();

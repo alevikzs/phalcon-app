@@ -12,6 +12,9 @@ use \App\Components\Controller\Base,
  */
 class Update extends Base {
 
+    /**
+     * @return \Phalcon\Http\Response
+     */
     public function run() {
         User::findFirst($this->getId())
             ->save($this->getPayload());
