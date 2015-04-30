@@ -14,10 +14,20 @@ use \Phalcon\Http\Response,
 abstract class Collection extends Base {
 
     /**
-     * @return int
+     * @return integer
      */
     public function getOffset() {
         return $this->getLimit() * ($this->getPage() - 1);
+    }
+
+    /**
+     * @return array
+     */
+    protected function defaultParameters() {
+        return [
+            'page' => 1,
+            'limit' => 20
+        ];
     }
 
     /**

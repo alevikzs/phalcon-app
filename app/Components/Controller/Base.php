@@ -26,8 +26,17 @@ abstract class Base extends Controller {
         $parameters = $this->getParams();
         if (isset($parameters[$parameter])) {
             return $parameters[$parameter];
+        } elseif(isset($this->defaultParameters()[$parameter])) {
+            return $this->defaultParameters()[$parameter];
         }
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    protected function defaultParameters() {
+        return [];
     }
 
     /**
