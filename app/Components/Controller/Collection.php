@@ -3,7 +3,7 @@
 namespace App\Components\Controller;
 
 use \Phalcon\Http\Response,
-    \Phalcon\Mvc\Model\Resultset\Simple;
+    \Phalcon\Mvc\Model\Criteria;
 
 /**
  * Class Collection
@@ -31,14 +31,19 @@ abstract class Collection extends Base {
     }
 
     /**
-     * @param Simple $query
+     * @param Criteria $query
      * @return Response
      */
-    public function response(Simple $query) {
+    public function response(Criteria $query) {
         return $this->responseEmpty()
             ->setJsonContent([
-                'list' => $query->toArray(),
-                'count' => $query->count()
+                'list' => $query
+                    ->limit($this->getLimit(), $this->getPage())
+                    ->execute()
+                    ->toArray(),
+                'count' => $query
+                    ->execute()
+                    ->count()
             ]);
     }
 

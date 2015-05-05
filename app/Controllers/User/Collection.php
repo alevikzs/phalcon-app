@@ -2,7 +2,8 @@
 
 namespace App\Controllers\User;
 
-use \Phalcon\Mvc\Model\Resultset\Simple as Query,
+use \Phalcon\Mvc\Model\Criteria,
+    \Phalcon\Http\Response,
 
     \App\Components\Controller\Collection as CollectionController,
     \App\Models\User;
@@ -14,12 +15,12 @@ use \Phalcon\Mvc\Model\Resultset\Simple as Query,
 class Collection extends CollectionController {
 
     /**
-     * @return \Phalcon\Http\Response
+     * @return Response
      */
     public function run() {
-        /** @var Query $users */
-        $users = User::find();
-        return $this->response($users);
+        /** @var Criteria $query */
+        $query = User::query();
+        return $this->response($query);
     }
 
 }
