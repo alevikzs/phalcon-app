@@ -12,7 +12,7 @@ final class Routes {
         return [
             'User' => [
                 [
-                    'route' => '/users/limit/{limit}/page/{page}',
+                    'route' => '/users',
                     'class' => 'Collection',
                     'method' => 'get'
                 ],

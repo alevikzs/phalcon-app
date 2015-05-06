@@ -8,10 +8,12 @@ use \Phalcon\Http\Response,
 /**
  * Class Collection
  * @package App\Components\Controller
- * @method int getLimit()
- * @method int getPage()
  */
 abstract class Collection extends Base {
+
+    const DEFAULT_LIMIT = 20;
+
+    const DEFAULT_PAGE = 1;
 
     /**
      * @return integer
@@ -21,13 +23,33 @@ abstract class Collection extends Base {
     }
 
     /**
-     * @return array
+     * @return integer
      */
-    protected function defaultParameters() {
-        return [
-            'page' => 1,
-            'limit' => 20
-        ];
+    protected function getLimit() {
+        $limit = (int) $this->request->get('limit');
+        if ($limit) {
+            return $limit;
+        }
+        return self::DEFAULT_LIMIT;
+    }
+
+    /**
+     * @return integer
+     */
+    protected function getPage() {
+        $page = (int) $this->request->get('page');
+        if ($page) {
+            return $page;
+        }
+        return self::DEFAULT_PAGE;
+    }
+
+    /**
+     * @param integer $count
+     * @return boolean
+     */
+    private function hasNext($count) {
+        return $count - $this->getPage() * $this->getLimit() > 0;
     }
 
     /**
@@ -35,15 +57,19 @@ abstract class Collection extends Base {
      * @return Response
      */
     public function response(Criteria $query) {
+        $countQuery = clone $query;
+        $count = $countQuery
+            ->execute()
+            ->count();
+        $has_next = $this->hasNext($count);
         return $this->responseEmpty()
             ->setJsonContent([
                 'list' => $query
-                    ->limit($this->getLimit(), $this->getPage())
+                    ->limit($this->getLimit(), $this->getOffset())
                     ->execute()
                     ->toArray(),
-                'count' => $query
-                    ->execute()
-                    ->count()
+                'count' => $count,
+                'has_next' => $has_next
             ]);
     }
 
