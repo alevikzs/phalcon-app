@@ -43,6 +43,51 @@ abstract class Base extends Controller {
     /**
      * @return array
      */
+    public function getDefaultPayload() {
+        return [];
+    }
+
+    /**
+     * @param string $alias
+     * @return mixed
+     */
+    public function getPayloadParameter($alias) {
+        $field = $this->getFieldFromArray($alias, $this->getPayload());
+
+        if (!$field) {
+            $field = $this->getFieldFromArray($alias, $this->getDefaultPayload());
+        }
+        return $field;
+    }
+
+    /**
+     * @param string $alias
+     * @param array $array
+     * @return mixed
+     */
+    protected function getFieldFromArray($alias, array $array) {
+        $isLastFieldSet = false;
+
+        $fieldsStructure = explode('.', $alias);
+
+        foreach ($fieldsStructure as $field) {
+            $isLastFieldSet = false;
+
+            if (isset($array[$field])) {
+                $array = $array[$field];
+
+                $isLastFieldSet = true;
+            } else {
+                break;
+            }
+        }
+
+        return $isLastFieldSet ? $array : null;
+    }
+
+    /**
+     * @return array
+     */
     public function getParams() {
         return $this
             ->router

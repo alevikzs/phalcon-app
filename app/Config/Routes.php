@@ -14,7 +14,7 @@ final class Routes {
                 [
                     'route' => '/users',
                     'class' => 'Collection',
-                    'method' => 'get'
+                    'method' => 'post'
                 ],
                 [
                     'route' => '/user',

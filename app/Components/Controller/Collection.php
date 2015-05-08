@@ -11,9 +11,15 @@ use \Phalcon\Http\Response,
  */
 abstract class Collection extends Base {
 
-    const DEFAULT_LIMIT = 20;
-
-    const DEFAULT_PAGE = 1;
+    /**
+     * @return array
+     */
+    public function getDefaultPayload() {
+        return [
+            'limit' => 20,
+            'page' => 1,
+        ];
+    }
 
     /**
      * @return integer
@@ -26,22 +32,14 @@ abstract class Collection extends Base {
      * @return integer
      */
     protected function getLimit() {
-        $limit = (int) $this->request->get('limit');
-        if ($limit) {
-            return $limit;
-        }
-        return self::DEFAULT_LIMIT;
+        return (int) $this->getPayloadParameter('limit');
     }
 
     /**
      * @return integer
      */
     protected function getPage() {
-        $page = (int) $this->request->get('page');
-        if ($page) {
-            return $page;
-        }
-        return self::DEFAULT_PAGE;
+        return (int) $this->getPayloadParameter('page');
     }
 
     /**
