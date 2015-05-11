@@ -52,11 +52,16 @@ abstract class Base extends Controller {
      * @return mixed
      */
     public function getPayloadParameter($alias) {
-        $field = $this->getFieldFromArray($alias, $this->getPayload());
+        $field = null;
+
+        if ($payload = $this->getPayload()) {
+            $field = $this->getFieldFromArray($alias, $payload);
+        }
 
         if (!$field) {
             $field = $this->getFieldFromArray($alias, $this->getDefaultPayload());
         }
+
         return $field;
     }
 
