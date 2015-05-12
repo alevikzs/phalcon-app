@@ -2,10 +2,7 @@
 
 namespace App\Components;
 
-use \Phalcon\DiInterface,
-    \Phalcon\DI,
-
-    \GuzzleHttp\Client,
+use \GuzzleHttp\Client,
     \GuzzleHttp\Message\ResponseInterface;
 
 /**
@@ -16,11 +13,6 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /** @var  Client */
     private $http;
-
-    /**
-     * @var DiInterface
-     */
-    private $di;
 
     /**
      * @var array
@@ -36,34 +28,41 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * @param Client $http
+     * @return ApiTestCase
      */
-    public function setHttp($http) {
+    public function setHttp(Client $http) {
         $this->http = $http;
+        return $this;
     }
 
     /**
-     * @return DiInterface
+     * @return array
      */
-    public function getDi() {
-        return $this->di;
+    public function getStub() {
+        return $this->stub;
     }
 
     /**
-     * @param DiInterface $di
+     * @param array $stub
+     * @return ApiTestCase
      */
-    public function setDi($di) {
-        $this->di = $di;
+    public function setStub(array $stub) {
+        $this->stub = $stub;
+        return $this;
     }
 
+    /**
+     * @return void
+     */
     protected final function setUp() {
-        $this->setHttp(new Client([
-            'base_url' => [
-                'http://test.ph.com',
-                ['version' => '1']
-            ]
-        ]));
-
-        $this->initData();
+        $this
+            ->setHttp(new Client([
+                'base_url' => [
+                    'http://test.ph.com',
+                    ['version' => '1']
+                ]
+            ]))
+            ->initStub();
     }
 
     /**
@@ -121,15 +120,29 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('', $actual);
     }
 
-    private function initData() {
+    /**
+     * @return ApiTestCase
+     */
+    private function initStub() {
         $this->clearStub();
         $this->saveStub();
+        $this->setStub($this->createStub());
+        return $this;
     }
 
+    /**
+     * @return void
+     */
     abstract protected function saveStub();
 
+    /**
+     * @return void
+     */
     abstract protected function clearStub();
 
+    /**
+     * @return array
+     */
     abstract protected function createStub();
 
 }
