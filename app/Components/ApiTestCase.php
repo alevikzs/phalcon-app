@@ -12,7 +12,7 @@ use \Phalcon\DiInterface,
  * Class ApiTestCase
  * @package App\Components
  */
-class ApiTestCase extends \PHPUnit_Framework_TestCase {
+abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /** @var  Client */
     private $http;
@@ -21,6 +21,11 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
      * @var DiInterface
      */
     private $di;
+
+    /**
+     * @var array
+     */
+    private $stub;
 
     /**
      * @return Client
@@ -51,13 +56,14 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     }
 
     protected final function setUp() {
-        $client = new Client([
+        $this->setHttp(new Client([
             'base_url' => [
                 'http://test.ph.com',
                 ['version' => '1']
             ]
-        ]);
-        $this->setHttp($client);
+        ]));
+
+        $this->initData();
     }
 
     /**
@@ -114,5 +120,16 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase {
     public function assertEmptyStr($actual) {
         $this->assertEquals('', $actual);
     }
+
+    private function initData() {
+        $this->clearStub();
+        $this->saveStub();
+    }
+
+    abstract protected function saveStub();
+
+    abstract protected function clearStub();
+
+    abstract protected function createStub();
 
 }

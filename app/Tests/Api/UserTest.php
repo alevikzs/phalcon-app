@@ -13,6 +13,27 @@ use \Phalcon\Mvc\Model\Resultset\Simple,
  */
 class UserTest extends ApiTestCase {
 
+    protected function saveData() {
+
+    }
+
+    protected function clearData() {
+        User::find()->delete();
+    }
+
+    /**
+     * @return array
+     */
+    protected function createData() {
+        for ($index = 0; $index < 10; $index++) {
+            $name = $this->getUniqueName('userName');
+            yield [
+                'name' => $name,
+                'email' => $name . '@email.com'
+            ];
+        }
+    }
+
     public function testCreate() {
         $id = User::getNextId();
         $name = $this->getUniqueName('userName');
