@@ -58,7 +58,7 @@ abstract class Base extends Controller {
             $field = $this->getFieldFromArray($alias, $payload);
         }
 
-        if (!$field) {
+        if (is_null($field)) {
             $field = $this->getFieldFromArray($alias, $this->getDefaultPayload());
         }
 
