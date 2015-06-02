@@ -2,7 +2,7 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller\Base,
+use \App\Components\Controller\Simple,
     \App\Models\User;
 
 /**
@@ -10,7 +10,7 @@ use \App\Components\Controller\Base,
  * @package App\Controllers\User
  * @method int getId()
  */
-class Delete extends Base {
+class Delete extends Simple {
 
     /**
      * @return \Phalcon\Http\Response
@@ -18,7 +18,7 @@ class Delete extends Base {
     public function run() {
         User::findFirst($this->getId())
             ->delete();
-        return $this->responseEmpty();
+        return $this->response();
     }
 
 }

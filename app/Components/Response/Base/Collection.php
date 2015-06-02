@@ -3,13 +3,15 @@
 namespace App\Components\Response\Base;
 
 use \Phalcon\Mvc\Model\Criteria,
-    \App\Components\Response\Meta;
+
+    \App\Components\Response\Meta,
+    \App\Components\Response\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
  * @package App\Components\Response\Base
  */
-class Collection extends Body {
+class Collection extends Simple {
 
     /**
      * @var Criteria
@@ -34,24 +36,38 @@ class Collection extends Body {
 
     /**
      * @param Criteria $query
-     * @param array $data
-     * @param Meta $meta
-     * @param boolean $success
-     * @param boolean $success
      */
-    public function __construct(Criteria $query, $data = [], Meta $meta, $success = true) {
-        $this->setQuery($query);
-        parent::__construct($data, $meta, $success);
+    public function __construct(Criteria $query) {
+        $this
+            ->setQuery($query)
+            ->setSuccess(true)
+            ->createMeta()
+            ->createData();
     }
 
     /**
-     * @return array
+     * @return $this
      */
-    public function JsonSerialize() {
-        $vars = parent::JsonSerialize();
-        unset($vars['query']);
+    private function createMeta() {
+        $query = clone $this->getQuery();
 
-        return $vars;
+        $limit = $query->getLimit()['number'];
+        $offset = $query->getLimit()['offset'];
+        $page = $offset / $limit + 1;
+        $total = $query->execute()->count();
+
+        return $this->setMeta(new MetaCollection($total, $page, $limit));
+    }
+
+    /**
+     * @return $this
+     */
+    private function createData() {
+        $query = clone $this->getQuery();
+
+        $data = $query->execute()->toArray();
+
+        return $this->setData($data);
     }
 
 }

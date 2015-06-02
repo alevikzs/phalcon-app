@@ -2,6 +2,7 @@
     "require": {
         "phalcon/devtools": "dev-master",
         "phpunit/phpunit": "4.5.*",
-        "guzzlehttp/guzzle": "~5.0"
+        "guzzlehttp/guzzle": "~5.0",
+        "firebase/php-jwt": "~2.1"
     }
 }

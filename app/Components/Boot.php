@@ -2,9 +2,10 @@
 
 namespace App\Components;
 
-use Phalcon\Exception;
-use Phalcon\Http\Response;
-use \Phalcon\Mvc\Micro,
+use App\Components\Response\Base\Error;
+use \Phalcon\Exception,
+    \Phalcon\Http\Response,
+    \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
 
@@ -26,10 +27,7 @@ abstract class Boot extends Micro {
                 ->mountRoutes()
                 ->handle();
         } catch (\Exception $error) {
-            echo json_encode([
-                'code' => $error->getCode(),
-                'message' => $error->getMessage()
-            ]);
+            echo json_encode(new Error($error));
         }
     }
 

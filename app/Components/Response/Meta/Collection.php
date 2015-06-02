@@ -13,22 +13,22 @@ class Collection extends Meta {
     /**
      * @var integer
      */
-    private $total;
+    public $total;
 
     /**
      * @var integer
      */
-    private $page;
+    public $page;
 
     /**
      * @var integer
      */
-    private $limit;
+    public $limit;
 
     /**
      * @var boolean
      */
-    private $hasNext;
+    public $hasNext;
 
     /**
      * @return integer
@@ -98,14 +98,22 @@ class Collection extends Meta {
      * @param integer $total
      * @param integer $page
      * @param integer $limit
-     * @param integer $hasNext
      */
-    public function __construct($total, $page, $limit, $hasNext) {
+    public function __construct($total, $page, $limit) {
         $this
             ->setTotal($total)
             ->setPage($page)
             ->setLimit($limit)
-            ->setHasNext($hasNext);
+            ->createHasNext();
+    }
+
+    /**
+     * @return $this
+     */
+    private function createHasNext() {
+        $hasNext = $this->getTotal() - $this->getPage() * $this->getLimit() > 0;
+
+        return $this->setHasNext($hasNext);
     }
 
 }

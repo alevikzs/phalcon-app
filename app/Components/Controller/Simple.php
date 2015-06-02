@@ -2,7 +2,9 @@
 
 namespace App\Components\Controller;
 
-use \Phalcon\Http\Response;
+use \Phalcon\Http\Response,
+
+    \App\Components\Response\Base\Simple as SimpleResponse;
 
 /**
  * Class Simple
@@ -11,13 +13,15 @@ use \Phalcon\Http\Response;
 abstract class Simple extends Base {
 
     /**
-     * @param array $data
+     * @param mixed $data
      * @return Response
      */
-    public function response(array $data = []) {
+    public function response($data = null) {
+        $response = new SimpleResponse($data);
+
         return $this
             ->responseEmpty()
-            ->setJsonContent($data);
+            ->setJsonContent($response);
     }
 
 }

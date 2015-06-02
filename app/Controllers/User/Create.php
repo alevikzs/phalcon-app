@@ -2,14 +2,14 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller\Base,
+use \App\Components\Controller\Simple,
     \App\Models\User;
 
 /**
  * Class Create
  * @package App\Controllers\User
  */
-class Create extends Base {
+class Create extends Simple {
 
     /**
      * @return \Phalcon\Http\Response
@@ -17,7 +17,7 @@ class Create extends Base {
     public function run() {
         (new User())
             ->save($this->getPayload());
-        return $this->responseEmpty();
+        return $this->response();
     }
 
 }

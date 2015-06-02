@@ -2,8 +2,7 @@
 
 namespace App\Bootstrap;
 
-use \Phalcon\DI\FactoryDefault\CLI,
-    \Phalcon\CLI\Console as BaseConsole,
+use \Phalcon\CLI\Console as BaseConsole,
 
     \App\Config\Database;
 

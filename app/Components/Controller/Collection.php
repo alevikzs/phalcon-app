@@ -3,7 +3,9 @@
 namespace App\Components\Controller;
 
 use \Phalcon\Http\Response,
-    \Phalcon\Mvc\Model\Criteria;
+    \Phalcon\Mvc\Model\Criteria,
+
+    \App\Components\Response\Base\Collection as CollectionResponse;
 
 /**
  * Class Collection
@@ -58,42 +60,28 @@ abstract class Collection extends Base {
         return $this->getLimit() * ($this->getPage() - 1);
     }
 
-
     /**
      * @param Criteria $query
      * @return Response
      */
     public function response(Criteria $query) {
-        $count = $this->getCount($query);
-        return $this->responseEmpty()
-            ->setJsonContent([
-                'list' => $this->buildList($query),
-                'count' => $count,
-                'hasNext' => $this->hasNext($count)
-            ]);
+        $query = $this->buildQuery($query);
+
+        $response = new CollectionResponse($query);
+
+        return $this
+            ->responseEmpty()
+            ->setJsonContent($response);
     }
 
     /**
      * @param Criteria $query
-     * @return integer
+     * @return Criteria
      */
-    private function getCount(Criteria $query) {
-        $countQuery = clone $query;
-        return $countQuery
-            ->execute()
-            ->count();
-    }
-
-    /**
-     * @param Criteria $query
-     * @return array
-     */
-    private function buildList(Criteria $query) {
+    private function buildQuery(Criteria $query) {
         return $query
             ->orderBy($this->buildOrder())
-            ->limit($this->getLimit(), $this->getOffset())
-            ->execute()
-            ->toArray();
+            ->limit($this->getLimit(), $this->getOffset());
     }
 
     /**
@@ -128,14 +116,6 @@ abstract class Collection extends Base {
         } else {
             return 'ASC';
         }
-    }
-
-    /**
-     * @param integer $count
-     * @return boolean
-     */
-    private function hasNext($count) {
-        return $count - $this->getPage() * $this->getLimit() > 0;
     }
 
 }

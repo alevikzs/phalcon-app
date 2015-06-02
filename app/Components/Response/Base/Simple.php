@@ -2,29 +2,29 @@
 
 namespace App\Components\Response\Base;
 
-use App\Components\Response\Base,
-    App\Components\Response\Meta;
+use \App\Components\Response\Base,
+    \App\Components\Response\Meta;
 
 /**
- * Class Body
+ * Class Simple
  * @package App\Components\Response\Base
  */
-class Body extends Base {
+class Simple extends Base {
 
     /**
      * @var boolean
      */
-    private $success;
+    public $success;
 
     /**
      * @var array
      */
-    private $data;
+    public $data;
 
     /**
      * @var Meta
      */
-    private $meta;
+    public $meta;
 
     /**
      * @return boolean
@@ -75,15 +75,18 @@ class Body extends Base {
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      * @param Meta $meta
      * @param boolean $success
      */
-    public function __construct($data = [], Meta $meta, $success = true) {
+    public function __construct($data = null, Meta $meta = null, $success = true) {
         $this
             ->setData($data)
-            ->setMeta($meta)
             ->setSuccess($success);
+
+        if ($meta) {
+            $this->setMeta($meta);
+        }
     }
 
 }
