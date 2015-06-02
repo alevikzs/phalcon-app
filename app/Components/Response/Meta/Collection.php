@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Components\Response;
+namespace App\Components\Response\Meta;
+
+use \App\Components\Response\Meta;
 
 /**
- * Class CollectionMeta
- * @package App\Components\Response
+ * Class Collection
+ * @package App\Components\Response\Meta
  */
-class CollectionMeta extends Meta {
+class Collection extends Meta {
 
     /**
      * @var integer

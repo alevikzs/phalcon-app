@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Components\Response;
+namespace App\Components\Response\Base;
+
+use App\Components\Response\Base,
+    App\Components\Response\Meta;
 
 /**
  * Class Body
- * @package App\Components\Response
+ * @package App\Components\Response\Base
  */
 class Body extends Base {
 

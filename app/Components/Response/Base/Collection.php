@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Components\Response;
+namespace App\Components\Response\Base;
 
-use \Phalcon\Mvc\Model\Criteria;
+use \Phalcon\Mvc\Model\Criteria,
+    \App\Components\Response\Meta;
 
 /**
  * Class Collection
- * @package App\Components\Response
+ * @package App\Components\Response\Base
  */
 class Collection extends Body {
 
@@ -34,11 +35,11 @@ class Collection extends Body {
     /**
      * @param Criteria $query
      * @param array $data
-     * @param CollectionMeta $meta
+     * @param Meta $meta
      * @param boolean $success
      * @param boolean $success
      */
-    public function __construct(Criteria $query, $data = [], CollectionMeta $meta, $success = true) {
+    public function __construct(Criteria $query, $data = [], Meta $meta, $success = true) {
         $this->setQuery($query);
         parent::__construct($data, $meta, $success);
     }
