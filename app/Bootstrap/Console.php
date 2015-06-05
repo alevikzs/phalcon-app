@@ -3,6 +3,7 @@
 namespace App\Bootstrap;
 
 use \Phalcon\CLI\Console as BaseConsole,
+    \Phalcon\Di\FactoryDefault\Cli,
 
     \App\Config\Database;
 
@@ -57,7 +58,7 @@ class Console extends BaseConsole {
     /**
      * @param array $arguments
      */
-    public function __construct (array $arguments = array()) {
+    public function __construct(array $arguments = []) {
         $this
             ->setRawArguments($arguments)
             ->createFormattedArguments();
@@ -103,7 +104,7 @@ class Console extends BaseConsole {
      * @return Console
      */
     private function createDependencies() {
-        $dependency = new CLI();
+        $dependency = new Cli();
         $dependency->set('db', function() {
             return Database::get();
         });

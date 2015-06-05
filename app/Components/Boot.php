@@ -2,15 +2,15 @@
 
 namespace App\Components;
 
-use App\Components\Response\Base\Error;
-use \Phalcon\Exception,
-    \Phalcon\Http\Response,
+use \Phalcon\Http\Response,
     \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
 
     \App\Config\Routes,
-    \App\Config\Database;
+    \App\Config\Database,
+    \App\Components\Exception\Error,
+    \App\Components\Exception\Normal;
 
 /**
  * Class Boot
@@ -21,14 +21,10 @@ abstract class Boot extends Micro {
     public function go() {
         self::setCustomErrorHandler();
 
-        try {
-            $this
-                ->createDependencies()
-                ->mountRoutes()
-                ->handle();
-        } catch (\Exception $error) {
-            echo json_encode(new Error($error));
-        }
+        $this
+            ->createDependencies()
+            ->mountRoutes()
+            ->handle();
     }
 
     /**
@@ -68,20 +64,27 @@ abstract class Boot extends Micro {
         }
 
         return $this->notFound(function () {
-            $this->response->setStatusCode(404, 'Not Found')->sendHeaders();
-            throw new Exception('Not Found', 404);
+            throw new Normal('Not Found', 404);
         });
 
     }
 
     protected static function setCustomErrorHandler() {
-        $handler = function($no, $str, $file, $line) {
-            if (0 === error_reporting()) {
+        ini_set('display_errors', false);
+
+        $exceptionErrorHandler = function($level, $message, $file, $line) {
+            if (!(error_reporting() & $level)) {
                 return false;
             }
-            throw new \ErrorException($str, 0, $no, $file, $line);
+            throw new Error($message, 0, $level, $file, $line);
         };
-        set_error_handler($handler);
+        set_error_handler($exceptionErrorHandler);
+
+        register_shutdown_function(function () use ($exceptionErrorHandler) {
+            $lastError = error_get_last();
+            if (error_reporting() & $lastError['type'])
+                call_user_func_array($exceptionErrorHandler, $lastError);
+        });
     }
 
 }

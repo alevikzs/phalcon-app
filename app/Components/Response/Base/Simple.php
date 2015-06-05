@@ -2,7 +2,9 @@
 
 namespace App\Components\Response\Base;
 
-use \App\Components\Response\Base,
+use \Exception,
+
+    \App\Components\Response\Base,
     \App\Components\Response\Meta;
 
 /**
@@ -43,7 +45,7 @@ class Simple extends Base {
     }
 
     /**
-     * @return array
+     * @return array|Exception
      */
     public function getData() {
         return $this->data;
