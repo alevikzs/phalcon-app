@@ -18,8 +18,6 @@ class Collection extends CollectionController {
      * @return Response
      */
     public function run() {
-        $var = null;
-        $var->df;
         /** @var Criteria $query */
         $query = User::query();
         return $this->response($query);
