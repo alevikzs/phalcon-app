@@ -2,7 +2,7 @@
 
 namespace App\Migrations;
 
-use \App\Components\Migration;
+use \App\Rise\Migration;
 
 class #name# extends Migration {
 

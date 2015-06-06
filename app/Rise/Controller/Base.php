@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Components\Controller;
+namespace App\Rise\Controller;
 
 use \Phalcon\Mvc\Controller,
     \Phalcon\Http\Response;
 
 /**
  * Class Base
- * @package App\Components\Controller
+ * @package App\Rise\Controller
  */
 abstract class Base extends Controller {
 

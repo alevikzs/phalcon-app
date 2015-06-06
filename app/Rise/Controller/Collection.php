@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Components\Controller;
+namespace App\Rise\Controller;
 
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
-    \App\Components\Response\Base\Collection as CollectionResponse,
-    \App\Components\Http\Response\Base as HttpResponse;
+    \App\Rise\Response\Base\Collection as CollectionResponse,
+    \App\Rise\Http\Response\Base as HttpResponse;
 
 /**
  * Class Collection
- * @package App\Components\Controller
+ * @package App\Rise\Controller
  */
 abstract class Collection extends Base {
 

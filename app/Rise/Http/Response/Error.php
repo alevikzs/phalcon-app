@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Components\Http\Response;
+namespace App\Rise\Http\Response;
 
-use \App\Components\Response\Base\Exception as Body;
+use \App\Rise\Response\Base\Exception as Body;
 
 /**
  * Class Error
- * @package App\Components\Http\Response
+ * @package App\Rise\Http\Response
  */
 class Error extends Base {
 

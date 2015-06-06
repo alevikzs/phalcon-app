@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Components;
+namespace App\Rise;
 
 /**
  * Class Migration
- * @package App\Components
+ * @package App\Rise
  */
 abstract class Migration extends Task {
 

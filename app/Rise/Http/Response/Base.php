@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Components\Http\Response;
+namespace App\Rise\Http\Response;
 
 use \Phalcon\Http\Response,
 
-    \App\Components\Response\Base as Body;
+    \App\Rise\Response\Base as Body;
 
 /**
  * Class Base
- * @package App\Components\Http\Response
+ * @package App\Rise\Http\Response
  */
 class Base extends Response {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Components;
+namespace App\Rise;
 
 use \Phalcon\Mvc\Model as BaseModel;
 
 /**
  * Class Model
- * @package App\Components
+ * @package App\Rise
  */
 class Model extends BaseModel {
 

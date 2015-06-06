@@ -2,7 +2,7 @@
 
 namespace App\Controllers\User;
 
-use \App\Components\Controller\Simple,
+use \App\Rise\Controller\Simple,
     \App\Models\User;
 
 /**
