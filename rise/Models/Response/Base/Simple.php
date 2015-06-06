@@ -1,15 +1,15 @@
 <?php
 
-namespace Rise\Response\Base;
+namespace Rise\Models\Response\Base;
 
 use \Exception,
 
-    \Rise\Response\Base,
-    \Rise\Response\Meta;
+    \Rise\Models\Response\Base,
+    \Rise\Models\Response\Meta;
 
 /**
  * Class Simple
- * @package Rise\Response\Base
+ * @package Rise\Models\Response\Base
  */
 class Simple extends Base {
 

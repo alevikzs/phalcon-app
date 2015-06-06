@@ -2,7 +2,7 @@
 
 namespace Rise\Http\Response;
 
-use \Rise\Response\Base\Exception as Body;
+use \Rise\Models\Response\Base\Exception as Body;
 
 /**
  * Class Error

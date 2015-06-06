@@ -5,7 +5,7 @@ namespace Rise\Controller;
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
-    \Rise\Response\Base\Collection as CollectionResponse,
+    \Rise\Models\Response\Base\Collection as CollectionResponse,
     \Rise\Http\Response\Base as HttpResponse;
 
 /**

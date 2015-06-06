@@ -4,7 +4,7 @@ namespace Rise\Controller;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Response\Base\Simple as SimpleResponse,
+    \Rise\Models\Response\Base\Simple as SimpleResponse,
     \Rise\Http\Response\Base as HttpResponse;
 
 /**

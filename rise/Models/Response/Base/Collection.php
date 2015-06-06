@@ -1,15 +1,15 @@
 <?php
 
-namespace Rise\Response\Base;
+namespace Rise\Models\Response\Base;
 
 use \Phalcon\Mvc\Model\Criteria,
 
-    \Rise\Response\Meta,
-    \Rise\Response\Meta\Collection as MetaCollection;
+    \Rise\Models\Response\Meta,
+    \Rise\Models\Response\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
- * @package Rise\Response\Base
+ * @package Rise\Models\Response\Base
  */
 class Collection extends Simple {
 

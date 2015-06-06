@@ -10,6 +10,6 @@ try {
     (new \App\Bootstrap\Web())->go();
 } catch (\Exception $exception) {
     (new \Rise\Http\Response\Error(
-        new \Rise\Response\Base\Exception($exception)
+        new \Rise\Models\Response\Base\Exception($exception)
     ))->send();
 }

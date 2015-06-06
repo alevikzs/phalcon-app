@@ -4,7 +4,7 @@ namespace Rise\Http\Response;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Response\Base as Body;
+    \Rise\Models\Response\Base as Body;
 
 /**
  * Class Base
