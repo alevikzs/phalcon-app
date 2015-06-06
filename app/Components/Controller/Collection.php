@@ -5,7 +5,8 @@ namespace App\Components\Controller;
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
-    \App\Components\Response\Base\Collection as CollectionResponse;
+    \App\Components\Response\Base\Collection as CollectionResponse,
+    \App\Components\Http\Response\Base as HttpResponse;
 
 /**
  * Class Collection
@@ -62,16 +63,14 @@ abstract class Collection extends Base {
 
     /**
      * @param Criteria $query
-     * @return Response
+     * @return HttpResponse
      */
     public function response(Criteria $query) {
         $query = $this->buildQuery($query);
 
         $response = new CollectionResponse($query);
 
-        return $this
-            ->responseEmpty()
-            ->setJsonContent($response);
+        return (new HttpResponse($response));
     }
 
     /**

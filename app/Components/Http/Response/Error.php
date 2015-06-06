@@ -15,11 +15,10 @@ class Error extends Base {
      */
     public function __construct(Body $body) {
         parent::__construct(
-            null,
+            $body,
             500,
             'Internal Server Error'
         );
-        $this->setJsonContent($body);
     }
 
 }
