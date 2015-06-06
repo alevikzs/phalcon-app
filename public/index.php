@@ -10,6 +10,6 @@ try {
     (new \App\Bootstrap\Web())->go();
 } catch (\Exception $exception) {
     (new \App\Components\Http\Response\Error(
-        new \App\Components\Response\Base\Error($exception)
+        new \App\Components\Response\Base\Exception($exception)
     ))->send();
 }

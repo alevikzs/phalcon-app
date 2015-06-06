@@ -70,7 +70,7 @@ abstract class Boot extends Micro {
     }
 
     protected static function setCustomErrorHandler() {
-        ini_set('display_errors', false);
+//        ini_set('display_errors', false);
 
         $exceptionErrorHandler = function($level, $message, $file, $line) {
             if (!(error_reporting() & $level)) {

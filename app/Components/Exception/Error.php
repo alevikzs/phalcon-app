@@ -2,15 +2,12 @@
 
 namespace App\Components\Exception;
 
-use \JsonSerializable as BaseJsonSerializable,
-    \ErrorException;
+use \ErrorException;
 
 /**
  * Class Error
  * @package App\Components\Exception
  */
-class Error extends ErrorException implements BaseJsonSerializable {
-
-    use JsonSerializable;
+class Error extends ErrorException {
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Components\Http\Response;
 
-use \App\Components\Response\Base\Error as Body;
+use \App\Components\Response\Base\Exception as Body;
 
 /**
  * Class Error

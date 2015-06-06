@@ -52,7 +52,7 @@ class Simple extends Base {
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return $this
      */
     public function setData($data) {
