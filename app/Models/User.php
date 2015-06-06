@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \App\Rise\Model;
+use \Rise\Model;
 
 /**
  * Class User

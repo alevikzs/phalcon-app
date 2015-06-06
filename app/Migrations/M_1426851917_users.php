@@ -2,7 +2,7 @@
 
 namespace App\Migrations;
 
-use \App\Rise\Migration;
+use \Rise\Migration;
 
 /**
  * Class M_1426851917_users

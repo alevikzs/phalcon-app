@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Rise\Response\Base;
+namespace Rise\Response\Base;
 
 use \Exception as BaseException,
 
-    \App\Rise\Response\Meta;
+    \Rise\Response\Meta;
 
 /**
  * Class Exception
- * @package App\Rise\Response\Base
+ * @package Rise\Response\Base
  */
 class Exception extends Simple {
 

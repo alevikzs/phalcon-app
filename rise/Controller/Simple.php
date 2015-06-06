@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Rise\Controller;
+namespace Rise\Controller;
 
 use \Phalcon\Http\Response,
 
-    \App\Rise\Response\Base\Simple as SimpleResponse,
-    \App\Rise\Http\Response\Base as HttpResponse;
+    \Rise\Response\Base\Simple as SimpleResponse,
+    \Rise\Http\Response\Base as HttpResponse;
 
 /**
  * Class Simple
- * @package App\Rise\Controller
+ * @package Rise\Controller
  */
 abstract class Simple extends Base {
 

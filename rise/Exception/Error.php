@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Rise\Exception;
+namespace Rise\Exception;
 
 use \ErrorException;
 
 /**
  * Class Error
- * @package App\Rise\Exception
+ * @package Rise\Exception
  */
 class Error extends ErrorException {
 

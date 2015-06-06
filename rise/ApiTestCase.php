@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Rise;
+namespace Rise;
 
 use \GuzzleHttp\Client,
     \GuzzleHttp\Message\ResponseInterface;
 
 /**
  * Class ApiTestCase
- * @package App\Rise
+ * @package Rise
  */
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 

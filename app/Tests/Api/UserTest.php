@@ -4,7 +4,7 @@ namespace App\Tests\Api;
 
 use \Phalcon\Mvc\Model\Resultset\Simple,
 
-    \App\Rise\ApiTestCase,
+    \Rise\ApiTestCase,
     \App\Models\User;
 
 /**

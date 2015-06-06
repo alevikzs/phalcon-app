@@ -5,7 +5,7 @@ namespace App\Controllers\User;
 use \Phalcon\Mvc\Model\Criteria,
     \Phalcon\Http\Response,
 
-    \App\Rise\Controller\Collection as CollectionController,
+    \Rise\Controller\Collection as CollectionController,
     \App\Models\User;
 
 /**

@@ -4,6 +4,7 @@ try {
     (new \Phalcon\Loader())
         ->registerNamespaces([
             'App' => 'app',
+            'Rise' => 'rise',
         ])
         ->register();
 

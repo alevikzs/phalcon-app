@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Rise\Exception;
+namespace Rise\Exception;
 
 use \Phalcon\Exception as PhalconException;
 
 /**
  * Class Normal
- * @package App\Rise\Exception
+ * @package Rise\Exception
  */
 class Normal extends PhalconException {
 

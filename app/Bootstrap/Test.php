@@ -4,7 +4,7 @@ namespace App\Bootstrap;
 
 use \Phalcon\Db\Adapter\Pdo,
 
-    \App\Rise\Boot,
+    \Rise\Boot,
     \App\Config\Database;
 
 /**

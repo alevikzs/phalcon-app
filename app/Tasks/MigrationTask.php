@@ -2,8 +2,8 @@
 
 namespace App\Tasks;
 
-use \App\Rise\Task,
-    \App\Rise\Migration;
+use \Rise\Task,
+    \Rise\Migration;
 
 /**
  * Class MigrationTask

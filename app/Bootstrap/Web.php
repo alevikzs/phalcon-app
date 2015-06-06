@@ -2,7 +2,7 @@
 
 namespace App\Bootstrap;
 
-use \App\Rise\Boot;
+use \Rise\Boot;
 
 /**
  * Class Web

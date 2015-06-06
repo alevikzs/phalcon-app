@@ -18,7 +18,7 @@ final class Database {
         $settings = [
             'host' => 'localhost',
             'username' => 'postgres',
-            'password' => '',
+            'password' => 'postgres',
             'dbname' => $name
         ];
         return new Postgresql($settings);

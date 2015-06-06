@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Rise;
+namespace Rise;
 
 use \Phalcon\CLI\Task as BaseTask,
     \Phalcon\Db\Adapter;
 
 /**
  * Class Task
- * @package App\Rise
+ * @package Rise
  * @property-read Adapter $db_test
  */
 class Task extends BaseTask {

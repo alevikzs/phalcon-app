@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rise;
+namespace Rise;
 
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Micro,
@@ -9,12 +9,12 @@ use \Phalcon\Http\Response,
 
     \App\Config\Routes,
     \App\Config\Database,
-    \App\Rise\Exception\Error,
-    \App\Rise\Exception\Normal;
+    \Rise\Exception\Error,
+    \Rise\Exception\Normal;
 
 /**
  * Class Boot
- * @package App\Rise
+ * @package Rise
  */
 abstract class Boot extends Micro {
 
