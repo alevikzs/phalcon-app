@@ -6,6 +6,7 @@ use \Phalcon\Mvc\Model\Criteria,
     \Phalcon\Http\Response,
 
     \Rise\Controller\Collection as CollectionController,
+
     \App\Models\User;
 
 /**

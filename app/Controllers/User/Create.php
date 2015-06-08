@@ -2,7 +2,10 @@
 
 namespace App\Controllers\User;
 
-use \Rise\Controller\Simple,
+use \Phalcon\Http\Response,
+
+    \Rise\Controller\Simple,
+
     \App\Models\User;
 
 /**
@@ -12,7 +15,7 @@ use \Rise\Controller\Simple,
 class Create extends Simple {
 
     /**
-     * @return \Phalcon\Http\Response
+     * @return Response
      */
     public function run() {
         (new User())
