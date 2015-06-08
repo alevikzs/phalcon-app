@@ -2,11 +2,13 @@
 
 namespace Rise\Models\Request\Collection;
 
+use Rise\Models\Request;
+
 /**
  * Class Order
  * @package Rise\Models\Request\Collection
  */
-class Order {
+class Order extends Request{
 
     const ORDER_DIRECTION_ASC = 0;
 

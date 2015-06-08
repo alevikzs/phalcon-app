@@ -2,11 +2,13 @@
 
 namespace Rise\Models\Request\Collection;
 
+use Rise\Models\Request;
+
 /**
  * Class Base
  * @package Rise\Models\Request\Collection
  */
-class Base {
+class Base extends Request{
 
     /**
      * @var integer
@@ -19,7 +21,7 @@ class Base {
     public $page;
 
     /**
-     * @var Order
+     * @var Order[]
      */
     public $order;
 
@@ -81,6 +83,18 @@ class Base {
             ->setLimit($limit)
             ->setPage($page)
             ->setOrder($order);
+    }
+
+    /**
+     * @return array
+     */
+    public function relations() {
+        return [
+            'order' => [
+                'type' => self::RELATION_MANY,
+                'model' => 'Order'
+            ]
+        ];
     }
 
 }

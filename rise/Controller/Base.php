@@ -35,6 +35,15 @@ abstract class Base extends Controller {
      * @return array
      */
     public function getPayload($isAssociative = true) {
+        $payload = $this
+            ->request
+            ->getJsonRawBody(false);
+        print_r($payload);
+
+        $promoted =  \Rise\Models\Request\Collection\Base::cast($payload);
+
+        print_r($promoted);
+        exit;
         return $this
             ->request
             ->getJsonRawBody($isAssociative);
