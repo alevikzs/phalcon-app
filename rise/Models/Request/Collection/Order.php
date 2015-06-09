@@ -8,7 +8,7 @@ use Rise\Models\Request;
  * Class Order
  * @package Rise\Models\Request\Collection
  */
-class Order extends Request{
+class Order extends Request {
 
     const ORDER_DIRECTION_ASC = 0;
 
@@ -57,13 +57,22 @@ class Order extends Request{
     }
 
     /**
-     * @param string $field
+     * @param string|null $field
      * @param integer $direction
      */
-    public function __construct($field, $direction = self::ORDER_DIRECTION_ASC) {
+    public function __construct($field = null, $direction = self::ORDER_DIRECTION_ASC) {
         $this
             ->setField($field)
             ->setDirection($direction);
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuery() {
+        $direction = $this->getDirection() === self::ORDER_DIRECTION_ASC ? 'ASC' : 'DESC';
+
+        return $this->getField() . ' ' . $direction;
     }
 
 }

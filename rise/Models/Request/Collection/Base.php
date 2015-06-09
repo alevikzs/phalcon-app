@@ -2,13 +2,15 @@
 
 namespace Rise\Models\Request\Collection;
 
-use Rise\Models\Request;
+use \stdClass,
+
+    \Rise\Models\Request;
 
 /**
  * Class Base
  * @package Rise\Models\Request\Collection
  */
-class Base extends Request{
+class Base extends Request {
 
     /**
      * @var integer
@@ -74,6 +76,17 @@ class Base extends Request{
     }
 
     /**
+     * @param Order $order
+     * @return $this
+     */
+    public function addOrder(Order $order) {
+        $orders = $this->getOrder();
+        $orders[] = $order;
+        $this->setOrder($orders);
+        return $this;
+    }
+
+    /**
      * @param integer $limit
      * @param integer $page
      * @param Order[] $order
@@ -92,9 +105,44 @@ class Base extends Request{
         return [
             'order' => [
                 'type' => self::RELATION_MANY,
-                'model' => 'Order'
+                'model' => '\Rise\Models\Request\Collection\Order'
             ]
         ];
+    }
+
+    /**
+     * @param stdClass $payload
+     * @return self
+     */
+    public static function cast(stdClass $payload) {
+        /** @var Base $base */
+        $base = parent::cast($payload);
+
+        if (!$base->getOrder()) {
+            $base->addOrder(new Order('name'));
+        }
+
+        return $base;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getOffset() {
+        return $this->getLimit() * ($this->getPage() - 1);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderQuery() {
+        $orderQuery = [];
+
+        foreach ($this->getOrder() as $order) {
+            $orderQuery[] = $order->getQuery();
+        }
+
+        return implode(',', $orderQuery);
     }
 
 }

@@ -47,12 +47,12 @@ abstract class Request {
 
     /**
      * @param string $field
-     * @param stdClass $payload
+     * @param mixed $value
      * @return bool
      */
-    private function isRelationOne($field, stdClass $payload) {
+    private function isRelationOne($field, $value) {
         if ($this->isRelation($field)
-            && !is_array($payload->$field)
+            && is_object($value)
             && $this->relations()[$field]['type'] === self::RELATION_ONE
         ) {
             return true;
@@ -63,12 +63,12 @@ abstract class Request {
 
     /**
      * @param string $field
-     * @param stdClass $payload
+     * @param mixed $value
      * @return bool
      */
-    private function isRelationMany($field, stdClass $payload) {
+    private function isRelationMany($field, $value) {
         if ($this->isRelation($field)
-            && is_array($payload->$field)
+            && is_array($value)
             && $this->relations()[$field]['type'] === self::RELATION_MANY
         ) {
             return true;
@@ -105,13 +105,15 @@ abstract class Request {
 
     /**
      * @param $field
-     * @param stdClass $payload
+     * @param array $payload
      * @return Request[]
      */
-    private function createRelationMany($field, stdClass $payload) {
+    private function createRelationMany($field, array $payload) {
+        $result = [];
         foreach ($payload as $instance) {
-            yield $this->createRelationOne($field, $instance);
+            $result[] = $this->createRelationOne($field, $instance);
         }
+        return $result;
     }
 
 }
