@@ -1,12 +1,12 @@
 <?php
 
-namespace Rise;
+namespace Rise\Mvc;
 
 use \Phalcon\Mvc\Model as BaseModel;
 
 /**
  * Class Model
- * @package Rise
+ * @package Rise\Mvc
  */
 class Model extends BaseModel {
 
