@@ -61,7 +61,7 @@ class Simple extends Base {
     }
 
     /**
-     * @return array
+     * @return Meta
      */
     public function getMeta() {
         return $this->meta;

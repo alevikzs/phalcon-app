@@ -7,7 +7,8 @@ use \Phalcon\Http\Response,
 
     \Rise\Models\Response\Base\Collection as CollectionResponse,
     \Rise\Http\Response\Base as HttpResponse,
-    \Rise\Models\Request\Collection\Base as CollectionPayload;
+    \Rise\Models\Request\Collection\Base as CollectionPayload,
+    \Rise\Models\Response\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
@@ -29,26 +30,30 @@ abstract class Collection extends Base {
      * @return HttpResponse
      */
     public function response(Criteria $query) {
-        $query = $this->buildQuery($query);
+        $query->orderBy(
+            $this->getPayload()->getOrderQuery()
+        );
 
-        $response = new CollectionResponse($query);
+        $response = new CollectionResponse(
+            $query,
+            $this->createMeta($query)
+        );
 
         return (new HttpResponse($response));
     }
 
     /**
      * @param Criteria $query
-     * @return Criteria
+     * @return MetaCollection
      */
-    private function buildQuery(Criteria $query) {
-        return $query
-            ->orderBy(
-                $this->getPayload()->getOrderQuery()
-            )
-            ->limit(
-                $this->getPayload()->getLimit(),
-                $this->getPayload()->getOffset()
-            );
+    private function createMeta(Criteria $query) {
+        $metaQuery = clone $query;
+
+        return new MetaCollection(
+            $metaQuery->execute()->count(),
+            $this->getPayload()->getPage(),
+            $this->getPayload()->getLimit()
+        );
     }
 
 }

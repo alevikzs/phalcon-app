@@ -116,4 +116,11 @@ class Collection extends Meta {
         return $this->setHasNext($hasNext);
     }
 
+    /**
+     * @return integer
+     */
+    public function getOffset() {
+        return $this->getLimit() * ($this->getPage() - 1);
+    }
+
 }

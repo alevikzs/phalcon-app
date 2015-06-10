@@ -36,36 +36,31 @@ class Collection extends Simple {
 
     /**
      * @param Criteria $query
+     * @param MetaCollection $meta
      */
-    public function __construct(Criteria $query) {
+    public function __construct(Criteria $query, $meta) {
         $this
             ->setQuery($query)
             ->setSuccess(true)
-            ->createMeta()
+            ->setMeta($meta)
             ->createData();
     }
 
     /**
      * @return $this
      */
-    private function createMeta() {
-        $query = clone $this->getQuery();
-
-        $limit = $query->getLimit()['number'];
-        $offset = $query->getLimit()['offset'];
-        $page = $offset / $limit + 1;
-        $total = $query->execute()->count();
-
-        return $this->setMeta(new MetaCollection($total, $page, $limit));
-    }
-
-    /**
-     * @return $this
-     */
     private function createData() {
-        $query = clone $this->getQuery();
+        /** @var MetaCollection $meta */
+        $meta = $this->getMeta();
 
-        $data = $query->execute()->toArray();
+        $data = $this
+            ->getQuery()
+            ->limit(
+                $meta->getLimit(),
+                $meta->getOffset()
+            )
+            ->execute()
+            ->toArray();
 
         return $this->setData($data);
     }
