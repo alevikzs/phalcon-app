@@ -8,7 +8,7 @@ use \Phalcon\CLI\Console as BaseConsole;
  * Class Console
  * @package App\Bootstrap
  */
-abstract class Console extends BaseConsole {
+abstract class Console extends BaseConsole implements Boot {
 
     /**
      * @var array
@@ -96,10 +96,5 @@ abstract class Console extends BaseConsole {
 
         return '\\App\\Tasks\\' . $className;
     }
-
-    /**
-     * @return Console
-     */
-    abstract public function createDependencies();
 
 }

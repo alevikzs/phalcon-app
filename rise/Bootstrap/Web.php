@@ -1,22 +1,23 @@
 <?php
 
-namespace Rise;
+namespace Rise\Bootstrap;
 
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
 
-    \App\Config\Routes,
-    \App\Config\Database,
     \Rise\Exception\Error,
-    \Rise\Exception\Normal;
+    \Rise\Exception\Normal,
+
+    \App\Config\Routes,
+    \App\Config\Database;
 
 /**
  * Class Boot
  * @package Rise
  */
-abstract class Boot extends Micro {
+abstract class Web extends Micro implements  Boot {
 
     public function go() {
         self::setCustomErrorHandler();
@@ -28,9 +29,9 @@ abstract class Boot extends Micro {
     }
 
     /**
-     * @return Boot
+     * @return $this
      */
-    protected function createDependencies() {
+    public function createDependencies() {
         $dependency = new FactoryDefault();
 
         $dependency->set('db', function() {
@@ -50,7 +51,7 @@ abstract class Boot extends Micro {
     }
 
     /**
-     * @return Boot
+     * @return $this
      */
     protected function mountRoutes() {
         $routes = Routes::get();

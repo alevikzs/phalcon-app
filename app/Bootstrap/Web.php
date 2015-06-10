@@ -2,12 +2,12 @@
 
 namespace App\Bootstrap;
 
-use \Rise\Boot;
+use \Rise\Bootstrap\Web as BaseWeb;
 
 /**
  * Class Web
  * @package App\Bootstrap
  */
-final class Web extends Boot {
+class Web extends BaseWeb {
 
 }

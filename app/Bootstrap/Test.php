@@ -4,7 +4,7 @@ namespace App\Bootstrap;
 
 use \Phalcon\Db\Adapter\Pdo,
 
-    \Rise\Boot,
+    \Rise\Bootstrap\Web as BaseWeb,
 
     \App\Config\Database;
 
@@ -12,7 +12,7 @@ use \Phalcon\Db\Adapter\Pdo,
  * Class Test
  * @package App\Bootstrap
  */
-class Test extends Boot {
+class Test extends BaseWeb {
 
     /**
      * @return Pdo
