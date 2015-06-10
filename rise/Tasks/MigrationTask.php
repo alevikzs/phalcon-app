@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tasks;
+namespace Rise\Tasks;
 
 use \Rise\Task,
     \Rise\Migration;

@@ -94,7 +94,15 @@ abstract class Console extends BaseConsole implements Boot {
     private function createHandlerName($argument = 'main') {
         $className = ucfirst($argument);
 
-        return '\\App\\Tasks\\' . $className;
+        $appPath = '\\Rise\\Tasks\\';
+
+        if (class_exists($appPath . $className)) {
+            return $appPath . $className;
+        }
+
+        $risePath = '\\Rise\\Tasks\\';
+
+        return $risePath . $className;
     }
 
 }

@@ -10,7 +10,6 @@ try {
 
     /** @var array $argv */
     (new \App\Bootstrap\Console($argv))->go();
-}
-catch (\Exception $exception) {
+} catch (\Exception $exception) {
     echo $exception->getMessage();
 }
