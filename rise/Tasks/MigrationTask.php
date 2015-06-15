@@ -78,7 +78,13 @@ class MigrationTask extends Task {
      * @return string
      */
     private function getSuccessLogFile() {
-        return $this->getPhalconDirectory() . '.migrations';
+        $logFileName = '.migrations';
+
+        if ($this->getApplication()->isTest()) {
+            $logFileName .= '_test';
+        }
+
+        return $this->getPhalconDirectory() . $logFileName;
     }
 
     /**

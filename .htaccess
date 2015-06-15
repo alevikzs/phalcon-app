@@ -1,9 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteCond %{HTTP_HOST} ^local\.ph\.com$
-    RewriteRule ^(.*)$ public/index.php?_url=/$1 [QSA,L]
+    RewriteCond %{HTTP_HOST} ^live\.ph\.com$
+    RewriteRule ^(.*)$ web/index.php?_url=/$1 [QSA,L]
 
     RewriteCond %{HTTP_HOST} ^test\.ph\.com$
-    RewriteRule ^(.*)$ test/index.php?_url=/$1 [QSA,L]
+    RewriteRule ^(.*)$ web/test.php?_url=/$1 [QSA,L]
 </IfModule>

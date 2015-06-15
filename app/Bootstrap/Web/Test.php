@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bootstrap;
+namespace App\Bootstrap\Web;
 
 use \Phalcon\Db\Adapter\Pdo,
 

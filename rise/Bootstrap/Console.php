@@ -2,7 +2,11 @@
 
 namespace Rise\Bootstrap;
 
-use \Phalcon\CLI\Console as BaseConsole;
+use \Phalcon\CLI\Console as BaseConsole,
+    \Phalcon\Db\Adapter\Pdo,
+    \Phalcon\Di\FactoryDefault\Cli,
+
+    \App\Config\Database;
 
 /**
  * Class Console
@@ -31,7 +35,7 @@ abstract class Console extends BaseConsole implements Boot {
      * @param array $arguments
      * @return Console
      */
-    public function setRawArguments(array $arguments) {
+    protected function setRawArguments(array $arguments) {
         $this->rawArguments = $arguments;
         return $this;
     }
@@ -47,7 +51,7 @@ abstract class Console extends BaseConsole implements Boot {
      * @param array $arguments
      * @return Console
      */
-    public function setFormattedArguments(array $arguments) {
+    protected function setFormattedArguments(array $arguments) {
         $this->formattedArguments = $arguments;
         return $this;
     }
@@ -103,6 +107,44 @@ abstract class Console extends BaseConsole implements Boot {
         $risePath = '\\Rise\\Tasks\\';
 
         return $risePath . $className;
+    }
+
+    /**
+     * @return $this
+     */
+    public function createDependencies() {
+        $dependency = new Cli();
+
+        $dependency->set('db', function() {
+            return $this->getDatabase();
+        });
+
+        $dependency->setShared('application', $this);
+
+        $this->setDI($dependency);
+
+        return $this;
+    }
+
+    /**
+     * @return Pdo
+     */
+    protected function getDatabase() {
+        return Database::get();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLive() {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTest() {
+        return !$this->isLive();
     }
 
 }

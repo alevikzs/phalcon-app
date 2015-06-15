@@ -10,6 +10,14 @@ interface Boot {
 
     public function go();
 
+    /**
+     * @return Boot
+     */
     public function createDependencies();
+
+    /**
+     * @return bool
+     */
+    public function isLive();
 
 }

@@ -8,7 +8,7 @@ try {
         ])
         ->register();
 
-    (new \App\Bootstrap\Web())->go();
+    (new \App\Bootstrap\Web\Test())->go();
 } catch (\Exception $exception) {
     (new \Rise\Http\Response\Error(
         new \Rise\Models\Response\Base\Exception($exception)

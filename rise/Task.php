@@ -3,27 +3,29 @@
 namespace Rise;
 
 use \Phalcon\CLI\Task as BaseTask,
-    \Phalcon\Db\Adapter;
+    \Phalcon\Db\Adapter\Pdo,
+
+    \Rise\Bootstrap\Console;
 
 /**
  * Class Task
  * @package Rise
- * @property-read Adapter $db_test
+ * @property Console $application
  */
 class Task extends BaseTask {
 
     /**
-     * @return Adapter
+     * @return Pdo
      */
     protected function getDb() {
         return $this->db;
     }
 
     /**
-     * @return Adapter
+     * @return Console
      */
-    protected function getDbTest() {
-        return $this->db_test;
+    protected function getApplication() {
+        return $this->application;
     }
 
 }

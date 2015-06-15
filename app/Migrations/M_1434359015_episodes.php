@@ -7,15 +7,15 @@ use \Phalcon\Db\Column,
     \Rise\Migration;
 
 /**
- * Class M_1427063238_serials
+ * Class M_1434359015_episodes
  * @package App\Migrations
  */
-class M_1427063238_serials extends Migration {
+class M_1434359015_episodes extends Migration {
 
     public function up() {
         $this
             ->getDb()
-            ->createTable('serials', null, [
+            ->createTable('episodes', null, [
                 'columns' => [
                     new Column('id', [
                             'type' => Column::TYPE_INTEGER,
@@ -29,15 +29,15 @@ class M_1427063238_serials extends Migration {
                             'size'    => 100,
                             'notNull' => true,
                         ]
-                    ),
+                    )
                 ]
             ]);
     }
 
-    protected function down() {
+    public function down() {
         $this
             ->getDb()
-            ->dropTable('serials');
+            ->dropTable('episodes');
     }
 
 }

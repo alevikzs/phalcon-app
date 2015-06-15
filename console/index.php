@@ -9,7 +9,7 @@ try {
         ->register();
 
     /** @var array $argv */
-    (new \App\Bootstrap\Console($argv))->go();
+    (new \App\Bootstrap\Console\Live($argv))->go();
 } catch (\Exception $exception) {
     echo $exception->getMessage();
 }

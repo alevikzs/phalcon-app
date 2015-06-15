@@ -8,29 +8,6 @@ namespace Rise;
  */
 abstract class Migration extends Task {
 
-    /**
-     * @param string $sql
-     */
-    protected function execute($sql) {
-        $this->getDb()->execute($sql);
-        $this->getDbTest()->execute($sql);
-    }
-
-    protected function begin() {
-        $this->getDb()->begin();
-        $this->getDbTest()->begin();
-    }
-
-    protected function commit() {
-        $this->getDb()->commit();
-        $this->getDbTest()->commit();
-    }
-
-    protected function rollback() {
-        $this->getDb()->rollback();
-        $this->getDbTest()->rollback();
-    }
-
     public function safeUp() {
         $this->run('up');
     }
@@ -43,12 +20,12 @@ abstract class Migration extends Task {
      * @param string $direction
      */
     private function run($direction) {
-        $this->begin();
+        $this->getDb()->begin();
         try {
             $this->$direction();
-            $this->commit();
+            $this->getDb()->commit();
         } catch (\Exception $error) {
-            $this->rollback();
+            $this->getDb()->rollback();
         }
     }
 

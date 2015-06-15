@@ -2,7 +2,9 @@
 
 namespace App\Migrations;
 
-use \Rise\Migration;
+use \Phalcon\Db\Column,
+
+    \Rise\Migration;
 
 /**
  * Class M_1426851917_users
@@ -10,19 +12,38 @@ use \Rise\Migration;
  */
 class M_1426851917_users extends Migration {
 
-    protected function up() {
-        $sql = 'CREATE TABLE users (
-            id serial NOT NULL,
-            name varchar(40) NOT NULL,
-            email varchar(40) NOT NULL,
-            PRIMARY KEY(id)
-        )';
-        $this->execute($sql);
+    public function up() {
+        $this
+            ->getDb()
+            ->createTable('users', null, [
+                'columns' => [
+                    new Column('id', [
+                            'type' => Column::TYPE_INTEGER,
+                            'size' => 10,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                        ]
+                    ),
+                    new Column('name', [
+                            'type'    => Column::TYPE_VARCHAR,
+                            'size'    => 100,
+                            'notNull' => true,
+                        ]
+                    ),
+                    new Column('email', [
+                            'type'    => Column::TYPE_VARCHAR,
+                            'size'    => 100,
+                            'notNull' => true,
+                        ]
+                    )
+                ]
+            ]);
     }
 
-    protected function down() {
-        $sql = 'DROP TABLE users';
-        $this->execute($sql);
+    public function down() {
+        $this
+            ->getDb()
+            ->dropTable('users');
     }
 
 }
