@@ -10,4 +10,6 @@ use \Rise\Bootstrap\Console;
  */
 class Live extends Console {
 
+    use \Rise\Bootstrap\Live;
+
 }

@@ -133,18 +133,4 @@ abstract class Console extends BaseConsole implements Boot {
         return Database::get();
     }
 
-    /**
-     * @return bool
-     */
-    public function isLive() {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isTest() {
-        return !$this->isLive();
-    }
-
 }

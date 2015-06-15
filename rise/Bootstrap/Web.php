@@ -88,4 +88,8 @@ abstract class Web extends Micro implements  Boot {
         });
     }
 
+    public function isLive() {
+        return true;
+    }
+
 }

@@ -20,4 +20,9 @@ interface Boot {
      */
     public function isLive();
 
+    /**
+     * @return bool
+     */
+    public function isTest();
+
 }

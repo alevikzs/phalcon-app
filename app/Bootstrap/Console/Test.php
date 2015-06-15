@@ -14,18 +14,13 @@ use \Phalcon\Db\Adapter\Pdo,
  */
 class Test extends Console {
 
+    use \Rise\Bootstrap\Test;
+
     /**
     * @return Pdo
     */
     protected function getDatabase() {
         return Database::getTest();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLive() {
-        return false;
     }
 
 }
