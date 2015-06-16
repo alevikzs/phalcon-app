@@ -6,7 +6,7 @@ use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
     \Rise\Models\Response\Base\Collection as CollectionResponse,
-    \Rise\Http\Response\Base as HttpResponse,
+    \Rise\Http\Response as HttpResponse,
     \Rise\Models\Request\Collection\Base as CollectionPayload,
     \Rise\Models\Response\Meta\Collection as MetaCollection;
 

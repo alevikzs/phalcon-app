@@ -2,13 +2,14 @@
 
 namespace Rise\Http\Response;
 
-use \Rise\Models\Response\Base\Exception as Body;
+use \Rise\Models\Response\Base\Exception as Body,
+    \Rise\Http\Response;
 
 /**
  * Class Error
  * @package Rise\Http\Response
  */
-class Error extends Base {
+class Error extends Response {
 
     /**
      * @param Body $body

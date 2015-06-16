@@ -1,16 +1,16 @@
 <?php
 
-namespace Rise\Http\Response;
+namespace Rise\Http;
 
-use \Phalcon\Http\Response,
+use \Phalcon\Http\Response as BaseResponse,
 
     \Rise\Models\Response\Base as Body;
 
 /**
  * Class Base
- * @package Rise\Http\Response
+ * @package Rise\Http
  */
-class Base extends Response {
+class Response extends BaseResponse {
 
     /**
      * @param Body $body
