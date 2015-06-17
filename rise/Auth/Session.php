@@ -2,8 +2,14 @@
 
 namespace Rise\Auth;
 
-use \JWT;
+use \JWT,
 
+    \Phalcon\Security;
+
+/**
+ * Class Session
+ * @package Rise\Auth
+ */
 class Session {
 
     /**
@@ -52,7 +58,7 @@ class Session {
      * @param string $algorithm
      * @param string $salt
      */
-    public function __construct($algorithm , $salt) {
+    public function __construct($algorithm = 'HS256' , $salt = null) {
         $this
             ->setAlgorithm($algorithm)
             ->setSalt($salt);
@@ -67,11 +73,26 @@ class Session {
     }
 
     /**
-     * @param $token
+     * @param string $token
      * @return array
      */
     public function decode($token) {
         return JWT::decode($token, $this->getSalt(), [$this->getAlgorithm()]);
+    }
+
+    /**
+     * @param array $user
+     * @param integer $expiration
+     * @return array
+     */
+    public static function create($user, $expiration) {
+        $iat = time();
+
+        return [
+            'sub' => $user,
+            'iat' => $iat,
+            'exp' => $iat + $expiration
+        ];
     }
 
 }

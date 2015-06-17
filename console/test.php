@@ -1,13 +1,8 @@
 <?php
 
-try {
-    (new \Phalcon\Loader())
-        ->registerNamespaces([
-            'App' => 'app',
-            'Rise' => 'rise',
-        ])
-        ->register();
+include __DIR__ . "/../vendor/autoload.php";
 
+try {
     /** @var array $argv */
     (new \App\Bootstrap\Console\Test($argv))->go();
 } catch (\Exception $exception) {

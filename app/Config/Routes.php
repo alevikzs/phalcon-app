@@ -36,6 +36,18 @@ final class Routes {
                     'class' => 'View',
                     'method' => 'get'
                 ]
+            ],
+            'Token' => [
+                [
+                    'route' => '/token/inner',
+                    'class' => 'Inner',
+                    'method' => 'post'
+                ],
+                [
+                    'route' => '/token/facebook',
+                    'class' => 'Facebook',
+                    'method' => 'post'
+                ],
             ]
         ];
     }

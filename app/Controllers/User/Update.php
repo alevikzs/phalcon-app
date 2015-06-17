@@ -20,7 +20,7 @@ class Update extends Simple {
      */
     public function run() {
         User::findFirst($this->getId())
-            ->save($this->getPayload());
+            ->save($this->getRawPayload(true));
         return $this->response();
     }
 

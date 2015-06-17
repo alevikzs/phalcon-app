@@ -1,8 +1,17 @@
 {
-    "require": {
-        "phalcon/devtools": "dev-master",
-        "phpunit/phpunit": "4.5.*",
-        "guzzlehttp/guzzle": "~5.0",
-        "firebase/php-jwt": "~2.1"
+  "require": {
+    "phalcon/devtools": "dev-master",
+    "phpunit/phpunit": "4.5.*",
+    "guzzlehttp/guzzle": "~5.0",
+    "firebase/php-jwt": "~2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app",
+      "Rise\\": "rise"
     }
+  },
+  "scripts": {
+    "post-install-cmd": "Rise\\Tasks\\InstallTask::run"
+  }
 }
