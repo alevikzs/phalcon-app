@@ -8,6 +8,7 @@ use \Phalcon\Mvc\Model\Criteria,
     \Rise\Controller\Collection as CollectionController,
 
     \App\Models\User;
+use Rise\Config\Local;
 
 /**
  * Class Collection

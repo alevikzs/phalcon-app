@@ -10,8 +10,7 @@ use \Phalcon\Http\Response,
     \Rise\Exception\Error,
     \Rise\Exception\Normal,
 
-    \App\Config\Routes,
-    \App\Config\Database;
+    \App\Config\Routes;
 
 /**
  * Class Boot
@@ -44,13 +43,6 @@ abstract class Web extends Micro implements  Boot {
     }
 
     /**
-     * @return Pdo
-     */
-    protected function getDatabase() {
-        return Database::get();
-    }
-
-    /**
      * @return $this
      */
     protected function mountRoutes() {
@@ -71,7 +63,7 @@ abstract class Web extends Micro implements  Boot {
     }
 
     protected static function setCustomErrorHandler() {
-        ini_set('display_errors', false);
+//        ini_set('display_errors', false);
 
         $exceptionErrorHandler = function($level, $message, $file, $line) {
             if (!(error_reporting() & $level)) {

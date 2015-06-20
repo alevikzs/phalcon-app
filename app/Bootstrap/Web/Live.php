@@ -2,7 +2,10 @@
 
 namespace App\Bootstrap\Web;
 
-use \Rise\Bootstrap\Web;
+use \Phalcon\Db\Adapter\Pdo,
+
+    \Rise\Bootstrap\Web,
+    \Rise\Config\Local;
 
 /**
  * Class Web
@@ -11,5 +14,14 @@ use \Rise\Bootstrap\Web;
 class Live extends Web {
 
     use \Rise\Bootstrap\Live;
+
+    /**
+     * @return Pdo
+     */
+    public function getDatabase() {
+        return Local::get()
+            ->getDatabase()
+            ->getLiveInstance();
+    }
 
 }

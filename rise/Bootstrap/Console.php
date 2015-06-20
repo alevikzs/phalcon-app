@@ -3,10 +3,7 @@
 namespace Rise\Bootstrap;
 
 use \Phalcon\CLI\Console as BaseConsole,
-    \Phalcon\Db\Adapter\Pdo,
-    \Phalcon\Di\FactoryDefault\Cli,
-
-    \App\Config\Database;
+    \Phalcon\Di\FactoryDefault\Cli;
 
 /**
  * Class Console
@@ -124,13 +121,6 @@ abstract class Console extends BaseConsole implements Boot {
         $this->setDI($dependency);
 
         return $this;
-    }
-
-    /**
-     * @return Pdo
-     */
-    protected function getDatabase() {
-        return Database::get();
     }
 
 }

@@ -5,8 +5,7 @@ namespace App\Bootstrap\Web;
 use \Phalcon\Db\Adapter\Pdo,
 
     \Rise\Bootstrap\Web,
-
-    \App\Config\Database;
+    \Rise\Config\Local;
 
 /**
  * Class Test
@@ -19,8 +18,10 @@ class Test extends Web {
     /**
      * @return Pdo
      */
-    protected function getDatabase() {
-        return Database::getTest();
+    public function getDatabase() {
+        return Local::get()
+            ->getDatabase()
+            ->getTestInstance();
     }
 
 }

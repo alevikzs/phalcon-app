@@ -2,10 +2,7 @@
 
 namespace Rise\Config;
 
-use \Phalcon\Config\Adapter\Json,
-    \Phalcon\Db\Adapter\Pdo,
-
-    \Rise\Config\Local\Database,
+use \Rise\Config\Local\Database,
     \Rise\Config\Local\Security;
 
 /**
@@ -27,6 +24,11 @@ class Local {
     public $database;
 
     /**
+     * @var $this
+     */
+    private static $instance;
+
+    /**
      * @return Security
      */
     public function getSecurity() {
@@ -34,7 +36,7 @@ class Local {
     }
 
     /**
-     * @param Security $security
+     * @param \Rise\Config\Local\Security $security
      * @return $this
      */
     public function setSecurity($security) {
@@ -50,7 +52,7 @@ class Local {
     }
 
     /**
-     * @param Database $database
+     * @param \Rise\Config\Local\Database $database
      * @return $this
      */
     public function setDatabase($database) {
@@ -59,22 +61,10 @@ class Local {
     }
 
     /**
-     * @var Pdo
-     */
-    private $liveDatabase;
-
-    /**
-     * @var Pdo
-     */
-    private $testDatabase;
-
-    /**
      * @param Database $database
      * @param Security $security
      */
-    public function __construct(Database $database, Security $security) {
-//        $config = new Ini(self::getIni());
-
+    public function __construct(Database $database = null, Security $security = null) {
         $this->setDatabase($database)->setSecurity($security);
     }
 
@@ -86,9 +76,16 @@ class Local {
         return $this;
     }
 
-    public static function create() {
-        $json = json_decode(file_get_contents(self::getPath()));
-        return static::promote($json);
+    /**
+     * @return $this
+     */
+    public static function get() {
+        if (is_null(self::$instance)) {
+            $json = json_decode(file_get_contents(self::getPath()));
+            self::$instance = static::promote($json);
+        }
+
+        return self::$instance;
     }
 
     /**
@@ -96,50 +93,6 @@ class Local {
      */
     private static function getPath() {
         return dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'local.json';
-    }
-
-    /**
-     * @return string
-     */
-    public function getSalt() {
-        return $this->getConfig()->get('salt');
-    }
-
-    /**
-     * @return Pdo
-     */
-    public function getLiveDatabase() {
-        if (!$this->liveDatabase) {
-            $this->liveDatabase = $this->createDatabase();
-        }
-
-        return  $this->liveDatabase;
-    }
-
-    /**
-     * @return Pdo
-     */
-    public function getTestDatabase() {
-        if (!$this->testDatabase) {
-            $this->testDatabase = $this->createDatabase(false);
-        }
-
-        return  $this->testDatabase;
-    }
-
-    /**
-     * @param bool $isLive
-     */
-    private function createDatabase($isLive = true) {
-        $adapter = $this->getConfig()->get('adapter');
-        $dbName = $isLive ? $this->getConfig()->get('live') : $this->getConfig()->get('test');
-
-        return new $adapter([
-            'host' => $this->getConfig()->get('host'),
-            'username' => $this->getConfig()->get('username'),
-            'password' => $this->getConfig()->get('password'),
-            'dbname' => $dbName
-        ]);
     }
 
 }

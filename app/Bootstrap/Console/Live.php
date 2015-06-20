@@ -2,7 +2,10 @@
 
 namespace App\Bootstrap\Console;
 
-use \Rise\Bootstrap\Console;
+use \Phalcon\Db\Adapter\Pdo,
+
+    \Rise\Bootstrap\Console,
+    \Rise\Config\Local;
 
 /**
  * Class Console
@@ -11,5 +14,14 @@ use \Rise\Bootstrap\Console;
 class Live extends Console {
 
     use \Rise\Bootstrap\Live;
+
+    /**
+     * @return Pdo
+     */
+    public function getDatabase() {
+        return Local::get()
+            ->getDatabase()
+            ->getLiveInstance();
+    }
 
 }

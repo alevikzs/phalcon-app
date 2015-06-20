@@ -36,7 +36,14 @@ class Composer {
             'localhost'
         );
         $user = $io->ask(
-            '<info>Enter database username</info>: '
+            '<info>Enter database username</info>: ',
+            function ($argument) {
+                if ($argument) {
+                    return $argument;
+                }
+                throw new \Exception('This is not a valid answer. User name can\'t be empty');
+            },
+            10
         );
         $password = $io->ask(
             '<info>Enter database password (Default to "")</info>: ',

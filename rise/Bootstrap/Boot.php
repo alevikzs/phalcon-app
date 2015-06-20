@@ -2,6 +2,8 @@
 
 namespace Rise\Bootstrap;
 
+use \Phalcon\Db\Adapter\Pdo;
+
 /**
  * Interface Boot
  * @package Rise\Bootstrap
@@ -24,5 +26,10 @@ interface Boot {
      * @return bool
      */
     public function isTest();
+
+    /**
+     * @return Pdo
+     */
+    public function getDatabase();
 
 }

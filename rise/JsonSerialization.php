@@ -11,7 +11,7 @@ use \JsonMapper;
 trait JsonSerialization {
 
     /**
-     * @param string $json
+     * @param mixed $json
      * @return $this
      */
     public static function promote($json) {

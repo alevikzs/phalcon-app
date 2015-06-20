@@ -5,8 +5,7 @@ namespace App\Bootstrap\Console;
 use \Phalcon\Db\Adapter\Pdo,
 
     \Rise\Bootstrap\Console,
-
-    \App\Config\Database;
+    \Rise\Config\Local;
 
 /**
  * Class Console
@@ -17,10 +16,12 @@ class Test extends Console {
     use \Rise\Bootstrap\Test;
 
     /**
-    * @return Pdo
-    */
-    protected function getDatabase() {
-        return Database::getTest();
+     * @return Pdo
+     */
+    public function getDatabase() {
+        return Local::get()
+            ->getDatabase()
+            ->getTestInstance();
     }
 
 }

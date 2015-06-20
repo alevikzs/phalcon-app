@@ -2,7 +2,9 @@
 
 namespace Rise\Config\Local;
 
-/**
+use \Phalcon\Db\Adapter\Pdo;
+
+    /**
  * Class Database
  * @package Rise\Config\Local
  */
@@ -37,6 +39,16 @@ class Database {
      * @var string
      */
     public $test;
+
+    /**
+     * @var Pdo
+     */
+    private $liveInstance;
+
+    /**
+     * @var Pdo
+     */
+    private $testInstance;
 
     /**
      * @return string
@@ -142,7 +154,7 @@ class Database {
      * @param string $adapter
      * @param string $host
      */
-    public function __construct($user, $live, $test, $password = '', $adapter = 'Postgresql', $host = 'localhost') {
+    public function __construct($user = null, $live = null, $test = null, $password = '', $adapter = 'Postgresql', $host = 'localhost') {
         $this
             ->setUser($user)
             ->setLive($live)
@@ -150,6 +162,42 @@ class Database {
             ->setPassword($password)
             ->setAdapter($adapter)
             ->setHost($host);
+    }
+
+    /**
+     * @return Pdo
+     */
+    public function getLiveInstance() {
+        if (is_null($this->liveInstance)) {
+            $this->liveInstance = $this->createDatabase();
+        }
+
+        return  $this->liveInstance;
+    }
+
+    /**
+     * @return Pdo
+     */
+    public function getTestInstance() {
+        if (is_null($this->testInstance)) {
+            $this->testInstance = $this->createDatabase(false);
+        }
+
+        return  $this->testInstance;
+    }
+
+    /**
+     * @param bool $isLive
+     */
+    private function createDatabase($isLive = true) {
+        $adapter = '\\Phalcon\\Db\\Adapter\\Pdo\\' . $this->getAdapter();
+
+        return new $adapter([
+            'host' => $this->getHost(),
+            'username' => $this->getUser(),
+            'password' => $this->getPassword(),
+            'dbname' => $isLive ? $this->getLive() : $this->getTest()
+        ]);
     }
 
 }
