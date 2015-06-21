@@ -21,7 +21,7 @@ class Inner extends Simple {
     public function getPayload() {
         $rawPayload = $this->getRawPayload();
 
-        return Payload::cast($rawPayload);
+        return Payload::promote($rawPayload);
     }
 
     /**

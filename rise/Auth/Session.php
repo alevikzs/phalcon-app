@@ -4,7 +4,8 @@ namespace Rise\Auth;
 
 use \JWT,
 
-    \Phalcon\Security;
+    \Phalcon\Security,
+    \Rise\Config\Local;
 
 /**
  * Class Session
@@ -58,7 +59,11 @@ class Session {
      * @param string $algorithm
      * @param string $salt
      */
-    public function __construct($algorithm = 'HS256' , $salt = null) {
+    public function __construct($algorithm = 'HS256', $salt = null) {
+        if (is_null($salt)) {
+            $salt = Local::get()->getSecurity()->getSalt();
+        }
+
         $this
             ->setAlgorithm($algorithm)
             ->setSalt($salt);

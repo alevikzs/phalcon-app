@@ -2,8 +2,6 @@
 
 namespace Rise\Models\Request\Collection;
 
-use Rise\Models\Request;
-
 /**
  * Class Order
  * @package Rise\Models\Request\Collection

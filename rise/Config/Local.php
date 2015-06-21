@@ -3,7 +3,8 @@
 namespace Rise\Config;
 
 use \Rise\Config\Local\Database,
-    \Rise\Config\Local\Security;
+    \Rise\Config\Local\Security,
+    \Rise\JsonSerialization;
 
 /**
  * Class Local
@@ -11,7 +12,7 @@ use \Rise\Config\Local\Database,
  */
 class Local {
 
-    use \Rise\JsonSerialization;
+    use JsonSerialization;
 
     /**
      * @var Security

@@ -2,11 +2,15 @@
 
 namespace Rise\Models\Request\Token;
 
-use \stdClass,
+use \Rise\JsonSerialization;
 
-    \Rise\Models\Request;
+/**
+ * Class Inner
+ * @package Rise\Models\Request\Token
+ */
+class Inner {
 
-class Inner extends Request {
+    use JsonSerialization;
 
     /**
      * @var string

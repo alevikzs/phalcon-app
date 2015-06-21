@@ -2,7 +2,7 @@
 
 namespace Rise\Models\Request\Collection;
 
-use \Rise\Models\Request;
+use \Rise\JsonSerialization;
 
 /**
  * Class Base
@@ -10,7 +10,7 @@ use \Rise\Models\Request;
  */
 class Base {
 
-    use \Rise\JsonSerialization;
+    use JsonSerialization;
 
     /**
      * @var integer

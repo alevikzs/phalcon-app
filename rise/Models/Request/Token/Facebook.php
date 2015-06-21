@@ -2,11 +2,11 @@
 
 namespace Rise\Models\Request\Token;
 
-use \stdClass,
-
-    \Rise\Models\Request;
-
-class Facebook extends Request {
+/**
+ * Class Facebook
+ * @package Rise\Models\Request\Token
+ */
+class Facebook {
 
     /**
      * @var string
