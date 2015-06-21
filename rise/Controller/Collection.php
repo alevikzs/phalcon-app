@@ -22,7 +22,7 @@ abstract class Collection extends Base {
     public function getPayload() {
         $rawPayload = $this->getRawPayload();
 
-        return CollectionPayload::cast($rawPayload);
+        return CollectionPayload::promote($rawPayload);
     }
 
     /**

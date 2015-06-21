@@ -19,7 +19,7 @@ class Create extends Simple {
      */
     public function run() {
         (new User())
-            ->save($this->getRawPayload(true));
+            ->save($this->getRawPayload());
         return $this->response();
     }
 

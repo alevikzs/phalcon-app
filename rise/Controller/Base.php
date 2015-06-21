@@ -34,7 +34,7 @@ abstract class Base extends Controller {
      * @param boolean $isAssociative
      * @return mixed
      */
-    public function getRawPayload($isAssociative = false) {
+    public function getRawPayload($isAssociative = true) {
         return $this
             ->request
             ->getJsonRawBody($isAssociative);

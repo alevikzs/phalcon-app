@@ -2,15 +2,15 @@
 
 namespace Rise\Models\Request\Collection;
 
-use \stdClass,
-
-    \Rise\Models\Request;
+use \Rise\Models\Request;
 
 /**
  * Class Base
  * @package Rise\Models\Request\Collection
  */
-class Base extends Request {
+class Base {
+
+    use \Rise\JsonSerialization;
 
     /**
      * @var integer
@@ -96,33 +96,6 @@ class Base extends Request {
             ->setLimit($limit)
             ->setPage($page)
             ->setOrder($order);
-    }
-
-    /**
-     * @return array
-     */
-    public function relations() {
-        return [
-            'order' => [
-                'type' => self::RELATION_MANY,
-                'model' => '\Rise\Models\Request\Collection\Order'
-            ]
-        ];
-    }
-
-    /**
-     * @param stdClass $payload
-     * @return self
-     */
-    public static function cast(stdClass $payload) {
-        /** @var Base $base */
-        $base = parent::cast($payload);
-
-        if (!$base->getOrder()) {
-            $base->addOrder(new Order('name'));
-        }
-
-        return $base;
     }
 
     /**

@@ -8,7 +8,7 @@ use Rise\Models\Request;
  * Class Order
  * @package Rise\Models\Request\Collection
  */
-class Order extends Request {
+class Order {
 
     const ORDER_DIRECTION_ASC = 0;
 
