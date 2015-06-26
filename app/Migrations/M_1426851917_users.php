@@ -22,6 +22,7 @@ class M_1426851917_users extends Migration {
                             'size' => 10,
                             'notNull' => true,
                             'autoIncrement' => true,
+                            'primary' => true
                         ]
                     ),
                     new Column('name', [

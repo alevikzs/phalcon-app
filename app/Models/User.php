@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use \Rise\Mvc\Model;
+use \Phalcon\Security,
+
+    \Rise\Mvc\Model;
 
 /**
  * Class User
@@ -99,6 +101,13 @@ class User extends Model {
      */
     public function getSource() {
         return 'users';
+    }
+
+    public function beforeSave() {
+        if (!$this->hasSnapshotData() || $this->hasChanged('password')) {
+            $hash = (new Security())->hash($this->getPassword());
+            $this->setPassword($hash);
+        }
     }
 
 }

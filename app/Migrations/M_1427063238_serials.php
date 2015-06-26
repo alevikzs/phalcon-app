@@ -22,6 +22,7 @@ class M_1427063238_serials extends Migration {
                             'size' => 10,
                             'notNull' => true,
                             'autoIncrement' => true,
+                            'primary' => true
                         ]
                     ),
                     new Column('name', [

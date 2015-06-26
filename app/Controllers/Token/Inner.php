@@ -25,20 +25,33 @@ class Inner extends Simple {
     }
 
     /**
-     * @throws \HttpException
+     * @throws \Exception
      * @return Response
      */
     public function run() {
-        $user = User::query()->where([
-            'email' => $this->getPayload()->getEmail(),
-            'password' => $this->getPayload()->getPassword()
+        /** @var User $user */
+        $user = User::findFirst([
+            'conditions' => 'email = ?1',
+            'bind' => [1 => $this->getPayload()->getEmail()]
         ]);
         if ($user) {
-            $session = new Session();
+            if ($this->security->checkHash(
+                $this->getPayload()->getPassword(),
+                $user->getPassword())
+            ) {
+                $token = (new Session())->encode([
+                    'id' => $user->getId()
+                ]);
+                return $this->response([
+                    'user' => $user->toArray(),
+                    'token' => $token
+                ]);
+            } else {
+                throw new \Exception('Wrong password', 400);
+            }
         } else {
-            throw new \HttpException('User not found', 404);
+            throw new \Exception('User not found', 404);
         }
-        return $this->response($user);
     }
 
 }
