@@ -4,6 +4,7 @@ namespace Rise\Controller;
 
 use \Phalcon\Http\Response,
 
+    \Rise\Controller,
     \Rise\Models\Response\Base\Simple as SimpleResponse,
     \Rise\Http\Response as HttpResponse;
 
@@ -11,7 +12,7 @@ use \Phalcon\Http\Response,
  * Class Simple
  * @package Rise\Controller
  */
-abstract class Simple extends Base {
+abstract class Simple extends Controller {
 
     /**
      * @param mixed $data

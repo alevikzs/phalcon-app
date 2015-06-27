@@ -4,7 +4,7 @@ namespace App\Models;
 
 use \Phalcon\Security,
 
-    \Rise\Mvc\Model;
+    \Rise\Model;
 
 /**
  * Class User

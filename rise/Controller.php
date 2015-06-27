@@ -1,15 +1,15 @@
 <?php
 
-namespace Rise\Controller;
+namespace Rise;
 
-use \Phalcon\Mvc\Controller,
+use \Phalcon\Mvc\Controller as BaseController,
     \Phalcon\Http\Response;
 
 /**
  * Class Base
- * @package Rise\Controller
+ * @package Rise
  */
-abstract class Base extends Controller {
+abstract class Controller extends BaseController {
 
     /**
      * @return Response

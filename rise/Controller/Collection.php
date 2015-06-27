@@ -5,6 +5,7 @@ namespace Rise\Controller;
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
+    \Rise\Controller,
     \Rise\Models\Response\Base\Collection as CollectionResponse,
     \Rise\Http\Response as HttpResponse,
     \Rise\Models\Request\Collection\Base as CollectionPayload,
@@ -14,7 +15,7 @@ use \Phalcon\Http\Response,
  * Class Collection
  * @package Rise\Controller
  */
-abstract class Collection extends Base {
+abstract class Collection extends Controller {
 
     /**
      * @return CollectionPayload
