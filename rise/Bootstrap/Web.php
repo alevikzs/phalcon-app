@@ -2,13 +2,17 @@
 
 namespace Rise\Bootstrap;
 
-use \Phalcon\Http\Response,
+use \Exception,
+
+    \Phalcon\Http\Response,
     \Phalcon\Mvc\Micro,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
 
     \Rise\Exception\Error as ErrorException,
     \Rise\Exception\User as UserException,
+    \Rise\Http\Response\Error as ErrorResponse,
+    \Rise\Models\Response\Base\Exception as ResponsePayloadException,
 
     \App\Config\Routes;
 
@@ -21,10 +25,16 @@ abstract class Web extends Micro implements  Boot {
     public function go() {
         self::setCustomErrorHandler();
 
-        $this
-            ->createDependencies()
-            ->mountRoutes()
-            ->handle();
+        try {
+            $this
+                ->createDependencies()
+                ->mountRoutes()
+                ->handle();
+        } catch (Exception $exception) {
+            (new ErrorResponse(
+                new ResponsePayloadException($exception)
+            ))->send();
+        }
     }
 
     /**
