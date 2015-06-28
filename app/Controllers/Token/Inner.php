@@ -6,6 +6,7 @@ use \Rise\Http\Response,
     \Rise\Controller\Simple,
     \Rise\Models\Request\Token\Inner as Payload,
     \Rise\Auth\Session,
+    \Rise\Exception\User as UserException,
 
     \App\Models\User;
 
@@ -47,10 +48,10 @@ class Inner extends Simple {
                     'token' => $token
                 ]);
             } else {
-                throw new \Exception('Wrong password', 400);
+                throw new UserException('Wrong password', 400);
             }
         } else {
-            throw new \Exception('User not found', 404);
+            throw new UserException('User not found', 404);
         }
     }
 

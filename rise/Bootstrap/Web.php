@@ -7,8 +7,8 @@ use \Phalcon\Http\Response,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
 
-    \Rise\Exception\Error,
-    \Rise\Exception\Normal,
+    \Rise\Exception\Error as ErrorException,
+    \Rise\Exception\User as UserException,
 
     \App\Config\Routes;
 
@@ -57,7 +57,7 @@ abstract class Web extends Micro implements  Boot {
         }
 
         return $this->notFound(function () {
-            throw new Normal('Not Found', 404);
+            throw new UserException('Not Found', 404);
         });
 
     }
@@ -69,7 +69,7 @@ abstract class Web extends Micro implements  Boot {
             if (!(error_reporting() & $level)) {
                 return false;
             }
-            throw new Error($message, 0, $level, $file, $line);
+            throw new ErrorException($message, 0, $level, $file, $line);
         };
         set_error_handler($exceptionErrorHandler);
 

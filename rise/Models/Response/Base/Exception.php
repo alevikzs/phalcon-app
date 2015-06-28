@@ -13,13 +13,37 @@ use \Exception as BaseException,
 class Exception extends Simple {
 
     /**
+     * @var BaseException
+     */
+    private $exception;
+
+    /**
+     * @return BaseException
+     */
+    public function getException() {
+        return $this->exception;
+    }
+
+    /**
+     * @param BaseException $exception
+     * @return $this
+     */
+    public function setException(BaseException $exception) {
+        $this->exception = $exception;
+        return $this;
+    }
+
+
+
+    /**
      * @param BaseException $exception
      * @param Meta $meta
      */
     public function __construct(BaseException $exception, Meta $meta = null) {
         $this
+            ->setException($exception)
             ->setData(
-                $this->createData($exception)
+                $this->createData()
             )
             ->setSuccess(false);
 
@@ -29,16 +53,15 @@ class Exception extends Simple {
     }
 
     /**
-     * @param BaseException $exception
      * @return array
      */
-    public function createData(BaseException $exception) {
+    private function createData() {
         return [
-            'message' => $exception->getMessage(),
-            'code' => $exception->getCode(),
-            'file' => $exception->getFile(),
-            'line' => $exception->getLine(),
-            'trace' => $exception->getTrace()
+            'message' => $this->getException()->getMessage(),
+            'code' => $this->getException()->getCode(),
+            'file' => $this->getException()->getFile(),
+            'line' => $this->getException()->getLine(),
+            'trace' => $this->getException()->getTrace()
         ];
     }
 

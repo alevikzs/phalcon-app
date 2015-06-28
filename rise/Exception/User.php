@@ -5,9 +5,9 @@ namespace Rise\Exception;
 use \Phalcon\Exception as PhalconException;
 
 /**
- * Class Normal
+ * Class User
  * @package Rise\Exception
  */
-class Normal extends PhalconException {
+class User extends PhalconException {
 
 }

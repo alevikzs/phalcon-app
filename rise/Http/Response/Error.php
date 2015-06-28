@@ -2,7 +2,9 @@
 
 namespace Rise\Http\Response;
 
-use \Rise\Models\Response\Base\Exception as Body,
+use \Exception,
+
+    \Rise\Models\Response\Base\Exception as Body,
     \Rise\Http\Response;
 
 /**
@@ -11,15 +13,24 @@ use \Rise\Models\Response\Base\Exception as Body,
  */
 class Error extends Response {
 
+    const DEFAULT_STATUS_CODE = 500;
+
     /**
      * @param Body $body
      */
     public function __construct(Body $body) {
         parent::__construct(
             $body,
-            500,
-            'Internal Server Error'
+            $this->getStatusCodeFromException($body->getException())
         );
+    }
+
+    /**
+     * @param Exception $exception
+     * @return integer
+     */
+    protected function getStatusCodeFromException(Exception $exception) {
+        return $this->isStandardCode($exception->getCode()) ? $exception->getCode() : self::DEFAULT_STATUS_CODE;
     }
 
 }
