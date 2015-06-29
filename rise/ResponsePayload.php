@@ -1,17 +1,16 @@
 <?php
 
-namespace Rise\Models\Response\Base;
+namespace Rise;
 
 use \Exception,
 
-    \Rise\Models\Response\Base,
-    \Rise\Models\Response\Meta;
+    \Rise\ResponsePayload\Meta;
 
 /**
- * Class Simple
- * @package Rise\Models\Response\Base
+ * Class ResponsePayload
+ * @package Rise
  */
-class Simple extends Base {
+class ResponsePayload {
 
     /**
      * @var boolean

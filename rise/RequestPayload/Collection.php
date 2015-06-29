@@ -1,16 +1,15 @@
 <?php
 
-namespace Rise\Models\Request\Collection;
+namespace Rise\RequestPayload;
 
-use \Rise\JsonSerialization;
+use Rise\RequestPayload,
+    Rise\RequestPayload\Collection\Order;
 
 /**
- * Class Base
- * @package Rise\Models\Request\Collection
+ * Class Collection
+ * @package Rise\RequestPayload
  */
-class Base {
-
-    use JsonSerialization;
+class Collection extends RequestPayload {
 
     /**
      * @var integer

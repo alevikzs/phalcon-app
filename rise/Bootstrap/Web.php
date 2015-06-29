@@ -12,7 +12,7 @@ use \Exception,
     \Rise\Exception\Error as ErrorException,
     \Rise\Exception\User as UserException,
     \Rise\Http\Response\Error as ErrorResponse,
-    \Rise\Models\Response\Base\Exception as ResponsePayloadException,
+    \Rise\ResponsePayload\Exception as ResponsePayloadException,
 
     \App\Config\Routes;
 

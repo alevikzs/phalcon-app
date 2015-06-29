@@ -1,16 +1,14 @@
 <?php
 
-namespace Rise\Models\Request\Token;
+namespace Rise\RequestPayload\Token;
 
-use \Rise\JsonSerialization;
+use Rise\RequestPayload;
 
 /**
  * Class Inner
- * @package Rise\Models\Request\Token
+ * @package Rise\RequestPayload\Token
  */
-class Inner {
-
-    use JsonSerialization;
+class Inner extends RequestPayload {
 
     /**
      * @var string

@@ -4,7 +4,7 @@ namespace App\Controllers\Token;
 
 use \Rise\Http\Response,
     \Rise\Controller\Simple,
-    \Rise\Models\Request\Token\Inner as Payload,
+    \Rise\RequestPayload\Token\Inner as Payload,
     \Rise\Auth\Session,
     \Rise\Exception\User as UserException,
 

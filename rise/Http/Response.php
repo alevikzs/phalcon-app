@@ -4,7 +4,7 @@ namespace Rise\Http;
 
 use \Phalcon\Http\Response as BaseResponse,
 
-    \Rise\Models\Response\Base as Body;
+    \Rise\ResponsePayload;
 
 /**
  * Class Base
@@ -13,11 +13,11 @@ use \Phalcon\Http\Response as BaseResponse,
 class Response extends BaseResponse {
 
     /**
-     * @param Body $body
+     * @param ResponsePayload $body
      * @param int|null $code
      * @param string|null $status
      */
-    public function __construct(Body $body, $code = null, $status = null) {
+    public function __construct(ResponsePayload $body, $code = null, $status = null) {
         parent::__construct(null, $code, $status);
         $this->setContentType('application/json');
         $this->setHeader('Access-Control-Allow-Origin', '*');

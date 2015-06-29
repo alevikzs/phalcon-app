@@ -1,16 +1,17 @@
 <?php
 
-namespace Rise\Models\Response\Base;
+namespace Rise\ResponsePayload;
 
 use \Exception as BaseException,
 
-    \Rise\Models\Response\Meta;
+    \Rise\ResponsePayload,
+    \Rise\ResponsePayload\Meta;
 
 /**
  * Class Exception
- * @package Rise\Models\Response\Base
+ * @package Rise\ResponsePayload
  */
-class Exception extends Simple {
+class Exception extends ResponsePayload {
 
     /**
      * @var BaseException

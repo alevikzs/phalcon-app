@@ -1,10 +1,10 @@
 <?php
 
-namespace Rise\Models\Request\Collection;
+namespace Rise\RequestPayload\Collection;
 
 /**
  * Class Order
- * @package Rise\Models\Request\Collection
+ * @package Rise\RequestPayload\Collection
  */
 class Order {
 

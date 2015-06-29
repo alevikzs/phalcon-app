@@ -1,12 +1,14 @@
 <?php
 
-namespace Rise\Models\Request\Token;
+namespace Rise\RequestPayload\Token;
+
+use Rise\RequestPayload;
 
 /**
  * Class Facebook
- * @package Rise\Models\Request\Token
+ * @package Rise\RequestPayload\Token
  */
-class Facebook {
+class Facebook extends RequestPayload {
 
     /**
      * @var string

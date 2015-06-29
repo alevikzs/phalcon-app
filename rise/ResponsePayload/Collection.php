@@ -1,17 +1,17 @@
 <?php
 
-namespace Rise\Models\Response\Base;
+namespace Rise\ResponsePayload;
 
 use \Phalcon\Mvc\Model\Criteria,
 
-    \Rise\Models\Response\Meta,
-    \Rise\Models\Response\Meta\Collection as MetaCollection;
+    \Rise\ResponsePayload,
+    \Rise\ResponsePayload\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
- * @package Rise\Models\Response\Base
+ * @package Rise\ResponsePayload
  */
-class Collection extends Simple {
+class Collection extends ResponsePayload {
 
     /**
      * @var Criteria
@@ -38,7 +38,7 @@ class Collection extends Simple {
      * @param Criteria $query
      * @param MetaCollection $meta
      */
-    public function __construct(Criteria $query, $meta) {
+    public function __construct(Criteria $query, MetaCollection $meta) {
         $this
             ->setQuery($query)
             ->setSuccess(true)

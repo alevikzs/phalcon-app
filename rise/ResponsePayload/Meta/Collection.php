@@ -1,12 +1,12 @@
 <?php
 
-namespace Rise\Models\Response\Meta;
+namespace Rise\ResponsePayload\Meta;
 
-use \Rise\Models\Response\Meta;
+use \Rise\ResponsePayload\Meta;
 
 /**
  * Class Collection
- * @package Rise\Models\Response\Meta
+ * @package Rise\ResponsePayload\Meta
  */
 class Collection extends Meta {
 

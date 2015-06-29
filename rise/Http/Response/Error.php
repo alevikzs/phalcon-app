@@ -4,7 +4,7 @@ namespace Rise\Http\Response;
 
 use \Exception,
 
-    \Rise\Models\Response\Base\Exception as Body,
+    \Rise\ResponsePayload\Exception as ResponsePayloadException,
     \Rise\Http\Response;
 
 /**
@@ -16,9 +16,9 @@ class Error extends Response {
     const DEFAULT_STATUS_CODE = 500;
 
     /**
-     * @param Body $body
+     * @param ResponsePayloadException $body
      */
-    public function __construct(Body $body) {
+    public function __construct(ResponsePayloadException $body) {
         parent::__construct(
             $body,
             $this->getStatusCodeFromException($body->getException())

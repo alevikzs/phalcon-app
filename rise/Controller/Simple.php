@@ -5,7 +5,7 @@ namespace Rise\Controller;
 use \Phalcon\Http\Response,
 
     \Rise\Controller,
-    \Rise\Models\Response\Base\Simple as SimpleResponse,
+    \Rise\ResponsePayload,
     \Rise\Http\Response as HttpResponse;
 
 /**
@@ -19,7 +19,7 @@ abstract class Simple extends Controller {
      * @return HttpResponse
      */
     public function response($data = null) {
-        $response = new SimpleResponse($data);
+        $response = new ResponsePayload($data);
 
         return (new HttpResponse($response));
     }

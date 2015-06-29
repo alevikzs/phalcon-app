@@ -6,10 +6,10 @@ use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
     \Rise\Controller,
-    \Rise\Models\Response\Base\Collection as CollectionResponse,
+    \Rise\ResponsePayload\Collection as CollectionResponse,
     \Rise\Http\Response as HttpResponse,
-    \Rise\Models\Request\Collection\Base as CollectionPayload,
-    \Rise\Models\Response\Meta\Collection as MetaCollection;
+    \Rise\RequestPayload\Collection as CollectionPayload,
+    \Rise\ResponsePayload\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
