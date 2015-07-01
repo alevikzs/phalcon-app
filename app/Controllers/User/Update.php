@@ -26,7 +26,7 @@ class Update extends Simple {
         if ($user) {
             $user->save($this->getRawPayload());
 
-            return $this->response();
+            return $this->response($user->toArray());
         } else {
             throw new UserException('User not found', 404);
         }
