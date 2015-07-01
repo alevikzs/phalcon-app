@@ -9,6 +9,9 @@ use \Phalcon\Security,
 /**
  * Class User
  * @package App\Models
+ * @method static User findFirstById(integer $id)
+ * @method static User findFirstByName(string $name)
+ * @method static User findFirstByEmail(string $email)
  */
 class User extends Model {
 

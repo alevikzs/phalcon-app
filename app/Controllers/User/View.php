@@ -5,6 +5,7 @@ namespace App\Controllers\User;
 use \Phalcon\Http\Response,
 
     \Rise\Controller\Simple,
+    \Rise\Exception\User as UserException,
 
     \App\Models\User;
 
@@ -17,11 +18,16 @@ class View extends Simple {
 
     /**
      * @return Response
+     * @throws UserException
      */
     public function run() {
-        $user = User::findFirst($this->getId())
-            ->toArray();
-        return $this->response($user);
+        $user = User::findFirstById($this->getId());
+
+        if ($user) {
+            return $this->response($user);
+        } else {
+            throw new UserException('User not found', 404);
+        }
     }
 
 }

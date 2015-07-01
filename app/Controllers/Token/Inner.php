@@ -30,11 +30,8 @@ class Inner extends Simple {
      * @return Response
      */
     public function run() {
-        /** @var User $user */
-        $user = User::findFirst([
-            'conditions' => 'email = ?1',
-            'bind' => [1 => $this->getPayload()->getEmail()]
-        ]);
+        $user = User::findFirstByEmail($this->getPayload()->getEmail());
+
         if ($user) {
             if ($this->security->checkHash(
                 $this->getPayload()->getPassword(),
@@ -43,6 +40,7 @@ class Inner extends Simple {
                 $token = (new Session())->encode([
                     'id' => $user->getId()
                 ]);
+
                 return $this->response([
                     'user' => $user->toArray(),
                     'token' => $token

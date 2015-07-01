@@ -5,6 +5,7 @@ namespace App\Controllers\User;
 use \Phalcon\Http\Response,
 
     \Rise\Controller\Simple,
+    \Rise\Exception\User as UserException,
 
     \App\Models\User;
 
@@ -17,11 +18,18 @@ class Delete extends Simple {
 
     /**
      * @return Response
+     * @throws UserException
      */
     public function run() {
-        User::findFirst($this->getId())
-            ->delete();
-        return $this->response();
+        $user = User::findFirstById($this->getId());
+
+        if ($user) {
+            $user->delete();
+
+            return $this->response();
+        } else {
+            throw new UserException('User not found', 404);
+        }
     }
 
 }
