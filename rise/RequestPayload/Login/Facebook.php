@@ -1,12 +1,12 @@
 <?php
 
-namespace Rise\RequestPayload\Token;
+namespace Rise\RequestPayload\Login;
 
 use Rise\RequestPayload;
 
 /**
  * Class Facebook
- * @package Rise\RequestPayload\Token
+ * @package Rise\RequestPayload\Login
  */
 class Facebook extends RequestPayload {
 

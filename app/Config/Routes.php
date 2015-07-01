@@ -35,16 +35,21 @@ final class Routes {
                     'route' => '/user/{id}',
                     'class' => 'View',
                     'method' => 'get'
+                ],
+                [
+                    'route' => '/user/register',
+                    'class' => 'Register',
+                    'method' => 'post'
                 ]
             ],
-            'Token' => [
+            'Login' => [
                 [
-                    'route' => '/token/inner',
+                    'route' => '/login/inner',
                     'class' => 'Inner',
                     'method' => 'post'
                 ],
                 [
-                    'route' => '/token/facebook',
+                    'route' => '/login/facebook',
                     'class' => 'Facebook',
                     'method' => 'post'
                 ],

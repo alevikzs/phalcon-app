@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Token;
+namespace App\Controllers\Login;
 
 use \Rise\Http\Response,
 
@@ -8,7 +8,7 @@ use \Rise\Http\Response,
 
 /**
  * Class Facebook
- * @package App\Controllers\Token
+ * @package App\Controllers\Login
  */
 class Facebook extends Simple {
 

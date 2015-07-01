@@ -4,7 +4,8 @@ namespace App\Models;
 
 use \Phalcon\Security,
 
-    \Rise\Model;
+    \Rise\Model,
+    \Rise\Auth\Session;
 
 /**
  * Class User
@@ -111,6 +112,15 @@ class User extends Model {
             $hash = (new Security())->hash($this->getPassword());
             $this->setPassword($hash);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function createToken() {
+        return (new Session())->encode([
+            'id' => $this->getId()
+        ]);
     }
 
 }

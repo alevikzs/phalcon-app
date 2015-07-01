@@ -12,7 +12,7 @@ use \Phalcon\Http\Response,
  * Class Create
  * @package App\Controllers\User
  */
-class Create extends Simple {
+class Register extends Simple {
 
     /**
      * @return Response
@@ -22,7 +22,10 @@ class Create extends Simple {
         $user = (new User())->assign($this->getRawPayload());
         $user->save();
 
-        return $this->response($user->toArray());
+        return $this->response([
+            'user' => $user->toArray(),
+            'token' => $user->createToken()
+        ]);
     }
 
 }

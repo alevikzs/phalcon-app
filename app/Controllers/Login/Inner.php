@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Controllers\Token;
+namespace App\Controllers\Login;
 
 use \Rise\Http\Response,
     \Rise\Controller\Simple,
-    \Rise\RequestPayload\Token\Inner as Payload,
-    \Rise\Auth\Session,
+    \Rise\RequestPayload\Login\Inner as Payload,
     \Rise\Exception\User as UserException,
 
     \App\Models\User;
 
 /**
  * Class Inner
- * @package App\Controllers\Token
+ * @package App\Controllers\Login
  */
 class Inner extends Simple {
 
@@ -37,13 +36,9 @@ class Inner extends Simple {
                 $this->getPayload()->getPassword(),
                 $user->getPassword())
             ) {
-                $token = (new Session())->encode([
-                    'id' => $user->getId()
-                ]);
-
                 return $this->response([
                     'user' => $user->toArray(),
-                    'token' => $token
+                    'token' => $user->createToken()
                 ]);
             } else {
                 throw new UserException('Wrong password', 400);
