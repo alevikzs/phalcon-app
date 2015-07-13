@@ -3,25 +3,24 @@
 namespace App\Controllers\Login;
 
 use \Rise\Http\Response,
-    \Rise\Controller\Simple,
-    \Rise\RequestPayload\Login\Inner as Payload,
+    \Rise\Controller\Payload as PayloadController,
     \Rise\Exception\User as UserException,
+    \Rise\RequestPayload\Login\Inner as LoginRequestPayload,
 
     \App\Models\User;
 
 /**
  * Class Inner
  * @package App\Controllers\Login
+ * @method LoginRequestPayload getPayload()
  */
-class Inner extends Simple {
+class Inner extends PayloadController {
 
     /**
-     * @return Payload
+     * @return string
      */
-    public function getPayload() {
-        $rawPayload = $this->getRawPayload();
-
-        return Payload::promote($rawPayload);
+    protected function getRequestPayloadClass() {
+        return '\Rise\RequestPayload\Login\Inner';
     }
 
     /**

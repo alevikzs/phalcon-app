@@ -6,24 +6,25 @@ use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
 
     \Rise\Controller,
-    \Rise\ResponsePayload\Collection as CollectionResponse,
     \Rise\Http\Response as HttpResponse,
-    \Rise\RequestPayload\Collection as CollectionPayload,
+    \Rise\RequestPayload\Collection as CollectionRequestPayload,
+    \Rise\ResponsePayload\Collection as CollectionResponsePayload,
     \Rise\ResponsePayload\Meta\Collection as MetaCollection;
 
 /**
  * Class Collection
  * @package Rise\Controller
+ * @method CollectionRequestPayload getPayload()
  */
 abstract class Collection extends Controller {
 
-    /**
-     * @return CollectionPayload
-     */
-    public function getPayload() {
-        $rawPayload = $this->getRawPayload();
+    use TPayload;
 
-        return CollectionPayload::promote($rawPayload);
+    /**
+     * @return string
+     */
+    protected function getRequestPayloadClass() {
+        return '\Rise\RequestPayload\Collection';
     }
 
     /**
@@ -31,11 +32,13 @@ abstract class Collection extends Controller {
      * @return HttpResponse
      */
     public function response(Criteria $query) {
-        $query->orderBy(
-            $this->getPayload()->getOrderQuery()
-        );
+        if ($this->getPayload()->getOrder()) {
+            $query->orderBy(
+                $this->getPayload()->getOrderQuery()
+            );
+        }
 
-        $response = new CollectionResponse(
+        $response = new CollectionResponsePayload(
             $query,
             $this->createMeta($query)
         );

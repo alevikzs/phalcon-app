@@ -5,7 +5,8 @@ namespace App\Bootstrap\Console;
 use \Phalcon\Db\Adapter\Pdo,
 
     \Rise\Bootstrap\Console,
-    \Rise\Config\Local;
+    \Rise\Config\Local,
+    \Rise\Bootstrap\TTest;
 
 /**
  * Class Console
@@ -13,7 +14,7 @@ use \Phalcon\Db\Adapter\Pdo,
  */
 class Test extends Console {
 
-    use \Rise\Bootstrap\Test;
+    use TTest;
 
     /**
      * @return Pdo

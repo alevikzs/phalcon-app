@@ -4,7 +4,7 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Simple,
+    \Rise\Controller\Simple as SimpleController,
     \Rise\Exception\User as UserException,
 
     \App\Models\User;
@@ -14,7 +14,7 @@ use \Phalcon\Http\Response,
  * @package App\Controllers\User
  * @method int getId()
  */
-class Update extends Simple {
+class Update extends SimpleController {
 
     /**
      * @return Response

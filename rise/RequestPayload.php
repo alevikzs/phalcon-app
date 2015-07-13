@@ -8,6 +8,6 @@ namespace Rise;
  */
 abstract class RequestPayload {
 
-    use JsonSerialization;
+    use TJsonSerialization;
 
 }

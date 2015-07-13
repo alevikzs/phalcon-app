@@ -3,23 +3,23 @@
 namespace Rise\Bootstrap;
 
 /**
- * Trait Live
+ * Trait TTest
  * @package Rise\Bootstrap
  */
-trait Live {
+trait TTest {
 
     /**
      * @return bool
      */
     public function isLive() {
-        return true;
+        return false;
     }
 
     /**
      * @return bool
      */
     public function isTest() {
-        return false;
+        return true;
     }
 
 }

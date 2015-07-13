@@ -31,6 +31,15 @@ abstract class Controller extends BaseController {
     }
 
     /**
+     * @return array
+     */
+    public function getParams() {
+        return $this
+            ->router
+            ->getParams();
+    }
+
+    /**
      * @param boolean $isAssociative
      * @return mixed
      */
@@ -38,15 +47,6 @@ abstract class Controller extends BaseController {
         return $this
             ->request
             ->getJsonRawBody($isAssociative);
-    }
-
-    /**
-     * @return array
-     */
-    public function getParams() {
-        return $this
-            ->router
-            ->getParams();
     }
 
 }

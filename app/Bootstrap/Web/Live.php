@@ -5,7 +5,8 @@ namespace App\Bootstrap\Web;
 use \Phalcon\Db\Adapter\Pdo,
 
     \Rise\Bootstrap\Web,
-    \Rise\Config\Local;
+    \Rise\Config\Local,
+    \Rise\Bootstrap\TLive;
 
 /**
  * Class Web
@@ -13,7 +14,7 @@ use \Phalcon\Db\Adapter\Pdo,
  */
 class Live extends Web {
 
-    use \Rise\Bootstrap\Live;
+    use TLive;
 
     /**
      * @return Pdo

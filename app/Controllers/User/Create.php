@@ -4,7 +4,7 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Simple,
+    \Rise\Controller\Simple as SimpleController,
 
     \App\Models\User;
 
@@ -12,7 +12,7 @@ use \Phalcon\Http\Response,
  * Class Create
  * @package App\Controllers\User
  */
-class Create extends Simple {
+class Create extends SimpleController {
 
     /**
      * @return Response

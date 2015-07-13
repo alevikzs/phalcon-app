@@ -2,8 +2,8 @@
 
 namespace Rise\RequestPayload;
 
-use Rise\RequestPayload,
-    Rise\RequestPayload\Collection\Order;
+use \Rise\RequestPayload,
+    \Rise\RequestPayload\Collection\Order;
 
 /**
  * Class Collection
@@ -66,7 +66,7 @@ class Collection extends RequestPayload {
     }
 
     /**
-     * @param Order[] $order
+     * @param \Rise\RequestPayload\Collection\Order[] $order
      * @return $this
      */
     public function setOrder(array $order = []) {
@@ -105,7 +105,7 @@ class Collection extends RequestPayload {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getOrderQuery() {
         $orderQuery = [];
