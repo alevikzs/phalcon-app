@@ -21,10 +21,11 @@ class View extends SimpleController {
      * @throws UserException
      */
     public function run() {
+        /** @var User $user */
         $user = User::findFirstById($this->getId());
 
         if ($user) {
-            return $this->response($user);
+            return $this->response($user->toArray());
         } else {
             throw new UserException('User not found', 404);
         }
