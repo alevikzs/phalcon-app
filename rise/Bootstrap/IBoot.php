@@ -5,15 +5,15 @@ namespace Rise\Bootstrap;
 use \Phalcon\Db\Adapter\Pdo;
 
 /**
- * Interface Boot
+ * Interface IBoot
  * @package Rise\Bootstrap
  */
-interface Boot {
+interface IBoot {
 
     public function go();
 
     /**
-     * @return Boot
+     * @return IBoot
      */
     public function createDependencies();
 

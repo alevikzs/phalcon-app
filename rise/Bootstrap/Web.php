@@ -20,7 +20,7 @@ use \Exception,
  * Class Boot
  * @package Rise
  */
-abstract class Web extends Micro implements  Boot {
+abstract class Web extends Micro implements  IBoot {
 
     public function go() {
         self::setCustomErrorHandler();

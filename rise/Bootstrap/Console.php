@@ -9,7 +9,7 @@ use \Phalcon\CLI\Console as BaseConsole,
  * Class Console
  * @package App\Bootstrap
  */
-abstract class Console extends BaseConsole implements Boot {
+abstract class Console extends BaseConsole implements IBoot {
 
     /**
      * @var array
