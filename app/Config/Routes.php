@@ -8,6 +8,9 @@ namespace App\Config;
  */
 final class Routes {
 
+    /**
+     * @return array
+     */
     public static function get() {
         return [
             'User' => [

@@ -4,6 +4,7 @@ namespace Rise\Controller;
 
 use \Phalcon\Http\Response,
     \Phalcon\Mvc\Model\Criteria,
+    \Phalcon\Mvc\Model\Resultset as ResultSet,
 
     \Rise\Controller,
     \Rise\Http\Response as HttpResponse,
@@ -53,8 +54,11 @@ abstract class Collection extends Controller {
     private function createMeta(Criteria $query) {
         $metaQuery = clone $query;
 
+        /** @var ResultSet $resultSet */
+        $resultSet = $metaQuery->execute();
+
         return new MetaCollection(
-            $metaQuery->execute()->count(),
+            $resultSet->count(),
             $this->getPayload()->getPage(),
             $this->getPayload()->getLimit()
         );

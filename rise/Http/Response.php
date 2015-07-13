@@ -26,6 +26,9 @@ class Response extends BaseResponse {
         $this->setJsonContent($body);
     }
 
+    /**
+     * @return array
+     */
     protected function getStatusCodes() {
         return [
             100 => 'Continue',

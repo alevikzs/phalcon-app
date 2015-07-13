@@ -42,6 +42,9 @@ class Security {
         $this->setSalt($salt);
     }
 
+    /**
+     * @return string
+     */
     private function createSalt() {
         $security = new PhalconSecurity();
         $security->setRandomBytes(64);
