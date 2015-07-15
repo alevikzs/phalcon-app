@@ -2,9 +2,13 @@
 
 namespace App\Tests\Api;
 
-use \Phalcon\Mvc\Model\Resultset\Simple,
+use \Generator,
+
+    \Phalcon\Mvc\Model\Resultset\Simple,
+    \Phalcon\Security,
 
     \Rise\ApiTestCase,
+    \Rise\Fixture\User as UserFixture,
 
     \App\Models\User;
 
@@ -15,62 +19,71 @@ use \Phalcon\Mvc\Model\Resultset\Simple,
 class UserTest extends ApiTestCase {
 
     protected function saveStub() {
-
-    }
-
-    protected function clearStub() {
-        User::find()->delete();
-    }
-
-    /**
-     * @return array
-     */
-    protected function createStub() {
-        for ($index = 0; $index < 10; $index++) {
-            $name = $this->getUniqueName('userName');
-            yield [
-                'name' => $name,
-                'email' => $name . '@email.com'
-            ];
+        /** @var User $user */
+        foreach ($this->getStub() as $user) {
+            $user->save();
         }
     }
 
+    protected function clearStub() {
+        (new User())->truncate();
+    }
+
+    /**
+     * @return Generator
+     */
+    protected function createStub() {
+        return (new UserFixture())
+            ->getCollection();
+    }
+
     public function testCreate() {
-        $id = User::getNextId();
-        $name = $this->getUniqueName('userName');
-        $data = [
-            'name' => $name,
-            'email' => $name . '@email.com'
-        ];
-        $response = $this->post('/user', $data);
+        $userFixture = (new UserFixture())
+            ->getInstance('Create', 'Test');
 
-        $this->assertEmptyStr($response->json());
+        $response = $this->post('/user', $userFixture->toArray());
+        $responsePayload = $response->json();
+
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($responsePayload['success']);
+        $this->assertNull($responsePayload['meta']);
+        $this->assertEquals($responsePayload['data']['name'], $userFixture->getName());
+        $this->assertEquals($responsePayload['data']['email'], $userFixture->getEmail());
 
-        /** @var User $user */
-        $user = User::findFirst($id);
-        $this->assertNotFalse($user);
-        $this->assertEquals($data['name'], $user->getName());
-        $this->assertEquals($data['email'], $user->getEmail());
+        /** @var boolean|User $createdUser */
+        $createdUser = User::findFirstById($responsePayload['data']['id']);
+        $this->assertNotFalse($createdUser);
+        $this->assertEquals($userFixture->getName(), $createdUser->getName());
+        $this->assertEquals($userFixture->getEmail(), $createdUser->getEmail());
+        $isValidPassword = (new Security())
+            ->checkHash($userFixture->getPassword(), $createdUser->getPassword());
+        $this->assertTrue($isValidPassword);
     }
 
     public function testUpdate() {
-        /** @var User $user */
-        $user = User::findFirst();
-        $newName = $this->getUniqueName('userName');
-        $data = [
-            'name' => $newName,
-            'email' => $newName . '@email.com'
-        ];
-        $response = $this->put('/user/' . $user->getId(), $data);
-        $this->assertEmptyStr($response->json());
-        $this->assertEquals(200, $response->getStatusCode());
+        /** @var User $userToUpdate */
+        $userToUpdate = User::findFirst();
 
-        /** @var User $user */
-        $user = User::findFirst($user->getId());
-        $this->assertNotFalse($user);
-        $this->assertEquals($data['name'], $user->getName());
-        $this->assertEquals($data['email'], $user->getEmail());
+        $userFixture = (new UserFixture())
+            ->getArray('Update', 'Test');
+
+        $response = $this->put('/user/' . $userToUpdate->getId(), $userFixture);
+        $responsePayload = $response->json();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($responsePayload['success']);
+        $this->assertNull($responsePayload['meta']);
+        $this->assertEquals($responsePayload['data']['name'], $userFixture['name']);
+        $this->assertEquals($responsePayload['data']['email'], $userFixture['email']);
+
+        /** @var User|boolean $userAfterUpdate */
+        $userAfterUpdate = User::findFirstById($responsePayload['data']['id']);
+        $this->assertNotFalse($userAfterUpdate);
+        $this->assertEquals($userFixture['name'], $userAfterUpdate->getName());
+        $this->assertEquals($userFixture['email'], $userAfterUpdate->getEmail());
+        $isValidPassword = (new Security())
+            ->checkHash($userFixture['password'], $userAfterUpdate->getPassword());
+        $this->assertTrue($isValidPassword);
     }
 
     public function testView() {
