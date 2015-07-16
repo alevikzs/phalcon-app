@@ -2,9 +2,7 @@
 
 namespace Rise;
 
-use \Generator,
-
-    \GuzzleHttp\Client,
+use \GuzzleHttp\Client,
     \GuzzleHttp\Message\ResponseInterface;
 
 /**
@@ -38,17 +36,17 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @return Generator
+     * @return array
      */
     public function getStub() {
         return $this->stub;
     }
 
     /**
-     * @param Generator $stub
+     * @param array $stub
      * @return ApiTestCase
      */
-    public function setStub(Generator $stub) {
+    public function setStub(array $stub) {
         $this->stub = $stub;
         return $this;
     }
@@ -138,7 +136,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
     abstract protected function clearStub();
 
     /**
-     * @return Generator
+     * @return array
      */
     abstract protected function createStub();
 

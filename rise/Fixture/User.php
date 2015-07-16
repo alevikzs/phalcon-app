@@ -2,9 +2,7 @@
 
 namespace Rise\Fixture;
 
-use \Generator,
-
-    \Rise\Fixture,
+use \Rise\Fixture,
 
     \App\Models\User as UserModel;
 
@@ -72,13 +70,17 @@ class User extends Fixture {
 
     /**
      * @param int $number
-     * @return Generator
+     * @return array
      */
     public function getCollection($number = 5) {
+        $array = [];
+
         while ($number > 0) {
             $number--;
-            yield self::getInstance();
+            $array[] = self::getInstance();
         }
+
+        return $array;
     }
 
 }
