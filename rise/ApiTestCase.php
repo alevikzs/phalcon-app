@@ -43,10 +43,10 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @param array $stub
+     * @param mixed $stub
      * @return ApiTestCase
      */
-    public function setStub(array $stub) {
+    public function setStub($stub) {
         $this->stub = $stub;
         return $this;
     }
@@ -60,6 +60,9 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
                 'base_url' => [
                     'http://test.ph.com',
                     ['version' => '1']
+                ],
+                'defaults' => [
+                    'exceptions' => false,
                 ]
             ]))
             ->initStub();

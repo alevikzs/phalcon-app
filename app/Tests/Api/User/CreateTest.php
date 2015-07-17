@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api;
+namespace App\Tests\Api\User;
 
 use \Phalcon\Security,
 
@@ -11,28 +11,11 @@ use \Phalcon\Security,
 
 /**
  * Class CreateTest
- * @package App\Tests
+ * @package App\Tests\Api\User
  */
 class CreateTest extends ApiTestCase {
 
-    protected function saveStub() {
-        /** @var User $user */
-        foreach ($this->getStub() as $user) {
-            $user->save();
-        }
-    }
-
-    protected function clearStub() {
-        (new User())->truncate();
-    }
-
-    /**
-     * @return array
-     */
-    protected function createStub() {
-        return (new UserFixture())
-            ->getCollection();
-    }
+    use TCommon;
 
     public function testMain() {
         $userFixture = (new UserFixture())

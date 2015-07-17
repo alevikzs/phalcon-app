@@ -1,40 +1,22 @@
 <?php
 
-namespace App\Tests\Api;
+namespace App\Tests\Api\User;
 
 use \Rise\ApiTestCase,
-    \Rise\Fixture\User as UserFixture,
 
     \App\Models\User;
 
 /**
  * Class DeleteTest
- * @package App\Tests
+ * @package App\Tests\Api\User
  */
 class DeleteTest extends ApiTestCase {
 
-    protected function saveStub() {
-        /** @var User $user */
-        foreach ($this->getStub() as $user) {
-            $user->save();
-        }
-    }
-
-    protected function clearStub() {
-        (new User())->truncate();
-    }
-
-    /**
-     * @return array
-     */
-    protected function createStub() {
-        return (new UserFixture())
-            ->getCollection();
-    }
+    use TCommon;
 
     public function testMain() {
         /** @var User $userToDelete */
-        $userToDelete = User::findFirst();
+        $userToDelete = $this->getStub()->offsetGet(0);
 
         $response = $this->delete('/user/' . $userToDelete->getId());
         $responsePayload = $response->json();
@@ -49,6 +31,17 @@ class DeleteTest extends ApiTestCase {
         /** @var User|boolean $deletedUser */
         $deletedUser = User::findFirstById($userToDelete->getId());
         $this->assertFalse($deletedUser);
+    }
+
+    public function testNotFound() {
+        $notFoundId = User::getNextId();
+        $response = $this->delete('/user/' . $notFoundId);
+        $responsePayload = $response->json();
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals($responsePayload['data']['message'], 'User not found');
+        $this->assertFalse($responsePayload['success']);
+        $this->assertNull($responsePayload['meta']);
     }
 
 }

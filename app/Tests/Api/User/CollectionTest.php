@@ -1,36 +1,18 @@
 <?php
 
-namespace App\Tests\Api;
+namespace App\Tests\Api\User;
 
 use \Rise\ApiTestCase,
-    \Rise\Fixture\User as UserFixture,
 
     \App\Models\User;
 
 /**
  * Class CollectionTest
- * @package App\Tests
+ * @package App\Tests\Api\User
  */
 class CollectionTest extends ApiTestCase {
 
-    protected function saveStub() {
-        /** @var User $user */
-        foreach ($this->getStub() as $user) {
-            $user->save();
-        }
-    }
-
-    protected function clearStub() {
-        (new User())->truncate();
-    }
-
-    /**
-     * @return array
-     */
-    protected function createStub() {
-        return (new UserFixture())
-            ->getCollection();
-    }
+    use TCommon;
 
     public function testMain() {
         $users = array_map(

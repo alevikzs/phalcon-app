@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api;
+namespace App\Tests\Api\User;
 
 use \Phalcon\Security,
 
@@ -11,28 +11,11 @@ use \Phalcon\Security,
 
 /**
  * Class UpdateTest
- * @package App\Tests
+ * @package App\Tests\Api\User
  */
 class UpdateTest extends ApiTestCase {
 
-    protected function saveStub() {
-        /** @var User $user */
-        foreach ($this->getStub() as $user) {
-            $user->save();
-        }
-    }
-
-    protected function clearStub() {
-        (new User())->truncate();
-    }
-
-    /**
-     * @return array
-     */
-    protected function createStub() {
-        return (new UserFixture())
-            ->getCollection();
-    }
+    use TCommon;
 
     public function testMain() {
         /** @var User $userToUpdate */
@@ -58,6 +41,17 @@ class UpdateTest extends ApiTestCase {
         $isValidPassword = (new Security())
             ->checkHash($userFixture['password'], $userAfterUpdate->getPassword());
         $this->assertTrue($isValidPassword);
+    }
+
+    public function testNotFound() {
+        $notFoundId = User::getNextId();
+        $response = $this->put('/user/' . $notFoundId, []);
+        $responsePayload = $response->json();
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals($responsePayload['data']['message'], 'User not found');
+        $this->assertFalse($responsePayload['success']);
+        $this->assertNull($responsePayload['meta']);
     }
 
 }

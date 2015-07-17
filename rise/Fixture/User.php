@@ -2,7 +2,9 @@
 
 namespace Rise\Fixture;
 
-use \Rise\Fixture,
+use \ArrayIterator,
+
+    \Rise\Fixture,
 
     \App\Models\User as UserModel;
 
@@ -70,17 +72,17 @@ class User extends Fixture {
 
     /**
      * @param int $number
-     * @return array
+     * @return ArrayIterator
      */
     public function getCollection($number = 5) {
-        $array = [];
+        $iterator = new ArrayIterator();
 
         while ($number > 0) {
             $number--;
-            $array[] = self::getInstance();
+            $iterator->append(self::getInstance());
         }
 
-        return $array;
+        return $iterator;
     }
 
 }
