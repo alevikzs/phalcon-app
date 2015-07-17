@@ -19,18 +19,14 @@ abstract class Fixture {
     }
 
     /**
-     * @param null $firstName
-     * @param null $lastName
      * @return mixed
      */
-    public abstract function getInstance($firstName = null, $lastName = null);
+    public abstract function getInstance();
 
     /**
-     * @param null|string $firstName
-     * @param null|string $lastName
      * @return array
      */
-    public abstract function getArray($firstName = null, $lastName = null);
+    public abstract function getArray();
 
     /**
      * @param int $number
