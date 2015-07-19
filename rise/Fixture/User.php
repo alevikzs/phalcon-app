@@ -74,7 +74,7 @@ class User extends Fixture {
      * @param int $number
      * @return ArrayIterator
      */
-    public function getCollection($number = 5) {
+    public function getCollection($number = 10) {
         $iterator = new ArrayIterator();
 
         while ($number > 0) {

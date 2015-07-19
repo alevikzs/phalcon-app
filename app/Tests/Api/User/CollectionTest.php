@@ -96,7 +96,7 @@ class CollectionTest extends ApiTestCase {
             'order' => [
                 [
                     'field' => 'email',
-                    'direction' => Order::ORDER_DIRECTION_DESC
+                    'direction' => Order::ORDER_DIRECTION_ASC
                 ],
                 [
                     'field' => 'id',
@@ -105,11 +105,17 @@ class CollectionTest extends ApiTestCase {
             ]
         ];
 
+        $this->getStub()->uasort(function(User $user1, User $user2) {
+            if ($user1->getEmail() === $user2->getEmail()) {
+                return ($user1->getId() < $user2->getId()) ? 1 : -1;
+            }
+
+            return ($user1->getEmail() < $user2->getEmail()) ? -1 : 1;
+        });
+
         /** @var User $user */
         foreach ($this->getStub() as $index => $user) {
-            if ($index >= $requestPayload['limit'] && $index < $requestPayload['limit'] * $requestPayload['page']) {
-                $users[] = $user->toArray();
-            }
+            $users[] = $user->toArray();
         }
 
         $response = $this->post('/users', $requestPayload);
