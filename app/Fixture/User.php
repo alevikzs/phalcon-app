@@ -10,7 +10,7 @@ use \ArrayIterator,
 
 /**
  * Class Fixture
- * @package Rise
+ * @package App\Fixture
  */
 class User extends Fixture {
 
