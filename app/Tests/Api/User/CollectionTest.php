@@ -5,7 +5,8 @@ namespace App\Tests\Api\User;
 use \Rise\ApiTestCase,
     \Rise\RequestPayload\Collection\Order,
 
-    \App\Models\User;
+    \App\Models\User,
+    \App\Tests\Api\TUserStab;
 
 /**
  * Class CollectionTest
@@ -13,7 +14,7 @@ use \Rise\ApiTestCase,
  */
 class CollectionTest extends ApiTestCase {
 
-    use TCommon;
+    use TUserStab;
 
     public function testDefault() {
         $users = [];

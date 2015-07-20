@@ -7,7 +7,8 @@ use \Phalcon\Security,
     \Rise\ApiTestCase,
 
     \App\Fixture\User as UserFixture,
-    \App\Models\User;
+    \App\Models\User,
+    \App\Tests\Api\TUserStab;
 
 /**
  * Class CreateTest
@@ -15,7 +16,7 @@ use \Phalcon\Security,
  */
 class CreateTest extends ApiTestCase {
 
-    use TCommon;
+    use TUserStab;
 
     public function testMain() {
         $userFixture = (new UserFixture())

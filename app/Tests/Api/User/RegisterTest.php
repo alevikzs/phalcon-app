@@ -8,7 +8,8 @@ use \Phalcon\Security,
     \Rise\Auth\Session,
 
     \App\Fixture\User as UserFixture,
-    \App\Models\User;
+    \App\Models\User,
+    \App\Tests\Api\TUserStab;
 
 /**
  * Class RegisterTest
@@ -16,7 +17,7 @@ use \Phalcon\Security,
  */
 class RegisterTest extends ApiTestCase {
 
-    use TCommon;
+    use TUserStab;
 
     public function testMain() {
         $userFixture = (new UserFixture())

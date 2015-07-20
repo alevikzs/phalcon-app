@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\User;
+namespace App\Tests\Api;
 
 use \ArrayIterator,
 
@@ -8,11 +8,11 @@ use \ArrayIterator,
     \App\Models\User;
 
 /**
- * Class TCommon
- * @package App\Tests\Api\User
+ * Class TUserStab
+ * @package App\Tests\Api
  * @method ArrayIterator getStub()
  */
-trait TCommon {
+trait TUserStab {
 
     protected function saveStub() {
         /** @var User $user */

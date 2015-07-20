@@ -4,7 +4,8 @@ namespace App\Tests\Api\User;
 
 use \Rise\ApiTestCase,
 
-    \App\Models\User;
+    \App\Models\User,
+    \App\Tests\Api\TUserStab;
 
 /**
  * Class DeleteTest
@@ -12,7 +13,7 @@ use \Rise\ApiTestCase,
  */
 class DeleteTest extends ApiTestCase {
 
-    use TCommon;
+    use TUserStab;
 
     public function testMain() {
         /** @var User $userToDelete */
