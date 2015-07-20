@@ -21,17 +21,6 @@ abstract class Fixture {
     /**
      * @return mixed
      */
-    public abstract function getInstance();
-
-    /**
-     * @return array
-     */
-    public abstract function getArray();
-
-    /**
-     * @param int $number
-     * @return mixed
-     */
-    public abstract function getCollection($number = 5);
+    public abstract function getCollection();
 
 }

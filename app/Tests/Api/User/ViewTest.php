@@ -16,7 +16,7 @@ class ViewTest extends ApiTestCase {
 
     public function testMain() {
         /** @var User $userToView */
-        $userToView = User::findFirst();
+        $userToView = $this->getStub()->offsetGet(0);
 
         $response = $this->get('/user/' . $userToView->getId());
         $responsePayload = $response->json();

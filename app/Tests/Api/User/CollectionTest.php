@@ -100,7 +100,7 @@ class CollectionTest extends ApiTestCase {
                 ],
                 [
                     'field' => 'id',
-                    'direction' => Order::ORDER_DIRECTION_ASC
+                    'direction' => Order::ORDER_DIRECTION_DESC
                 ]
             ]
         ];

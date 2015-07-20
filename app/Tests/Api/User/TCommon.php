@@ -4,8 +4,7 @@ namespace App\Tests\Api\User;
 
 use \ArrayIterator,
 
-    \Rise\Fixture\User as UserFixture,
-
+    \App\Fixture\User as UserFixture,
     \App\Models\User;
 
 /**

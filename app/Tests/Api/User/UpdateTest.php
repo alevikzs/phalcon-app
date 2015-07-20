@@ -5,8 +5,8 @@ namespace App\Tests\Api\User;
 use \Phalcon\Security,
 
     \Rise\ApiTestCase,
-    \Rise\Fixture\User as UserFixture,
 
+    \App\Fixture\User as UserFixture,
     \App\Models\User;
 
 /**
@@ -19,10 +19,10 @@ class UpdateTest extends ApiTestCase {
 
     public function testMain() {
         /** @var User $userToUpdate */
-        $userToUpdate = User::findFirst();
+        $userToUpdate = $this->getStub()->offsetGet(0);
 
         $userFixture = (new UserFixture())
-            ->getArray('Update', 'Test');
+            ->getArray('Update Test');
 
         $response = $this->put('/user/' . $userToUpdate->getId(), $userFixture);
         $responsePayload = $response->json();

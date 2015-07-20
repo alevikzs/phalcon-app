@@ -5,9 +5,9 @@ namespace App\Tests\Api\User;
 use \Phalcon\Security,
 
     \Rise\ApiTestCase,
-    \Rise\Fixture\User as UserFixture,
     \Rise\Auth\Session,
 
+    \App\Fixture\User as UserFixture,
     \App\Models\User;
 
 /**
@@ -20,7 +20,7 @@ class RegisterTest extends ApiTestCase {
 
     public function testMain() {
         $userFixture = (new UserFixture())
-            ->getInstance('Create', 'Test');
+            ->getInstance('Register Test');
 
         $response = $this->post('/user/register', $userFixture->toArray());
         $responsePayload = $response->json();
