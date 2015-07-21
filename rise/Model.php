@@ -33,7 +33,6 @@ class Model extends BaseModel {
 
     public function initialize() {
         $this->keepSnapshots(true);
-//        $this->setSnapshotData($this->toArray());
     }
 
     /**
