@@ -8,6 +8,7 @@ use \Phalcon\Mvc\Model as BaseModel,
 /**
  * Class Model
  * @package Rise
+ * @property integer $id
  */
 class Model extends BaseModel {
 
@@ -28,6 +29,18 @@ class Model extends BaseModel {
             ->execute();
 
         return $this;
+    }
+
+    public function initialize() {
+        $this->keepSnapshots(true);
+//        $this->setSnapshotData($this->toArray());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew() {
+        return is_null($this->id);
     }
 
 }

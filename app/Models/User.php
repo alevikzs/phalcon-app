@@ -108,7 +108,7 @@ class User extends Model {
     }
 
     public function beforeSave() {
-        if (!$this->hasSnapshotData() || $this->hasChanged('password')) {
+        if ($this->isNew() || $this->hasChanged('password')) {
             $hash = (new Security())->hash($this->getPassword());
             $this->setPassword($hash);
         }
