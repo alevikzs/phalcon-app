@@ -2,8 +2,7 @@
 
 namespace Rise;
 
-use \Phalcon\Mvc\Model as BaseModel,
-    \Phalcon\Mvc\Model\Query;
+use \Phalcon\Mvc\Model as BaseModel;
 
 /**
  * Class Model
