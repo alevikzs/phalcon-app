@@ -2,7 +2,11 @@
 
 namespace Rise\RequestPayload\Login;
 
-use Rise\RequestPayload;
+use \Phalcon\Validation,
+    \Phalcon\Validation\Validator\Email,
+    \Phalcon\Validation\Validator\PresenceOf,
+
+    \Rise\RequestPayload;
 
 /**
  * Class Inner
@@ -60,6 +64,20 @@ class Inner extends RequestPayload {
         $this
             ->setEmail($email)
             ->setPassword($password);
+    }
+
+    /**
+     * @param Validation $validator
+     * @return Validation
+     */
+    protected function validation(Validation $validator) {
+        return $validator
+            ->add('email', new PresenceOf([
+                'message' => 'The e-mail is required'
+            ]))
+            ->add('email', new Email([
+                'message' => 'The e-mail is not valid'
+            ]));
     }
 
 }
