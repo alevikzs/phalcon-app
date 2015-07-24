@@ -2,7 +2,9 @@
 
 namespace Rise\PushNotifications\Queue;
 
-use \Rise\PushNotifications\Queue;
+use \PhpAmqpLib\Message\AMQPMessage,
+
+    \Rise\PushNotifications\Queue;
 
 /**
  * Class Receiver
@@ -47,9 +49,9 @@ class Receiver extends Queue {
     }
 
     /**
-     * @param $message
+     * @param AMQPMessage $message
      */
-    private function handler($message) {
+    public function handler(AMQPMessage $message) {
 
     }
 
