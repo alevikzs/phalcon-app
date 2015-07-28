@@ -10,22 +10,21 @@ use \Phalcon\Http\Response,
     \App\Models\User;
 
 /**
- * Class Update
+ * Class ViewController
  * @package App\Controllers\User
  * @method int getId()
  */
-class Update extends SimpleController {
+class ViewController extends SimpleController {
 
     /**
      * @return Response
      * @throws UserException
      */
-    public function run() {
+    public function runAction() {
+        /** @var User $user */
         $user = User::findFirstById($this->getId());
 
         if ($user) {
-            $user->save($this->getRawPayload());
-
             return $this->response($user->toArray());
         } else {
             throw new UserException('User not found', 404);

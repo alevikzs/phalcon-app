@@ -10,21 +10,21 @@ use \Phalcon\Http\Response,
     \App\Models\User;
 
 /**
- * Class Delete
+ * Class UpdateController
  * @package App\Controllers\User
  * @method int getId()
  */
-class Delete extends SimpleController {
+class UpdateController extends SimpleController {
 
     /**
      * @return Response
      * @throws UserException
      */
-    public function run() {
+    public function runAction() {
         $user = User::findFirstById($this->getId());
 
         if ($user) {
-            $user->delete();
+            $user->save($this->getRawPayload());
 
             return $this->response($user->toArray());
         } else {

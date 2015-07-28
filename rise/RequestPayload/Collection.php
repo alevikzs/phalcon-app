@@ -5,6 +5,8 @@ namespace Rise\RequestPayload;
 use \Rise\RequestPayload,
     \Rise\RequestPayload\Collection\Order;
 
+use \Phalcon\Validation;
+
 /**
  * Class Collection
  * @package Rise\RequestPayload
@@ -115,6 +117,10 @@ class Collection extends RequestPayload {
         }
 
         return implode(',', $orderQuery);
+    }
+
+    public function validation(Validation $validator) {
+        return $validator;
     }
 
 }

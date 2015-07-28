@@ -6,32 +6,65 @@ use \Phalcon\Http\Response,
     \Phalcon\Http\Request,
 
     \Rise\RequestPayload,
-    \Rise\Controller;
+    \Rise\Controller,
+    \Rise\Exception\Validation as ValidationException;
 
 /**
  * Trait TPayload
  * @package Rise
  * @property Request $request
- * @method mixed getRawPayload()
  */
 trait TPayload {
 
-    private static $payload;
+    /**
+     * @var RequestPayload
+     */
+    private $payload;
 
     /**
      * @return RequestPayload
      */
     public function getPayload() {
-        if (!self::$payload) {
-            $rawPayload = $this->getRawPayload();
+        return $this->payload;
+    }
 
-            /** @var RequestPayload $requestPayloadClass */
-            $requestPayloadClass = $this->getRequestPayloadClass();
+    /**
+     * @param RequestPayload $payload
+     * @return $this
+     */
+    protected function setPayload(RequestPayload $payload) {
+        $this->payload = $payload;
 
-            self::$payload = $requestPayloadClass::promote($rawPayload);
+        return $this;
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function onConstruct() {
+        $rawPayload = $this->getRawPayload();
+
+        /** @var RequestPayload $requestPayloadClass */
+        $requestPayloadClass = $this->getRequestPayloadClass();
+
+        $this->setPayload($requestPayloadClass::promote($rawPayload));
+
+        $errors = $this->getPayload()->validate();
+
+        if ($errors) {
+            throw new ValidationException($errors);
         }
+    }
 
-        return self::$payload;
+
+    /**
+     * @param boolean $isAssociative
+     * @return mixed
+     */
+    public function getRawPayload($isAssociative = true) {
+        return $this
+            ->request
+            ->getJsonRawBody($isAssociative);
     }
 
     /**

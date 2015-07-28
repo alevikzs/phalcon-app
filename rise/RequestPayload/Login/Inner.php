@@ -72,6 +72,9 @@ class Inner extends RequestPayload {
      */
     protected function validation(Validation $validator) {
         return $validator
+            ->add('password', new PresenceOf([
+                'message' => 'The password is required'
+            ]))
             ->add('email', new PresenceOf([
                 'message' => 'The e-mail is required'
             ]))

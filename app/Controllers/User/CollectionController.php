@@ -5,20 +5,20 @@ namespace App\Controllers\User;
 use \Phalcon\Mvc\Model\Criteria,
     \Phalcon\Http\Response,
 
-    \Rise\Controller\Collection as CollectionController,
+    \Rise\Controller\Collection,
 
     \App\Models\User;
 
 /**
- * Class Collection
+ * Class CollectionController
  * @package App\Controllers\User
  */
-class Collection extends CollectionController {
+class CollectionController extends Collection {
 
     /**
      * @return Response
      */
-    public function run() {
+    public function runAction() {
         /** @var Criteria $query */
         $query = User::query();
         return $this->response($query);

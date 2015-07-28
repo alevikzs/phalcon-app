@@ -14,7 +14,7 @@ abstract class Controller extends BaseController {
     /**
      * @return Response
      */
-    public abstract function run();
+    public abstract function runAction();
 
     /**
      * @param string $name
@@ -37,16 +37,6 @@ abstract class Controller extends BaseController {
         return $this
             ->router
             ->getParams();
-    }
-
-    /**
-     * @param boolean $isAssociative
-     * @return mixed
-     */
-    public function getRawPayload($isAssociative = true) {
-        return $this
-            ->request
-            ->getJsonRawBody($isAssociative);
     }
 
 }

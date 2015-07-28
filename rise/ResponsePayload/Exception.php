@@ -41,29 +41,9 @@ class Exception extends ResponsePayload {
      * @param Meta $meta
      */
     public function __construct(BaseException $exception, Meta $meta = null) {
-        $this
-            ->setException($exception)
-            ->setData(
-                $this->createData()
-            )
-            ->setSuccess(false);
+        $this->setException($exception);
 
-        if ($meta) {
-            $this->setMeta($meta);
-        }
-    }
-
-    /**
-     * @return array
-     */
-    private function createData() {
-        return [
-            'message' => $this->getException()->getMessage(),
-            'code' => $this->getException()->getCode(),
-            'file' => $this->getException()->getFile(),
-            'line' => $this->getException()->getLine(),
-            'trace' => $this->getException()->getTrace()
-        ];
+        parent::__construct($exception, $meta, false);
     }
 
 }

@@ -10,11 +10,11 @@ use \Rise\Http\Response,
     \App\Models\User;
 
 /**
- * Class Inner
+ * Class InnerController
  * @package App\Controllers\Login
  * @method LoginRequestPayload getPayload()
  */
-class Inner extends PayloadController {
+class InnerController extends PayloadController {
 
     /**
      * @return string
@@ -27,7 +27,7 @@ class Inner extends PayloadController {
      * @throws \Exception
      * @return Response
      */
-    public function run() {
+    public function runAction() {
         $user = User::findFirstByEmail($this->getPayload()->getEmail());
 
         if ($user) {

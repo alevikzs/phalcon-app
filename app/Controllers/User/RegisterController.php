@@ -9,15 +9,15 @@ use \Phalcon\Http\Response,
     \App\Models\User;
 
 /**
- * Class Create
+ * Class RegisterController
  * @package App\Controllers\User
  */
-class Register extends SimpleController {
+class RegisterController extends SimpleController {
 
     /**
      * @return Response
      */
-    public function run() {
+    public function runAction() {
         /** @var User $user */
         $user = (new User())->assign($this->getRawPayload());
         $user->save();

@@ -17,45 +17,40 @@ final class Routes {
                 [
                     'route' => '/users',
                     'class' => 'Collection',
-                    'method' => 'post'
+                    'method' => 'POST'
                 ],
                 [
                     'route' => '/user',
                     'class' => 'Create',
-                    'method' => 'post'
+                    'method' => 'POST'
                 ],
                 [
                     'route' => '/user/{id}',
                     'class' => 'Update',
-                    'method' => 'put'
+                    'method' => 'PUT'
                 ],
                 [
                     'route' => '/user/{id}',
                     'class' => 'Delete',
-                    'method' => 'delete'
+                    'method' => 'DELETE'
                 ],
                 [
                     'route' => '/user/{id}',
                     'class' => 'View',
-                    'method' => 'get'
+                    'method' => 'GET'
                 ],
                 [
                     'route' => '/user/register',
                     'class' => 'Register',
-                    'method' => 'post'
+                    'method' => 'POST'
                 ]
             ],
             'Login' => [
                 [
                     'route' => '/login/inner',
-                    'class' => 'Inner',
-                    'method' => 'post'
-                ],
-                [
-                    'route' => '/login/facebook',
-                    'class' => 'Facebook',
-                    'method' => 'post'
-                ],
+                    'class' => 'inner',
+                    'method' => 'POST'
+                ]
             ]
         ];
     }

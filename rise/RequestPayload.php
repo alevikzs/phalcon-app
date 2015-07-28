@@ -25,7 +25,15 @@ abstract class RequestPayload {
         $validator = new Validation();
         $validator = $this->validation($validator);
 
-        return $validator->validate($this);
+        $messages = [];
+
+        foreach ($validator->validate($this) as $index => $message) {
+            $messages[$index]['field'] = $message->getField();
+            $messages[$index]['message'] = $message->getMessage();
+            $messages[$index]['type'] = $message->getType();
+        }
+
+        return $messages;
     }
 
 }

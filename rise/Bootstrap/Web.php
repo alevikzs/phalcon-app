@@ -5,12 +5,13 @@ namespace Rise\Bootstrap;
 use \Exception,
 
     \Phalcon\Http\Response,
-    \Phalcon\Mvc\Micro,
+    \Phalcon\Mvc\Application,
     \Phalcon\DI\FactoryDefault,
     \Phalcon\Db\Adapter\Pdo,
+    \Phalcon\Mvc\Router,
+    \Phalcon\Mvc\View,
 
     \Rise\Exception\Error as ErrorException,
-    \Rise\Exception\User as UserException,
     \Rise\Http\Response\Error as ErrorResponse,
     \Rise\ResponsePayload\Exception as ResponsePayloadException,
 
@@ -20,7 +21,7 @@ use \Exception,
  * Class Boot
  * @package Rise
  */
-abstract class Web extends Micro implements  IBoot {
+abstract class Web extends Application implements  IBoot {
 
     public function go() {
         self::setCustomErrorHandler();
@@ -28,7 +29,6 @@ abstract class Web extends Micro implements  IBoot {
         try {
             $this
                 ->createDependencies()
-                ->mountRoutes()
                 ->handle();
         } catch (Exception $exception) {
             (new ErrorResponse(
@@ -47,29 +47,41 @@ abstract class Web extends Micro implements  IBoot {
             return $this->getDatabase();
         });
 
+        $dependency->set('router', function() {
+            $router = new Router(false);
+
+            $routes = Routes::get();
+
+            foreach($routes as $group => $controllers){
+                foreach ($controllers as $controller) {
+                    $router->add(
+                        $controller['route'],
+                        [
+                            'namespace' => "App\\Controllers\\$group",
+                            'controller' => $controller['class'],
+                            'action' => 'run'
+                        ],
+                        $controller['method']
+                    );
+                }
+            }
+
+            $router->notFound([
+                'namespace' => 'Rise\\Controllers\\NotFound',
+                'controller' => 'index',
+                'action' => 'run'
+            ]);
+
+            return $router;
+        });
+
+        $dependency->set('view', function() {
+            return new View();
+        }, true);
+
         $this->setDI($dependency);
 
         return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function mountRoutes() {
-        $routes = Routes::get();
-
-        foreach ($routes as $group => $controllers) {
-            foreach ($controllers as $controller) {
-                $method = $controller['method'];
-                $handlerClass = "\\App\\Controllers\\$group\\" . $controller['class'];
-                $this->$method($controller['route'], [new $handlerClass(), 'run']);
-            }
-        }
-
-        return $this->notFound(function () {
-            throw new UserException('Not Found', 404);
-        });
-
     }
 
     protected static function setCustomErrorHandler() {

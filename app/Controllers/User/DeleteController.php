@@ -10,21 +10,22 @@ use \Phalcon\Http\Response,
     \App\Models\User;
 
 /**
- * Class View
+ * Class DeleteController
  * @package App\Controllers\User
  * @method int getId()
  */
-class View extends SimpleController {
+class DeleteController extends SimpleController {
 
     /**
      * @return Response
      * @throws UserException
      */
-    public function run() {
-        /** @var User $user */
+    public function runAction() {
         $user = User::findFirstById($this->getId());
 
         if ($user) {
+            $user->delete();
+
             return $this->response($user->toArray());
         } else {
             throw new UserException('User not found', 404);

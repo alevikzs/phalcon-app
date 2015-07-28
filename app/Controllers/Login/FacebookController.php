@@ -7,15 +7,15 @@ use \Rise\Http\Response,
     \Rise\Controller\Simple;
 
 /**
- * Class Facebook
+ * Class FacebookController
  * @package App\Controllers\Login
  */
-class Facebook extends Simple {
+class FacebookController extends Simple {
 
     /**
      * @return Response
      */
-    public function run() {
+    public function runAction() {
 
     }
 
