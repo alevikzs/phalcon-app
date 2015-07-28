@@ -29,7 +29,8 @@ abstract class Web extends Application implements  IBoot {
         try {
             $this
                 ->createDependencies()
-                ->handle();
+                ->handle()
+                ->send();
         } catch (Exception $exception) {
             (new ErrorResponse(
                 new ResponsePayloadException($exception)
@@ -97,8 +98,9 @@ abstract class Web extends Application implements  IBoot {
 
         register_shutdown_function(function () use ($exceptionErrorHandler) {
             $lastError = error_get_last();
-            if (error_reporting() & $lastError['type'])
+            if ($lastError && error_reporting() && $lastError['type']) {
                 call_user_func_array($exceptionErrorHandler, $lastError);
+            }
         });
     }
 
