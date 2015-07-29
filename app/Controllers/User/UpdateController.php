@@ -4,17 +4,26 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Simple as SimpleController,
+    \Rise\Controller\Payload as PayloadController,
     \Rise\Exception\User as UserException,
 
-    \App\Models\User;
+    \App\Models\User,
+    \App\RequestPayload\User\Update as RequestPayload;
 
 /**
  * Class UpdateController
  * @package App\Controllers\User
  * @method int getId()
+ * @method RequestPayload getPayload()
  */
-class UpdateController extends SimpleController {
+class UpdateController extends PayloadController {
+
+    /**
+     * @return string
+     */
+    protected function getRequestPayloadClass() {
+        return '\App\RequestPayload\User\Update';
+    }
 
     /**
      * @return Response
@@ -24,7 +33,20 @@ class UpdateController extends SimpleController {
         $user = User::findFirstById($this->getId());
 
         if ($user) {
-            $user->save($this->getRawPayload());
+            $name = $this->getPayload()->getName();
+            if ($name) {
+                $user->setName($name);
+            }
+            $email = $this->getPayload()->getEmail();
+            if ($email) {
+                $user->setEmail($email);
+            }
+            $password = $this->getPayload()->getPassword();
+            if ($password) {
+                $user->setPassword($password);
+            }
+
+            $user->save();
 
             return $this->response($user->toArray());
         } else {
