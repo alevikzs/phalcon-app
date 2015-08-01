@@ -2,10 +2,10 @@
 
 namespace Rise\RequestPayload;
 
-use \Rise\RequestPayload,
-    \Rise\RequestPayload\Collection\Order;
+use \Phalcon\Validation,
 
-use \Phalcon\Validation;
+    \Rise\RequestPayload,
+    \Rise\RequestPayload\Collection\Order;
 
 /**
  * Class Collection
