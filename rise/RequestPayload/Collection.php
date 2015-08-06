@@ -25,6 +25,7 @@ class Collection extends RequestPayload {
 
     /**
      * @var Order[]
+     * @type(Order[])
      */
     public $order;
 
@@ -119,6 +120,10 @@ class Collection extends RequestPayload {
         return implode(',', $orderQuery);
     }
 
+    /**
+     * @param Validation $validator
+     * @return Validation
+     */
     public function validation(Validation $validator) {
         return $validator;
     }
