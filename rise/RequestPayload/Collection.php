@@ -25,7 +25,7 @@ class Collection extends RequestPayload {
 
     /**
      * @var Order[]
-     * @type(Order[])
+     * @Mapper(class="\Rise\RequestPayload\Order", array=true)
      */
     public $order;
 

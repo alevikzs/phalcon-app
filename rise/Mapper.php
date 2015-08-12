@@ -3,7 +3,9 @@
 namespace Rise;
 
 use \Phalcon\Annotations\Adapter\Memory as MemoryAdapter,
-    \Phalcon\Annotations\Annotation;
+    \Phalcon\Annotations\Annotation,
+    \Phalcon\Annotations\Collection as AnnotationCollection,
+    \Phalcon\Annotations\Reflection;
 
 /**
  * Class Mapper
@@ -20,6 +22,11 @@ class Mapper {
      * @var string
      */
     private $class;
+
+    /**
+     * @var Reflection
+     */
+    private $reflector;
 
     /**
      * @return string
@@ -54,31 +61,53 @@ class Mapper {
     }
 
     /**
+     * @return Reflection
+     */
+    protected function getReflector() {
+        return $this->reflector;
+    }
+
+    /**
+     * @param Reflection $reflector
+     * @return $this
+     */
+    protected function setReflector(Reflection $reflector) {
+        $this->reflector = $reflector;
+
+        return $this;
+    }
+
+    /**
      * @param string $json
      * @param string $class
      */
     public function __construct($json, $class) {
         $this
             ->setJson($json)
-            ->setClass($class);
+            ->setClass($class)
+            ->setReflector(
+                (new MemoryAdapter())
+                    ->get($class)
+            );
     }
 
     /**
      * @return mixed
      */
     public function map() {
-        $reader = new MemoryAdapter();
-        $reflector = $reader->get('\Rise\RequestPayload\Collection');
+        $attributes = $this
+            ->getReflector()
+            ->getPropertiesAnnotations();
 
-        $annotations = $reflector->getPropertiesAnnotations();
-
-        /** @var Annotation $annotation */
-        foreach ($annotations as $annotation) {
-            print_r($annotation);
-
-            if ($annotation->getName() === 'type') {
-                $annotation->getArgument(0);
+        /** @var AnnotationCollection $annotations */
+        foreach ($attributes as $attribute => $annotations) {
+            if ($annotations->has('Mapper')) {
+                /** @var Annotation $annotation */
+                $annotation = $annotations->get('Mapper');
+                $annotation->getArgument('class');
+                print_r($annotation);
             }
+
         }
     }
 
