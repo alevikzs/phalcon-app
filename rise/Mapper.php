@@ -2,7 +2,8 @@
 
 namespace Rise;
 
-use \Phalcon\Annotations\Adapter\Memory;
+use \Phalcon\Annotations\Adapter\Memory as MemoryAdapter,
+    \Phalcon\Annotations\Annotation;
 
 /**
  * Class Mapper
@@ -52,16 +53,33 @@ class Mapper {
         return $this;
     }
 
-    public function fromJson() {
-
+    /**
+     * @param string $json
+     * @param string $class
+     */
+    public function __construct($json, $class) {
+        $this
+            ->setJson($json)
+            ->setClass($class);
     }
 
-    public function fromArray() {
+    /**
+     * @return mixed
+     */
+    public function map() {
+        $reader = new MemoryAdapter();
+        $reflector = $reader->get('\Rise\RequestPayload\Collection');
 
-    }
+        $annotations = $reflector->getPropertiesAnnotations();
 
-    public function fromObject() {
+        /** @var Annotation $annotation */
+        foreach ($annotations as $annotation) {
+            print_r($annotation);
 
+            if ($annotation->getName() === 'type') {
+                $annotation->getArgument(0);
+            }
+        }
     }
 
 }
