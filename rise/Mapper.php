@@ -2,21 +2,16 @@
 
 namespace Rise;
 
-use \Phalcon\Annotations\Adapter\Memory as MemoryAdapter,
-    \Phalcon\Annotations\Annotation,
-    \Phalcon\Annotations\Collection as AnnotationCollection,
+use \stdClass,
+
+    \Phalcon\Annotations\Adapter\Memory as MemoryAdapter,
     \Phalcon\Annotations\Reflection;
 
 /**
  * Class Mapper
  * @package Rise
  */
-class Mapper {
-
-    /**
-     * @var string
-     */
-    private $json;
+abstract class Mapper {
 
     /**
      * @var string
@@ -41,22 +36,7 @@ class Mapper {
      */
     public function setClass($class) {
         $this->class = $class;
-        return $this;
-    }
 
-    /**
-     * @return string
-     */
-    public function getJson() {
-        return $this->json;
-    }
-
-    /**
-     * @param string $json
-     * @return $this
-     */
-    public function setJson($json) {
-        $this->json = $json;
         return $this;
     }
 
@@ -78,12 +58,10 @@ class Mapper {
     }
 
     /**
-     * @param string $json
      * @param string $class
      */
-    public function __construct($json, $class) {
+    public function __construct($class) {
         $this
-            ->setJson($json)
             ->setClass($class)
             ->setReflector(
                 (new MemoryAdapter())
@@ -92,23 +70,8 @@ class Mapper {
     }
 
     /**
-     * @return mixed
+     * @return stdClass
      */
-    public function map() {
-        $attributes = $this
-            ->getReflector()
-            ->getPropertiesAnnotations();
-
-        /** @var AnnotationCollection $annotations */
-        foreach ($attributes as $attribute => $annotations) {
-            if ($annotations->has('Mapper')) {
-                /** @var Annotation $annotation */
-                $annotation = $annotations->get('Mapper');
-                $annotation->getArgument('class');
-                print_r($annotation);
-            }
-
-        }
-    }
+    abstract public function map();
 
 }
