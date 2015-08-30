@@ -21,9 +21,11 @@ class MapperTest extends TestCase {
            new Order('some0', 0),
            new Order('some1', 1)
        ]);
-       $json = json_encode($object);
-       print_r($json);
-       $objectMapped = (new Mapper($json, $class))->map();
+
+       $json = json_decode(json_encode($object));
+
+       $objectMapped = (new Mapper\Object($json, $class))
+           ->map();
 
        $this->assertEquals($objectMapped, $object);
    }

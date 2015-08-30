@@ -2,9 +2,7 @@
 
 namespace Rise;
 
-use \Phalcon\Validation,
-
-    \Rise\Exception\Validation as ValidationException;
+use \Phalcon\Validation;
 
 /**
  * Class RequestPayload
@@ -36,23 +34,6 @@ abstract class RequestPayload {
         }
 
         return $messages;
-    }
-
-    /**
-     * @param string $name
-     * @param array $arguments
-     * @throws ValidationException
-     */
-    public function __call($name, array $arguments) {
-        $field = lcfirst(substr($name, 3));
-
-        $message = [
-            'field' => $field,
-            'message' => 'Unknown field',
-            'type' => 'Unknown'
-        ];
-
-        throw new ValidationException([$message]);
     }
 
 }

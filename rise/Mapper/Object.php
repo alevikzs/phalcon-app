@@ -4,6 +4,10 @@ namespace Rise\Mapper;
 
 use \stdClass,
 
+    \Phalcon\Annotations\Collection as Annotations,
+    \Phalcon\Annotations\Annotation,
+
+    \Rise\Exception\Validation as ValidationException,
     \Rise\Mapper;
 
 /**
@@ -49,46 +53,70 @@ class Object extends Mapper {
      */
     public function map() {
         $class = $this->getClass();
-        $instance = new $class;
+        $instance = new $class();
+
+        $attributesAnnotations = $this
+            ->getReflector()
+            ->getPropertiesAnnotations();
 
         foreach ($this->getObject() as $attribute => $value) {
+            $valueToSet = $value;
+
             if (is_object($value) || is_array($value)) {
-                $attributeAnotations = $this
-                    ->getReflector()
-                    ->getPropertiesAnnotations()
-                    ->get($attribute)
-                    ->getArgument('class');
+                if (isset($attributesAnnotations[$attribute])) {
+                    /** @var Annotations $attributeAnnotations */
+                    $attributeAnnotations = $attributesAnnotations[$attribute];
 
-                if (is_object($value)) {
-                    $compositeClass = '';
-                    $mapper = new self($value, $compositeClass);
-                    $value = $mapper->map();
-                } else {
-                    foreach ($value as $composite) {
+                    if ($attributeAnnotations->has('Mapper')) {
+                        /** @var Annotation $mapperAnnotation */
+                        $mapperAnnotation = $attributeAnnotations->get('Mapper');
+                        $mapperAnnotationClass = $mapperAnnotation->getArgument('class');
 
+                        if (is_object($value)) {
+                            /** @var stdClass $value */
+                            $mapper = new self($value, $mapperAnnotationClass);
+                            $valueToSet = $mapper->map();
+                        } else {
+                            $valueToSet = array_map(function(stdClass $val) use ($mapperAnnotationClass) {
+                                return (new self($val, $mapperAnnotationClass))
+                                    ->map();
+                            }, $value);
+                        }
+                    } else {
+                        // Mapper is missing in class definition
                     }
+                } else {
+                    // json attribute is missing in attributes list of object
                 }
-
             }
 
             $setter = 'set' . ucfirst($attribute);
-            $instance->$setter($value);
-        }
+            if (property_exists($class, $attribute) && method_exists($class, $setter)) {
+                $instance->$setter($valueToSet);
+            } else {
 
-        $attributes = $this
-            ->getReflector()
-            ->getPropertiesAnnotations()
-            ->get('');
-        /** @var AnnotationCollection $annotations */
-        foreach ($attributes as $attribute => $annotations) {
-            if ($annotations->has('Mapper')) {
-                /** @var Annotation $annotation */
-                $annotation = $annotations->get('Mapper');
-                $annotation->getArgument('class');
-                print_r($annotation);
             }
 
         }
+
+        return $instance;
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @throws ValidationException
+     */
+    public function __call($name, array $arguments) {
+        $field = lcfirst(substr($name, 3));
+
+        $message = [
+            'field' => $field,
+            'message' => 'Unknown field',
+            'type' => 'Unknown'
+        ];
+
+        throw new ValidationException([$message]);
     }
 
 }
