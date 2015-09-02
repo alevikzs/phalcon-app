@@ -69,7 +69,7 @@ class Collection extends RequestPayload {
     }
 
     /**
-     * @param \Rise\RequestPayload\Collection\Order[] $order
+     * @param Order[] $order
      * @return $this
      */
     public function setOrder(array $order = []) {

@@ -7,8 +7,9 @@ use \stdClass,
     \Phalcon\Annotations\Collection as Annotations,
     \Phalcon\Annotations\Annotation,
 
-    \Rise\Exception\Validation as ValidationException,
-    \Rise\Mapper;
+    \Rise\Mapper,
+    \Rise\Mapper\Exception\UnknownField as UnknownFieldException,
+    \Rise\Mapper\Exception\NotObject as NotObjectException;
 
 /**
  * Class Object
@@ -49,7 +50,9 @@ class Object extends Mapper {
     }
 
     /**
-     * @return stdClass
+     * @return mixed
+     * @throws NotObjectException
+     * @throws UnknownFieldException
      */
     public function map() {
         $class = $this->getClass();
@@ -62,8 +65,10 @@ class Object extends Mapper {
         foreach ($this->getObject() as $attribute => $value) {
             $valueToSet = $value;
 
-            if (is_object($value) || is_array($value)) {
-                if (isset($attributesAnnotations[$attribute])) {
+            $setter = 'set' . ucfirst($attribute);
+
+            if (property_exists($class, $attribute) && method_exists($class, $setter)) {
+                if (is_object($value) || is_array($value)) {
                     /** @var Annotations $attributeAnnotations */
                     $attributeAnnotations = $attributesAnnotations[$attribute];
 
@@ -83,40 +88,17 @@ class Object extends Mapper {
                             }, $value);
                         }
                     } else {
-                        // Mapper is missing in class definition
+                        throw new NotObjectException($attribute, $class);
                     }
-                } else {
-                    // json attribute is missing in attributes list of object
                 }
-            }
 
-            $setter = 'set' . ucfirst($attribute);
-            if (property_exists($class, $attribute) && method_exists($class, $setter)) {
                 $instance->$setter($valueToSet);
             } else {
-
+                throw new UnknownFieldException($attribute, $class);
             }
-
         }
 
         return $instance;
-    }
-
-    /**
-     * @param string $name
-     * @param array $arguments
-     * @throws ValidationException
-     */
-    public function __call($name, array $arguments) {
-        $field = lcfirst(substr($name, 3));
-
-        $message = [
-            'field' => $field,
-            'message' => 'Unknown field',
-            'type' => 'Unknown'
-        ];
-
-        throw new ValidationException([$message]);
     }
 
 }
