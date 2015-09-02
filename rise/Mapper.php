@@ -74,4 +74,17 @@ abstract class Mapper {
      */
     abstract public function map();
 
+//    /**
+//     * @return stdClass|array
+//     */
+//    abstract protected function getPreparedValue();
+//
+//    /**
+//     * @param stdClass|array $json
+//     * @return stdClass
+//     */
+//    protected function internalMap($json) {
+//
+//    }
+
 }
