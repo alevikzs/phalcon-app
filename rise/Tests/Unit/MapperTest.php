@@ -6,7 +6,8 @@ use \PHPUnit_Framework_TestCase as TestCase,
 
     \Rise\RequestPayload\Collection,
     \Rise\RequestPayload\Collection\Order,
-    \Rise\Mapper;
+    \Rise\Mapper\Object,
+    \Rise\Mapper\Object\Json;
 
 /**
  * Class MapperTest
@@ -14,7 +15,8 @@ use \PHPUnit_Framework_TestCase as TestCase,
  */
 class MapperTest extends TestCase {
 
-   public function testMain() {
+   public function testMain()
+   {
        $class = '\Rise\RequestPayload\Collection';
 
        $object = new Collection(30, 2, [
@@ -22,11 +24,15 @@ class MapperTest extends TestCase {
            new Order('some1', 1)
        ]);
 
-       $json = json_decode(json_encode($object));
+       $jsonString = json_encode($object);
+       $jsonObject = json_decode($jsonString);
 
-       $objectMapped = (new Mapper\Object($json, $class))
+       $objectMapped = (new Json($jsonString, $class))
            ->map();
+       $this->assertEquals($objectMapped, $object);
 
+       $objectMapped = (new Object($jsonObject, $class))
+           ->map();
        $this->assertEquals($objectMapped, $object);
    }
 

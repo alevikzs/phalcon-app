@@ -50,7 +50,7 @@ class Object extends Mapper {
     }
 
     /**
-     * @return mixed
+     * @return stdClass
      * @throws NotObjectException
      * @throws UnknownFieldException
      */
