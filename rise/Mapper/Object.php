@@ -9,7 +9,7 @@ use \stdClass,
 
     \Rise\Mapper,
     \Rise\Mapper\Exception\UnknownField as UnknownFieldException,
-    \Rise\Mapper\Exception\NotObject as NotObjectException;
+    \Rise\Mapper\Exception\MustBeSimple as MustBeSimpleException;
 
 /**
  * Class Object
@@ -51,7 +51,6 @@ class Object extends Mapper {
 
     /**
      * @return stdClass
-     * @throws NotObjectException
      * @throws UnknownFieldException
      */
     public function map() {
@@ -63,42 +62,98 @@ class Object extends Mapper {
             ->getPropertiesAnnotations();
 
         foreach ($this->getObject() as $attribute => $value) {
-            $valueToSet = $value;
+            $setter = $this->createSetter($attribute);
 
-            $setter = 'set' . ucfirst($attribute);
+            if ($this->hasAttribute($attribute)) {
+                /** @var Annotations $attributeAnnotations */
+                $attributeAnnotations = $attributesAnnotations[$attribute];
 
-            if (property_exists($class, $attribute) && method_exists($class, $setter)) {
-                if (is_object($value) || is_array($value)) {
-                    /** @var Annotations $attributeAnnotations */
-                    $attributeAnnotations = $attributesAnnotations[$attribute];
+                $valueToMap = $this->buildValueToMap($attribute, $value, $attributeAnnotations);
 
-                    if ($attributeAnnotations->has('Mapper')) {
-                        /** @var Annotation $mapperAnnotation */
-                        $mapperAnnotation = $attributeAnnotations->get('Mapper');
-                        $mapperAnnotationClass = $mapperAnnotation->getArgument('class');
-
-                        if (is_object($value)) {
-                            /** @var stdClass $value */
-                            $mapper = new self($value, $mapperAnnotationClass);
-                            $valueToSet = $mapper->map();
-                        } else {
-                            $valueToSet = array_map(function(stdClass $val) use ($mapperAnnotationClass) {
-                                return (new self($val, $mapperAnnotationClass))
-                                    ->map();
-                            }, $value);
-                        }
-                    } else {
-                        throw new NotObjectException($attribute, $class);
-                    }
-                }
-
-                $instance->$setter($valueToSet);
+                $instance->$setter($valueToMap);
             } else {
                 throw new UnknownFieldException($attribute, $class);
             }
         }
 
         return $instance;
+    }
+
+    /**
+     * @param string $attribute
+     * @return boolean
+     */
+    private function hasAttribute($attribute) {
+        $setter = $this->createSetter($attribute);
+
+        return property_exists($this->getClass(), $attribute)
+            && method_exists($this->getClass(), $setter);
+    }
+
+    /**
+     * @param string $attribute
+     * @param mixed $value
+     * @param Annotations $attributeAnnotations
+     * @return mixed
+     * @throws MustBeSimpleException
+     */
+    private function buildValueToMap($attribute, $value, Annotations $attributeAnnotations) {
+        $valueToMap = $value;
+
+        if ($attributeAnnotations->has('Mapper')) {
+            /** @var Annotation $mapperAnnotation */
+            $mapperAnnotation = $attributeAnnotations->get('Mapper');
+            $mapperAnnotationClass = $mapperAnnotation->getArgument('class');
+            $mapperAnnotationIsArray = $mapperAnnotation->getArgument('isArray');
+
+            if ($this->isObject($value)) {
+
+                /** @var stdClass $value */
+                $mapper = new self($value, $mapperAnnotationClass);
+                $valueToMap = $mapper->map();
+            } else {
+                $valueToMap = array_map(function(stdClass $val) use ($mapperAnnotationClass) {
+                    return (new self($val, $mapperAnnotationClass))
+                        ->map();
+                }, $value);
+            }
+        } elseif ($this->isComposite($value)) {
+            throw new MustBeSimpleException($attribute, $this->getClass());
+        }
+
+        return $valueToMap;
+    }
+
+    /**
+     * @param mixed $value
+     * @return boolean
+     */
+    private function isObject($value) {
+        return is_object($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return boolean
+     */
+    private function isArray($value) {
+        return is_array($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return boolean
+     */
+    private function isComposite($value) {
+        return $this->isObject($value) || $this->isArray($value);
+    }
+
+    /**
+     * @param string $attribute
+     * @return string
+     */
+    private function createSetter($attribute) {
+        return 'set' . ucfirst($attribute);
     }
 
 }

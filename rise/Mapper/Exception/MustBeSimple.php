@@ -5,10 +5,10 @@ namespace Rise\Mapper\Exception;
 use Rise\Mapper\Exception;
 
 /**
- * Class NotObject
+ * Class MustBeSimple
  * @package Rise\Mapper\Exception
  */
-class NotObject extends Exception {
+class MustBeSimple extends Exception {
 
     /**
      * @param string $field
@@ -19,7 +19,7 @@ class NotObject extends Exception {
             ->setField($field)
             ->setClass($class);
 
-        $message = "$field field of $class class has a simple type";
+        $message = "$field field of $class class must be a simple type";
 
         parent::__construct($message);
     }
