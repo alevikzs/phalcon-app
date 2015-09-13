@@ -42,12 +42,12 @@ trait TPayload {
      * @throws ValidationException
      */
     public function onConstruct() {
-        $rawPayload = $this->getRawPayload();
+        $rawBody = $this->request->getRawBody();
 
         /** @var RequestPayload $requestPayloadClass */
         $requestPayloadClass = $this->getRequestPayloadClass();
 
-        $this->setPayload($requestPayloadClass::promote($rawPayload));
+        $this->setPayload($requestPayloadClass::promote($rawBody));
 
         $errors = $this->getPayload()->validate();
 

@@ -16,11 +16,13 @@ class Local {
 
     /**
      * @var Security
+     * @Mapper(class="\Rise\Config\Local\Security")
      */
     public $security;
 
     /**
      * @var Database
+     * @Mapper(class="\Rise\Config\Local\Database")
      */
     public $database;
 
@@ -37,10 +39,10 @@ class Local {
     }
 
     /**
-     * @param \Rise\Config\Local\Security $security
+     * @param Security|null $security
      * @return $this
      */
-    public function setSecurity($security) {
+    public function setSecurity(Security $security = null) {
         $this->security = $security;
         return $this;
     }
@@ -53,11 +55,12 @@ class Local {
     }
 
     /**
-     * @param \Rise\Config\Local\Database $database
+     * @param Database|null $database
      * @return $this
      */
-    public function setDatabase($database) {
+    public function setDatabase(Database $database = null) {
         $this->database = $database;
+
         return $this;
     }
 
@@ -66,7 +69,9 @@ class Local {
      * @param Security $security
      */
     public function __construct(Database $database = null, Security $security = null) {
-        $this->setDatabase($database)->setSecurity($security);
+        $this
+            ->setDatabase($database)
+            ->setSecurity($security);
     }
 
     /**
@@ -82,7 +87,7 @@ class Local {
      */
     public static function get() {
         if (is_null(self::$instance)) {
-            $json = json_decode(file_get_contents(self::getPath()));
+            $json = file_get_contents(self::getPath());
             self::$instance = static::promote($json);
         }
 

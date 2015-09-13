@@ -2,7 +2,7 @@
 
 namespace Rise;
 
-use \JsonMapper;
+use \Rise\Mapper\Object\Json;
 
 /**
  * Trait TJsonSerialization
@@ -16,8 +16,8 @@ trait TJsonSerialization {
      */
     public static function promote($json) {
         if ($json) {
-            $mapper = new JsonMapper();
-            return $mapper->map($json, new static());
+            $mapper = new Json($json, get_called_class());
+            return $mapper->map();
         }
 
         return new static();
