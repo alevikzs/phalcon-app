@@ -9,7 +9,9 @@ use \stdClass,
 
     \Rise\Mapper,
     \Rise\Mapper\Exception\UnknownField as UnknownFieldException,
-    \Rise\Mapper\Exception\MustBeSimple as MustBeSimpleException;
+    \Rise\Mapper\Exception\MustBeSimple as MustBeSimpleException,
+    \Rise\Mapper\Exception\MustBeArray as MustBeArrayException,
+    \Rise\Mapper\Exception\MustBeObject as MustBeObjectException;
 
 /**
  * Class Object
@@ -96,6 +98,8 @@ class Object extends Mapper {
      * @param Annotations $attributeAnnotations
      * @return mixed
      * @throws MustBeSimpleException
+     * @throws MustBeArrayException
+     * @throws MustBeObjectException
      */
     private function buildValueToMap($attribute, $value, Annotations $attributeAnnotations) {
         $valueToMap = $value;
@@ -107,15 +111,22 @@ class Object extends Mapper {
             $mapperAnnotationIsArray = $mapperAnnotation->getArgument('isArray');
 
             if ($this->isObject($value)) {
-
-                /** @var stdClass $value */
-                $mapper = new self($value, $mapperAnnotationClass);
-                $valueToMap = $mapper->map();
+                if ($mapperAnnotationIsArray) {
+                    throw new MustBeArrayException($attribute, $this->getClass());
+                } else {
+                    /** @var stdClass $value */
+                    $mapper = new self($value, $mapperAnnotationClass);
+                    $valueToMap = $mapper->map();
+                }
             } else {
-                $valueToMap = array_map(function(stdClass $val) use ($mapperAnnotationClass) {
-                    return (new self($val, $mapperAnnotationClass))
-                        ->map();
-                }, $value);
+                if ($mapperAnnotationIsArray) {
+                    $valueToMap = array_map(function(stdClass $val) use ($mapperAnnotationClass) {
+                        return (new self($val, $mapperAnnotationClass))
+                            ->map();
+                    }, $value);
+                } else {
+                    throw new MustBeObjectException($attribute, $this->getClass());
+                }
             }
         } elseif ($this->isComposite($value)) {
             throw new MustBeSimpleException($attribute, $this->getClass());

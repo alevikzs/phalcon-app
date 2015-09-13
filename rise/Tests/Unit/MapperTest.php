@@ -5,8 +5,9 @@ namespace Rise\Tests\Unit;
 use \stdClass,
     \PHPUnit_Framework_TestCase as TestCase,
 
-    \Rise\RequestPayload\Collection,
-    \Rise\RequestPayload\Collection\Order,
+    \Rise\Dummy\Tree,
+    \Rise\Dummy\Branch,
+    \Rise\Dummy\Leaf,
     \Rise\Mapper\Object,
     \Rise\Mapper\Object\Json;
 
@@ -16,43 +17,69 @@ use \stdClass,
  */
 class MapperTest extends TestCase {
 
-   public function testMain() {
-       $class = '\Rise\RequestPayload\Collection';
+    /**
+     * @var Tree
+     */
+    private static $tree;
 
-       $object = new Collection(30, 2, [
-           new Order('some0', 0),
-           new Order('some1', 1)
-       ]);
+    /**
+     * @return Tree
+     */
+    private static function getTree() {
+        if (!self::$tree) {
+            self::$tree = new Tree(2, 'Pear', new Branch( 1, [new Leaf(2, 3), new Leaf(1, 2)]));
+        }
 
-       $jsonString = json_encode($object);
-       $jsonObject = json_decode($jsonString);
+        return self::$tree;
+    }
 
-       $objectMapped = (new Json($jsonString, $class))
-           ->map();
-       $this->assertEquals($objectMapped, $object);
+    public function testMain() {
+        $class = '\Rise\Dummy\Tree';
 
-       $objectMapped = (new Object($jsonObject, $class))
-           ->map();
-       $this->assertEquals($objectMapped, $object);
-   }
+        $object = self::getTree();
+
+        $jsonString = json_encode($object);
+        $jsonObject = json_decode($jsonString);
+
+        $objectMapped = (new Json($jsonString, $class))
+            ->map();
+        $this->assertEquals($objectMapped, $object);
+
+        $objectMapped = (new Object($jsonObject, $class))
+            ->map();
+        $this->assertEquals($objectMapped, $object);
+    }
 
     public function testMustBeSimpleException() {
         $this->setExpectedException('\Rise\Mapper\Exception\MustBeSimple');
 
-        $class = '\Rise\RequestPayload\Collection';
+        $class = '\Rise\Dummy\Tree';
 
-        $object = new Collection(30, 2, [
-            new Order('some0', 0),
-            new Order('some1', 1)
-        ]);
+        $object = self::getTree();
 
         $jsonObject = json_decode(json_encode($object));
 
-        $limit = new stdClass();
-        $limit->foo = 1;
-        $limit->bar = 2;
+        $height = new stdClass();
+        $height->foo = 1;
+        $height->bar = 2;
 
-        $jsonObject->limit = $limit;
+        $jsonObject->height = $height;
+
+        (new Object($jsonObject, $class))
+            ->map();
+    }
+
+    public function testMustBeArrayException() {
+        $this->setExpectedException('\Rise\Mapper\Exception\MustBeArray');
+
+        $class = '\Rise\Dummy\Tree';
+
+        $object = self::getTree();
+
+        $jsonObject = json_decode(json_encode($object));
+
+
+        $jsonObject->branch->leaves = new stdClass();
 
         (new Object($jsonObject, $class))
             ->map();
@@ -60,21 +87,25 @@ class MapperTest extends TestCase {
 
     public function testMustBeObjectException() {
         $this->setExpectedException('\Rise\Mapper\Exception\MustBeObject');
-    }
 
-    public function testMustBeArrayException() {
-        $this->setExpectedException('\Rise\Mapper\Exception\MustBeArray');
+        $class = '\Rise\Dummy\Tree';
+
+        $object = self::getTree();
+
+        $jsonObject = json_decode(json_encode($object));
+
+        $jsonObject->branch = 1;
+
+        (new Object($jsonObject, $class))
+            ->map();
     }
 
     public function testUnknownFieldException() {
         $this->setExpectedException('\Rise\Mapper\Exception\UnknownField');
 
-        $class = '\Rise\RequestPayload\Collection';
+        $class = '\Rise\Dummy\Tree';
 
-        $object = new Collection(30, 2, [
-            new Order('some0', 0),
-            new Order('some1', 1)
-        ]);
+        $object = self::getTree();
 
         $jsonObject = json_decode(json_encode($object));
 
