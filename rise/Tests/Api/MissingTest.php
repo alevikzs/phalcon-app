@@ -5,10 +5,10 @@ namespace Rise\Tests\Api;
 use \Rise\ApiTestCase;
 
 /**
- * Class NotFoundTest
+ * Class MissingTest
  * @package Rise\Tests\Api
  */
-class NotFoundTest extends ApiTestCase {
+class MissingTest extends ApiTestCase {
 
     /**
      * @return void
@@ -26,7 +26,7 @@ class NotFoundTest extends ApiTestCase {
     protected function createStub() {}
 
     public function testMain() {
-        $response = $this->post('/not-found', []);
+        $response = $this->post('/not-found');
         $responsePayload = $response->json();
 
         $this->assertEquals(404, $response->getStatusCode());

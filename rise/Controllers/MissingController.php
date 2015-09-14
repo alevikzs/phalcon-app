@@ -6,10 +6,10 @@ use \Rise\Controller,
     \Rise\Exception\User as UserException;
 
 /**
- * Class NotFoundController
+ * Class Missing
  * @package Rise\Controllers
  */
-class NotFoundController extends Controller {
+class MissingController extends Controller {
 
     /**
      * @throws UserException

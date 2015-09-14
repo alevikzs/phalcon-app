@@ -69,7 +69,7 @@ abstract class Web extends Application implements  IBoot {
 
             $router->notFound([
                 'namespace' => 'Rise\\Controllers',
-                'controller' => 'notFound',
+                'controller' => 'Missing',
                 'action' => 'run'
             ]);
 

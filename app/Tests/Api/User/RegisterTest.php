@@ -21,16 +21,16 @@ class RegisterTest extends ApiTestCase {
 
     public function testMain() {
         $userFixture = (new UserFixture())
-            ->getInstance('Register Test');
+            ->getArray('Register Test');
 
-        $response = $this->post('/user/register', $userFixture->toArray());
+        $response = $this->post('/user/register', $userFixture);
         $responsePayload = $response->json();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($responsePayload['success']);
         $this->assertNull($responsePayload['meta']);
-        $this->assertEquals($responsePayload['data']['user']['name'], $userFixture->getName());
-        $this->assertEquals($responsePayload['data']['user']['email'], $userFixture->getEmail());
+        $this->assertEquals($responsePayload['data']['user']['name'], $userFixture['name']);
+        $this->assertEquals($responsePayload['data']['user']['email'], $userFixture['email']);
 
         $tokenPayload = (new Session())->decode($responsePayload['data']['token']);
         $this->assertEquals($tokenPayload->id, $responsePayload['data']['user']['id']);
@@ -38,17 +38,16 @@ class RegisterTest extends ApiTestCase {
         /** @var boolean|User $createdUser */
         $createdUser = User::findFirstById($responsePayload['data']['user']['id']);
         $this->assertNotFalse($createdUser);
-        $this->assertEquals($userFixture->getName(), $createdUser->getName());
-        $this->assertEquals($userFixture->getEmail(), $createdUser->getEmail());
+        $this->assertEquals($userFixture['name'], $createdUser->getName());
+        $this->assertEquals($userFixture['email'], $createdUser->getEmail());
         $isValidPassword = (new Security())
-            ->checkHash($userFixture->getPassword(), $createdUser->getPassword());
+            ->checkHash($userFixture['password'], $createdUser->getPassword());
         $this->assertTrue($isValidPassword);
     }
 
     public function testValidationEmailRequired() {
         $userFixture = (new UserFixture())
-            ->getInstance('Register Test')
-            ->toArray();
+            ->getArray('Register Test');
 
         unset($userFixture['email']);
 
@@ -78,9 +77,9 @@ class RegisterTest extends ApiTestCase {
 
     public function testValidationEmailInvalid() {
         $userFixture = (new UserFixture())
-            ->getInstance('Register Test')
-            ->setEmail('invalid.email')
-            ->toArray();
+            ->getArray('Register Test');
+
+        $userFixture['email'] = 'invalid.email';
 
         $response = $this->post('/user/register', $userFixture);
         $responsePayload = $response->json();
@@ -103,8 +102,7 @@ class RegisterTest extends ApiTestCase {
 
     public function testValidationName() {
         $userFixture = (new UserFixture())
-            ->getInstance('Register Test')
-            ->toArray();
+            ->getArray('Register Test');
 
         unset($userFixture['name']);
 
@@ -129,8 +127,7 @@ class RegisterTest extends ApiTestCase {
 
     public function testValidationPassword() {
         $userFixture = (new UserFixture())
-            ->getInstance('Register Test')
-            ->toArray();
+            ->getArray('Register Test');
 
         unset($userFixture['password']);
 

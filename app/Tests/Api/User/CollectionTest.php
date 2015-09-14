@@ -23,7 +23,7 @@ class CollectionTest extends ApiTestCase {
             $users[] = $user->toArray();
         }
 
-        $response = $this->post('/users', []);
+        $response = $this->post('/users');
         $responsePayload = $response->json();
 
         $this->assertEquals(200, $response->getStatusCode());

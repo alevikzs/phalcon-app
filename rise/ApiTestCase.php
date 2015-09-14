@@ -70,11 +70,16 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * @param string $url
-     * @param array $data
+     * @param array|null $data
      * @return ResponseInterface
      */
-    public function post($url, array $data) {
-        $body = json_encode($data);
+    public function post($url, array $data = null) {
+        if (is_null($data)) {
+            $body = '{}';
+        } else {
+            $body = json_encode($data);
+        }
+
         return $this
             ->getHttp()
             ->post($url, ['body' => $body]);
@@ -82,11 +87,16 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * @param string $url
-     * @param array $data
+     * @param array|null $data
      * @return ResponseInterface
      */
-    public function put($url, array $data) {
-        $body = json_encode($data);
+    public function put($url, array $data = null) {
+        if (is_null($data)) {
+            $body = '{}';
+        } else {
+            $body = json_encode($data);
+        }
+
         return $this
             ->getHttp()
             ->put($url, ['body' => $body]);

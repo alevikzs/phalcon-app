@@ -71,7 +71,7 @@ class UpdateTest extends ApiTestCase {
 
     public function testNotFound() {
         $notFoundId = User::getNextId();
-        $response = $this->put('/user/' . $notFoundId, []);
+        $response = $this->put('/user/' . $notFoundId);
         $responsePayload = $response->json();
 
         $this->assertEquals(404, $response->getStatusCode());
@@ -82,9 +82,9 @@ class UpdateTest extends ApiTestCase {
 
     public function testValidationEmail() {
         $userFixture = (new UserFixture())
-            ->getInstance('Update Test')
-            ->setEmail('invalid.email')
-            ->toArray();
+            ->getArray('Update Test');
+
+        $userFixture['email'] = 'invalid.email';
 
         $response = $this->post('/user/register', $userFixture);
         $responsePayload = $response->json();
