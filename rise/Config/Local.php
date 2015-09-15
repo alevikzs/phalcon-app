@@ -16,13 +16,13 @@ class Local {
 
     /**
      * @var Security
-     * @Mapper(class="\Rise\Config\Local\Security")
+     * @mapper(class="\Rise\Config\Local\Security")
      */
     public $security;
 
     /**
      * @var Database
-     * @Mapper(class="\Rise\Config\Local\Database")
+     * @mapper(class="\Rise\Config\Local\Database")
      */
     public $database;
 

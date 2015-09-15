@@ -15,7 +15,7 @@ class Branch {
 
     /**
      * @var Leaf[]
-     * @Mapper(class="\Rise\Dummy\Leaf", isArray=true)
+     * @mapper(class="\Rise\Dummy\Leaf", isArray=true)
      */
     public $leaves;
 

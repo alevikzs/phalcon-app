@@ -20,7 +20,7 @@ class Tree {
 
     /**
      * @var Branch
-     * @Mapper(class="\Rise\Dummy\Branch")
+     * @mapper(class="\Rise\Dummy\Branch")
      */
     public $branch;
 

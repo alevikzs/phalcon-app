@@ -104,9 +104,9 @@ class Object extends Mapper {
     private function buildValueToMap($attribute, $value, Annotations $attributeAnnotations) {
         $valueToMap = $value;
 
-        if ($attributeAnnotations->has('Mapper')) {
+        if ($attributeAnnotations->has('mapper')) {
             /** @var Annotation $mapperAnnotation */
-            $mapperAnnotation = $attributeAnnotations->get('Mapper');
+            $mapperAnnotation = $attributeAnnotations->get('mapper');
             $mapperAnnotationClass = $mapperAnnotation->getArgument('class');
             $mapperAnnotationIsArray = $mapperAnnotation->getArgument('isArray');
 
