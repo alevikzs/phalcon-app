@@ -16,17 +16,11 @@ use \Phalcon\Http\Response,
  * Class Collection
  * @package Rise\Controller
  * @method CollectionRequestPayload getPayload()
+ *
  */
 abstract class Collection extends Controller {
 
     use TPayload;
-
-    /**
-     * @return string
-     */
-    protected function getRequestPayloadClass() {
-        return '\Rise\RequestPayload\Collection';
-    }
 
     /**
      * @param Criteria $query

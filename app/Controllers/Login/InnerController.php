@@ -13,18 +13,12 @@ use \Rise\Http\Response,
  * Class InnerController
  * @package App\Controllers\Login
  * @method LoginRequestPayload getPayload()
+ * @payload(class="\Rise\RequestPayload\Login\Inner")
  */
 class InnerController extends PayloadController {
 
     /**
-     * @return string
-     */
-    protected function getRequestPayloadClass() {
-        return '\Rise\RequestPayload\Login\Inner';
-    }
-
-    /**
-     * @throws \Exception
+     * @throws UserException
      * @return Response
      */
     public function runAction() {

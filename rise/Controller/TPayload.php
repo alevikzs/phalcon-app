@@ -4,6 +4,7 @@ namespace Rise\Controller;
 
 use \Phalcon\Http\Response,
     \Phalcon\Http\Request,
+    \Phalcon\Annotations\Adapter\Memory as MemoryAdapter,
 
     \Rise\RequestPayload,
     \Rise\Controller,
@@ -45,7 +46,11 @@ trait TPayload {
         $rawBody = $this->request->getRawBody();
 
         /** @var RequestPayload $requestPayloadClass */
-        $requestPayloadClass = $this->getRequestPayloadClass();
+        $requestPayloadClass = (new MemoryAdapter())
+            ->get(get_called_class())
+            ->getClassAnnotations()
+            ->get('payload')
+            ->getArgument('class');
 
         $this->setPayload($requestPayloadClass::promote($rawBody));
 
@@ -66,10 +71,5 @@ trait TPayload {
             ->request
             ->getJsonRawBody($isAssociative);
     }
-
-    /**
-     * @return string
-     */
-    protected abstract function getRequestPayloadClass();
 
 }

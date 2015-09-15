@@ -12,6 +12,7 @@ use \Phalcon\Mvc\Model\Criteria,
 /**
  * Class CollectionController
  * @package App\Controllers\User
+ * @payload(class="\Rise\RequestPayload\Collection")
  */
 class CollectionController extends Collection {
 

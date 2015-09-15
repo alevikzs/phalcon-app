@@ -13,15 +13,9 @@ use \Phalcon\Http\Response,
  * Class RegisterController
  * @package App\Controllers\User
  * @method RequestPayload getPayload()
+ * @payload(class="\App\RequestPayload\User\Register")
  */
 class RegisterController extends PayloadController {
-
-    /**
-     * @return string
-     */
-    protected function getRequestPayloadClass() {
-        return '\App\RequestPayload\User\Register';
-    }
 
     /**
      * @return Response

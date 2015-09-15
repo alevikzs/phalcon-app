@@ -15,15 +15,9 @@ use \Phalcon\Http\Response,
  * @package App\Controllers\User
  * @method int getId()
  * @method RequestPayload getPayload()
+ * @payload(class="\App\RequestPayload\User\Update")
  */
 class UpdateController extends PayloadController {
-
-    /**
-     * @return string
-     */
-    protected function getRequestPayloadClass() {
-        return '\App\RequestPayload\User\Update';
-    }
 
     /**
      * @return Response

@@ -13,15 +13,9 @@ use \Phalcon\Http\Response,
  * Class CreateController
  * @package App\Controllers\User
  * @method RequestPayload getPayload()
+ * @payload(class="\App\RequestPayload\User\Create")
  */
 class CreateController extends PayloadController {
-
-    /**
-     * @return string
-     */
-    protected function getRequestPayloadClass() {
-        return '\App\RequestPayload\User\Create';
-    }
 
     /**
      * @return Response
