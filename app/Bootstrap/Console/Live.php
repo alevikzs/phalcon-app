@@ -9,7 +9,7 @@ use \Phalcon\Db\Adapter\Pdo,
     \Rise\Bootstrap\TLive;
 
 /**
- * Class Console
+ * Class Live
  * @package App\Bootstrap\Console
  */
 class Live extends Console {

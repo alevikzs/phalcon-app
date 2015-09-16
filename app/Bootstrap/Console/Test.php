@@ -9,7 +9,7 @@ use \Phalcon\Db\Adapter\Pdo,
     \Rise\Bootstrap\TTest;
 
 /**
- * Class Console
+ * Class Test
  * @package App\Bootstrap\Console
  */
 class Test extends Console {

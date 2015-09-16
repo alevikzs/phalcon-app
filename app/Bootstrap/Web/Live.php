@@ -9,7 +9,7 @@ use \Phalcon\Db\Adapter\Pdo,
     \Rise\Bootstrap\TLive;
 
 /**
- * Class Web
+ * Class Live
  * @package App\Bootstrap
  */
 class Live extends Web {
