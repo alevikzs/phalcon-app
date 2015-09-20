@@ -16,7 +16,6 @@ use \Phalcon\Http\Response,
  * Class Collection
  * @package Rise\Controller
  * @method CollectionRequestPayload getPayload()
- *
  */
 abstract class Collection extends Controller {
 

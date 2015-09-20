@@ -81,12 +81,14 @@ class UpdateTest extends ApiTestCase {
     }
 
     public function testValidationEmail() {
+        $userToUpdate = $this->getStub()->offsetGet(0);
+
         $userFixture = (new UserFixture())
             ->getArray('Update Test');
 
         $userFixture['email'] = 'invalid.email';
 
-        $response = $this->post('/user/register', $userFixture);
+        $response = $this->put('/user/' . $userToUpdate->getId(), $userFixture);
         $responsePayload = $response->json();
 
         $this->assertEquals(400, $response->getStatusCode());
