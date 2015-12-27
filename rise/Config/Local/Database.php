@@ -154,7 +154,14 @@ class Database {
      * @param string $adapter
      * @param string $host
      */
-    public function __construct($user = null, $live = null, $test = null, $password = '', $adapter = 'Postgresql', $host = 'localhost') {
+    public function __construct(
+        $user = null,
+        $live = null,
+        $test = null,
+        $password = '',
+        $adapter = 'Postgresql',
+        $host = 'localhost'
+    ) {
         $this
             ->setUser($user)
             ->setLive($live)

@@ -80,7 +80,7 @@ class UpdateTest extends ApiTestCase {
         $this->assertNull($responsePayload['meta']);
     }
 
-    public function testValidationEmail() {
+    public function testInvalidEmail() {
         $userToUpdate = $this->getStub()->offsetGet(0);
 
         $userFixture = (new UserFixture())

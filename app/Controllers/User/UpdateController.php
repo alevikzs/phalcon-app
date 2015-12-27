@@ -28,15 +28,15 @@ class UpdateController extends PayloadController {
 
         if ($user) {
             $name = $this->getPayload()->getName();
-            if ($name) {
+            if (!is_null($name)) {
                 $user->setName($name);
             }
             $email = $this->getPayload()->getEmail();
-            if ($email) {
+            if (!is_null($email)) {
                 $user->setEmail($email);
             }
             $password = $this->getPayload()->getPassword();
-            if ($password) {
+            if (!is_null($password)) {
                 $user->setPassword($password);
             }
 
