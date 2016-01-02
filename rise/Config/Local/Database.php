@@ -13,32 +13,32 @@ class Database {
     /**
      * @var string
      */
-    public $adapter;
+    private $adapter;
 
     /**
      * @var string
      */
-    public $host;
+    private $host;
 
     /**
      * @var string
      */
-    public $user;
+    private $user;
 
     /**
      * @var string
      */
-    public $password;
+    private $password;
 
     /**
      * @var string
      */
-    public $live;
+    private $live;
 
     /**
      * @var string
      */
-    public $test;
+    private $test;
 
     /**
      * @var Pdo

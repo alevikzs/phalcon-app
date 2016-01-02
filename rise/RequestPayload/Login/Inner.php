@@ -17,12 +17,12 @@ class Inner extends RequestPayload {
     /**
      * @var string
      */
-    public $email;
+    private $email;
 
     /**
      * @var string
      */
-    public $password;
+    private $password;
 
     /**
      * @return string
@@ -81,6 +81,16 @@ class Inner extends RequestPayload {
             ->add('email', new Email([
                 'message' => 'The e-mail is not valid'
             ]));
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword()
+        ];
     }
 
 }

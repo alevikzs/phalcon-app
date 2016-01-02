@@ -2,21 +2,23 @@
 
 namespace Rise\Dummy;
 
+use \JsonSerializable;
+
 /**
  * Class Leaf
  * @package Rise\Dummy
  */
-class Leaf {
+class Leaf implements JsonSerializable {
 
     /**
      * @var double
      */
-    public $height;
+    private $height;
 
     /**
      * @var double
      */
-    public $width;
+    private $width;
 
     /**
      * @return float
@@ -53,6 +55,16 @@ class Leaf {
     public function __construct($height = null, $width = null) {
         $this->height = $height;
         $this->width = $width;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize() {
+        return [
+            'height' => $this->getHeight(),
+            'width' => $this->getWidth()
+        ];
     }
 
 }

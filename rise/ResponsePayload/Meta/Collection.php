@@ -13,22 +13,22 @@ class Collection extends Meta {
     /**
      * @var integer
      */
-    public $total;
+    private $total;
 
     /**
      * @var integer
      */
-    public $page;
+    private $page;
 
     /**
      * @var integer
      */
-    public $limit;
+    private $limit;
 
     /**
      * @var boolean
      */
-    public $hasNext;
+    private $hasNext;
 
     /**
      * @return integer
@@ -82,7 +82,7 @@ class Collection extends Meta {
      * @return boolean
      */
     public function hasNext() {
-        return $this->limit;
+        return $this->hasNext;
     }
 
     /**
@@ -121,6 +121,18 @@ class Collection extends Meta {
      */
     public function getOffset() {
         return $this->getLimit() * ($this->getPage() - 1);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'total' => $this->getTotal(),
+            'page' => $this->getPage(),
+            'limit' => $this->getLimit(),
+            'hasNext' => $this->hasNext()
+        ];
     }
 
 }

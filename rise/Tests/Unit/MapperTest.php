@@ -41,6 +41,7 @@ class MapperTest extends TestCase {
         $jsonString = json_encode($object);
         $jsonObject = json_decode($jsonString);
 
+        /** @var Tree $objectMapped */
         $objectMapped = (new Json($jsonString, $class))
             ->map();
         $this->assertEquals($objectMapped, $object);

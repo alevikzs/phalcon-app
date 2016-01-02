@@ -16,18 +16,17 @@ class Collection extends RequestPayload {
     /**
      * @var integer
      */
-    public $limit;
+    private $limit;
 
     /**
      * @var integer
      */
-    public $page;
+    private $page;
 
     /**
      * @var Order[]
-     * @mapper(class="\Rise\RequestPayload\Collection\Order", isArray=true)
      */
-    public $order;
+    private $order;
 
     /**
      * @return integer
@@ -71,6 +70,7 @@ class Collection extends RequestPayload {
     /**
      * @param Order[] $order
      * @return $this
+     * @mapper(class="\Rise\RequestPayload\Collection\Order", isArray=true)
      */
     public function setOrder(array $order = []) {
         $this->order = $order;
@@ -126,6 +126,17 @@ class Collection extends RequestPayload {
      */
     public function validation(Validation $validator) {
         return $validator;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'limit' => $this->getLimit(),
+            'page' => $this->getPage(),
+            'order' => $this->getOrder(),
+        ];
     }
 
 }

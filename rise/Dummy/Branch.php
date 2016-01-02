@@ -2,22 +2,23 @@
 
 namespace Rise\Dummy;
 
+use \JsonSerializable;
+
 /**
  * Class Branch
  * @package Rise\Dummy
  */
-class Branch {
+class Branch implements JsonSerializable {
 
     /**
      * @var double
      */
-    public $length;
+    private $length;
 
     /**
      * @var Leaf[]
-     * @mapper(class="\Rise\Dummy\Leaf", isArray=true)
      */
-    public $leaves;
+    private $leaves;
 
     /**
      * @return float
@@ -42,6 +43,7 @@ class Branch {
 
     /**
      * @param Leaf[] $leaves
+     * @mapper(class="\Rise\Dummy\Leaf", isArray=true)
      */
     public function setLeaves(array $leaves) {
         $this->leaves = $leaves;
@@ -54,6 +56,16 @@ class Branch {
     public function __construct($length = null, array $leaves = []) {
         $this->length = $length;
         $this->leaves = $leaves;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize() {
+        return [
+            'length' => $this->getLength(),
+            'leaves' => $this->getLeaves()
+        ];
     }
 
 }

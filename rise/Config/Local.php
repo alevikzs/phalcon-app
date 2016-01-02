@@ -4,7 +4,7 @@ namespace Rise\Config;
 
 use \Rise\Config\Local\Database,
     \Rise\Config\Local\Security,
-    \Rise\TJsonSerialization;
+    \Rise\TJsonMapper;
 
 /**
  * Class Local
@@ -12,19 +12,17 @@ use \Rise\Config\Local\Database,
  */
 class Local {
 
-    use TJsonSerialization;
+    use TJsonMapper;
 
     /**
      * @var Security
-     * @mapper(class="\Rise\Config\Local\Security")
      */
-    public $security;
+    private $security;
 
     /**
      * @var Database
-     * @mapper(class="\Rise\Config\Local\Database")
      */
-    public $database;
+    private $database;
 
     /**
      * @var $this
@@ -41,6 +39,7 @@ class Local {
     /**
      * @param Security|null $security
      * @return $this
+     * @mapper(class="\Rise\Config\Local\Security")
      */
     public function setSecurity(Security $security = null) {
         $this->security = $security;
@@ -57,6 +56,7 @@ class Local {
     /**
      * @param Database|null $database
      * @return $this
+     * @mapper(class="\Rise\Config\Local\Database")
      */
     public function setDatabase(Database $database = null) {
         $this->database = $database;

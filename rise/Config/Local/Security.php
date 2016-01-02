@@ -13,7 +13,7 @@ class Security {
     /**
      * @var string
      */
-    public $salt;
+    private $salt;
 
     /**
      * @return string

@@ -11,7 +11,7 @@ class Validation extends User {
     /**
      * @var array
      */
-    public $errors;
+    private $errors;
 
     /**
      * @return array
@@ -39,6 +39,18 @@ class Validation extends User {
         $this->setErrors($errors);
 
         parent::__construct($message, $code);
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize() {
+        return array_merge(
+            [
+                'errors' => $this->getErrors()
+            ],
+            parent::jsonSerialize()
+        );
     }
 
 }

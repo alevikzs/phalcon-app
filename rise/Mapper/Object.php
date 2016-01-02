@@ -59,18 +59,18 @@ class Object extends Mapper {
         $class = $this->getClass();
         $instance = new $class();
 
-        $attributesAnnotations = $this
+        $methodsAnnotations = $this
             ->getReflector()
-            ->getPropertiesAnnotations();
+            ->getMethodsAnnotations();
 
         foreach ($this->getObject() as $attribute => $value) {
             $setter = $this->createSetter($attribute);
 
             if ($this->hasAttribute($attribute)) {
-                /** @var Annotations $attributeAnnotations */
-                $attributeAnnotations = $attributesAnnotations[$attribute];
+                /** @var Annotations $methodAnnotations */
+                $methodAnnotations = $methodsAnnotations[$setter];
 
-                $valueToMap = $this->buildValueToMap($attribute, $value, $attributeAnnotations);
+                $valueToMap = $this->buildValueToMap($attribute, $value, $methodAnnotations);
 
                 $instance->$setter($valueToMap);
             } else {
@@ -87,26 +87,27 @@ class Object extends Mapper {
      */
     private function hasAttribute($attribute) {
         $setter = $this->createSetter($attribute);
+        $getter = $this->createGetter($attribute);
 
-        return property_exists($this->getClass(), $attribute)
+        return method_exists($this->getClass(), $getter)
             && method_exists($this->getClass(), $setter);
     }
 
     /**
      * @param string $attribute
      * @param mixed $value
-     * @param Annotations $attributeAnnotations
+     * @param Annotations $methodAnnotations
      * @return mixed
      * @throws MustBeSimpleException
      * @throws MustBeArrayException
      * @throws MustBeObjectException
      */
-    private function buildValueToMap($attribute, $value, Annotations $attributeAnnotations) {
+    private function buildValueToMap($attribute, $value, Annotations $methodAnnotations) {
         $valueToMap = $value;
 
-        if ($attributeAnnotations->has('mapper')) {
+        if ($methodAnnotations->has('mapper')) {
             /** @var Annotation $mapperAnnotation */
-            $mapperAnnotation = $attributeAnnotations->get('mapper');
+            $mapperAnnotation = $methodAnnotations->get('mapper');
             $mapperAnnotationClass = $mapperAnnotation->getArgument('class');
             $mapperAnnotationIsArray = $mapperAnnotation->getArgument('isArray');
 
@@ -165,6 +166,14 @@ class Object extends Mapper {
      */
     private function createSetter($attribute) {
         return 'set' . ucfirst($attribute);
+    }
+
+    /**
+     * @param string $attribute
+     * @return string
+     */
+    private function createGetter($attribute) {
+        return 'get' . ucfirst($attribute);
     }
 
 }

@@ -2,27 +2,28 @@
 
 namespace Rise\Dummy;
 
+use \JsonSerializable;
+
 /**
  * Class Tree
  * @package Rise\Dummy
  */
-class Tree {
+class Tree implements JsonSerializable {
 
     /**
      * @var double
      */
-    public $height;
+    private $height;
 
     /**
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * @var Branch
-     * @mapper(class="\Rise\Dummy\Branch")
      */
-    public $branch;
+    private $branch;
 
     /**
      * @return float
@@ -61,6 +62,7 @@ class Tree {
 
     /**
      * @param Branch $branch
+     * @mapper(class="\Rise\Dummy\Branch")
      */
     public function setBranch(Branch $branch) {
         $this->branch = $branch;
@@ -75,6 +77,17 @@ class Tree {
         $this->height = $height;
         $this->name = $name;
         $this->branch = $branch;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize() {
+        return [
+            'name' => $this->getName(),
+            'height' => $this->getHeight(),
+            'branch' => $this->getBranch()
+        ];
     }
 
 }

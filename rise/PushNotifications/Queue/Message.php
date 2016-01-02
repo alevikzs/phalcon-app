@@ -11,13 +11,13 @@ class Message {
     /**
      * @var string
      */
-    public $token;
+    private $token;
 
 
     /**
      * @var mixed
      */
-    public $payload;
+    private $payload;
 
     /**
      * @return string

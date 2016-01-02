@@ -34,8 +34,6 @@ class Exception extends ResponsePayload {
         return $this;
     }
 
-
-
     /**
      * @param BaseException $exception
      * @param Meta $meta

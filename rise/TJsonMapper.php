@@ -5,10 +5,10 @@ namespace Rise;
 use \Rise\Mapper\Object\Json;
 
 /**
- * Trait TJsonSerialization
+ * Trait TJsonMapper
  * @package Rise
  */
-trait TJsonSerialization {
+trait TJsonMapper {
 
     /**
      * @param mixed $json

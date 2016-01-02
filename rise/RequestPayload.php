@@ -8,9 +8,9 @@ use \Phalcon\Validation;
  * Class RequestPayload
  * @package Rise
  */
-abstract class RequestPayload {
+abstract class RequestPayload extends Base {
 
-    use TJsonSerialization;
+    use TJsonMapper;
 
     /**
      * @param Validation $validator
@@ -27,7 +27,7 @@ abstract class RequestPayload {
 
         $messages = [];
 
-        foreach ($validator->validate($this) as $index => $message) {
+        foreach ($validator->validate($this->getPublicProperties()) as $index => $message) {
             $messages[$index]['field'] = $message->getField();
             $messages[$index]['message'] = $message->getMessage();
             $messages[$index]['type'] = $message->getType();

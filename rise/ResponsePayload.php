@@ -4,28 +4,29 @@ namespace Rise;
 
 use \Exception,
 
+    \Rise\Base,
     \Rise\ResponsePayload\Meta;
 
 /**
  * Class ResponsePayload
  * @package Rise
  */
-class ResponsePayload {
+class ResponsePayload extends Base {
 
     /**
      * @var boolean
      */
-    public $success;
+    private $success;
 
     /**
      * @var array
      */
-    public $data;
+    private $data;
 
     /**
      * @var Meta
      */
-    public $meta;
+    private $meta;
 
     /**
      * @return boolean
@@ -88,6 +89,17 @@ class ResponsePayload {
         if ($meta) {
             $this->setMeta($meta);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'success' => $this->isSuccess(),
+            'data' => $this->getData(),
+            'meta' => $this->getMeta()
+        ];
     }
 
 }

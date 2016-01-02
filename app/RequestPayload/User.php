@@ -13,17 +13,17 @@ abstract class User extends RequestPayload {
     /**
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * @var string
      */
-    public $email;
+    private $email;
 
     /**
      * @var string
      */
-    public $password;
+    private $password;
 
     /**
      * @return string
@@ -83,6 +83,17 @@ abstract class User extends RequestPayload {
             ->setEmail($name)
             ->setEmail($email)
             ->setPassword($password);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword()
+        ];
     }
 
 }

@@ -15,12 +15,12 @@ class Order {
     /**
      * @var string
      */
-    public $field;
+    private $field;
 
     /**
      * @var integer
      */
-    public $direction;
+    private $direction;
 
     /**
      * @return string
