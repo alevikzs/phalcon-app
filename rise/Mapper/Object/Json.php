@@ -4,6 +4,7 @@ namespace Rise\Mapper\Object;
 
 use \stdClass,
 
+    \Rise\Exception\User as UserException,
     \Rise\Mapper\Object;
 
 /**
@@ -49,9 +50,16 @@ class Json extends Object {
 
     /**
      * @return stdClass
+     * @throws UserException
      */
     private function toObject() {
-        return json_decode($this->getString());
+        $object = json_decode($this->getString());
+
+        if (is_null($object)) {
+            throw new UserException('Invalid json');
+        }
+
+        return $object;
     }
 
 }
