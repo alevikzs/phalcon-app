@@ -24,7 +24,9 @@ use \Exception,
 abstract class Web extends Application implements  IBoot {
 
     public function go() {
-        self::setCustomErrorHandler();
+        $this->notDisplayErrors();
+        $this->setCustomErrorHandler();
+        $this->registerShutdown();
 
         try {
             $this
@@ -32,9 +34,7 @@ abstract class Web extends Application implements  IBoot {
                 ->handle()
                 ->send();
         } catch (Exception $exception) {
-            (new ErrorResponse(
-                new ResponsePayloadException($exception)
-            ))->send();
+            $this->sendError($exception);
         }
     }
 
@@ -85,23 +85,49 @@ abstract class Web extends Application implements  IBoot {
         return $this;
     }
 
-    protected static function setCustomErrorHandler() {
-//        ini_set('display_errors', false);
+    private function notDisplayErrors() {
+        ini_set('display_errors', false);
+    }
 
-        $exceptionErrorHandler = function($level, $message, $file, $line) {
-            if (!(error_reporting() & $level)) {
+    protected function setCustomErrorHandler() {
+        $errorHandler = function($type, $message, $file, $line) {
+            if (!error_reporting()) {
                 return false;
             }
-            throw new ErrorException($message, 0, $level, $file, $line);
-        };
-        set_error_handler($exceptionErrorHandler);
 
-        register_shutdown_function(function () use ($exceptionErrorHandler) {
+            throw new ErrorException($message, 0, $type, $file, $line);
+        };
+
+        set_error_handler($errorHandler);
+    }
+
+    protected function registerShutdown() {
+        $shutdownFunction = function () {
             $lastError = error_get_last();
-            if ($lastError && error_reporting() && $lastError['type']) {
-                call_user_func_array($exceptionErrorHandler, $lastError);
+
+            if ($lastError) {
+                $exception = new ErrorException(
+                    $lastError['message'],
+                    0,
+                    $lastError['type'],
+                    $lastError['file'],
+                    $lastError['line']
+                );
+
+                $this->sendError($exception);
             }
-        });
+        };
+
+        register_shutdown_function($shutdownFunction);
+    }
+
+    /**
+     * @param Exception $exception
+     */
+    protected function sendError(Exception $exception) {
+        (new ErrorResponse(
+            new ResponsePayloadException($exception)
+        ))->send();
     }
 
 }
