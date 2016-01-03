@@ -25,7 +25,7 @@ class ViewController extends SimpleController {
         $user = User::findFirstById($this->getId());
 
         if ($user) {
-            return $this->response($user->toArray());
+            return $this->response($user);
         } else {
             throw new UserException('User not found', 404);
         }

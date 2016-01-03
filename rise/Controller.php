@@ -6,7 +6,7 @@ use \Phalcon\Mvc\Controller as BaseController,
     \Phalcon\Http\Response;
 
 /**
- * Class Base
+ * Class Controller
  * @package Rise
  */
 abstract class Controller extends BaseController {

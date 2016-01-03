@@ -42,7 +42,7 @@ class UpdateController extends PayloadController {
 
             $user->save();
 
-            return $this->response($user->toArray());
+            return $this->response($user);
         } else {
             throw new UserException('User not found', 404);
         }

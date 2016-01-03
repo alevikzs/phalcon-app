@@ -4,14 +4,13 @@ namespace Rise;
 
 use \Exception,
 
-    \Rise\Base,
     \Rise\ResponsePayload\Meta;
 
 /**
  * Class ResponsePayload
  * @package Rise
  */
-class ResponsePayload extends Base {
+class ResponsePayload extends Json {
 
     /**
      * @var boolean

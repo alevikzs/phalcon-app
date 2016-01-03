@@ -2,14 +2,18 @@
 
 namespace Rise;
 
-use \Phalcon\Mvc\Model as BaseModel;
+use \JsonSerializable,
+
+    \Phalcon\Mvc\Model as BaseModel;
 
 /**
  * Class Model
  * @package Rise
  * @property integer $id
  */
-class Model extends BaseModel {
+abstract class Model extends BaseModel implements JsonSerializable {
+
+    use TJsonSerializable;
 
     /**
      * @return integer

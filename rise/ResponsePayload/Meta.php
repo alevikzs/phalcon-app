@@ -2,12 +2,12 @@
 
 namespace Rise\ResponsePayload;
 
-use \Rise\Base;
+use \Rise\Json;
 
 /**
  * Class Meta
  * @package Rise\ResponsePayload
  */
-abstract class Meta extends Base {
+abstract class Meta extends Json {
 
 }

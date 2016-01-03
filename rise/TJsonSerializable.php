@@ -2,13 +2,11 @@
 
 namespace Rise;
 
-use \JsonSerializable;
-
 /**
- * Class Base
+ * Trait TJsonSerializable
  * @package Rise
  */
-abstract class Base implements JsonSerializable {
+trait TJsonSerializable {
 
     /**
      * @return array

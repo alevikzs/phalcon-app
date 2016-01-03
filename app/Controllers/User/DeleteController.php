@@ -26,7 +26,7 @@ class DeleteController extends SimpleController {
         if ($user) {
             $user->delete();
 
-            return $this->response($user->toArray());
+            return $this->response($user);
         } else {
             throw new UserException('User not found', 404);
         }

@@ -8,9 +8,7 @@ use \Phalcon\Validation;
  * Class RequestPayload
  * @package Rise
  */
-abstract class RequestPayload extends Base {
-
-    use TJsonMapper;
+abstract class RequestPayload extends Json {
 
     /**
      * @param Validation $validator

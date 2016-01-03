@@ -123,4 +123,15 @@ class User extends Model {
         ]);
     }
 
+    /**
+     * @return array
+     */
+    public function getPublicProperties() {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+        ];
+    }
+
 }

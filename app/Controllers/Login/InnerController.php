@@ -30,7 +30,7 @@ class InnerController extends PayloadController {
                 $user->getPassword())
             ) {
                 return $this->response([
-                    'user' => $user->toArray(),
+                    'user' => $user,
                     'token' => $user->createToken()
                 ]);
             } else {

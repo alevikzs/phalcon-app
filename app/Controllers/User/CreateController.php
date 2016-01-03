@@ -29,7 +29,7 @@ class CreateController extends PayloadController {
 
         $user->save();
 
-        return $this->response($user->toArray());
+        return $this->response($user);
     }
 
 }

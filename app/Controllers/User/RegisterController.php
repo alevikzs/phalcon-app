@@ -30,7 +30,7 @@ class RegisterController extends PayloadController {
         $user->save();
 
         return $this->response([
-            'user' => $user->toArray(),
+            'user' => $user,
             'token' => $user->createToken()
         ]);
     }

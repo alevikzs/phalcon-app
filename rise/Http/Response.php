@@ -7,7 +7,7 @@ use \Phalcon\Http\Response as BaseResponse,
     \Rise\ResponsePayload;
 
 /**
- * Class Base
+ * Class Response
  * @package Rise\Http
  */
 class Response extends BaseResponse {
