@@ -1,11 +1,19 @@
 {
+  "authors": [
+    {
+      "name": "Alexey Novikov",
+      "email": "alekseeey@gmail.com"
+    }
+  ],
   "require": {
     "php": ">=5.4",
-    "phalcon/devtools": "dev-master",
-    "phpunit/phpunit": "4.5.*",
     "guzzlehttp/guzzle": "~5.0",
     "firebase/php-jwt": "~2.1",
     "videlalvaro/php-amqplib": "2.5.*"
+  },
+  "require-dev": {
+    "phalcon/devtools": "dev-master",
+    "phpunit/phpunit": "4.5.*"
   },
   "autoload": {
     "psr-4": {
