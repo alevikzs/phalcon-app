@@ -52,7 +52,7 @@ trait TPayload {
             ->get('payload')
             ->getArgument('class');
 
-        $this->setPayload($requestPayloadClass::promote($rawBody));
+        $this->setPayload($requestPayloadClass::staticMap($rawBody));
 
         $errors = $this->getPayload()->validate();
 

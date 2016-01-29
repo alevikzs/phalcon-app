@@ -2,9 +2,10 @@
 
 namespace Rise\Config;
 
-use \Rise\Config\Local\Database,
-    \Rise\Config\Local\Security,
-    \Rise\TJsonMapper;
+use \PhMap\MapperTrait,
+
+    \Rise\Config\Local\Database,
+    \Rise\Config\Local\Security;
 
 /**
  * Class Local
@@ -12,7 +13,7 @@ use \Rise\Config\Local\Database,
  */
 class Local {
 
-    use TJsonMapper;
+    use MapperTrait;
 
     /**
      * @var Security
@@ -88,7 +89,7 @@ class Local {
     public static function get() {
         if (is_null(self::$instance)) {
             $json = file_get_contents(self::getPath());
-            self::$instance = static::promote($json);
+            self::$instance = static::staticMap($json);
         }
 
         return self::$instance;

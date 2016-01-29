@@ -2,7 +2,9 @@
 
 namespace Rise;
 
-use \JsonSerializable;
+use \JsonSerializable,
+
+    \PhMap\MapperTrait;
 
 /**
  * Class Json
@@ -11,6 +13,6 @@ use \JsonSerializable;
 abstract class Json implements JsonSerializable {
 
     use TJsonSerializable;
-    use TJsonMapper;
+    use MapperTrait;
 
 }
