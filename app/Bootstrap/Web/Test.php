@@ -4,9 +4,9 @@ namespace App\Bootstrap\Web;
 
 use \Phalcon\Db\Adapter\Pdo,
 
-    \Rise\Bootstrap\Web,
-    \Rise\Config\Local,
-    \Rise\Bootstrap\TTest;
+    \PhRest\Bootstrap\Web,
+    \PhRest\Config\Local,
+    \PhRest\Bootstrap\TTest;
 
 /**
  * Class Test

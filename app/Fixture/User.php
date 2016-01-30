@@ -4,7 +4,7 @@ namespace App\Fixture;
 
 use \ArrayIterator,
 
-    \Rise\Fixture,
+    \PhRest\Fixture,
 
     \App\Models\User as UserModel;
 

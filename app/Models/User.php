@@ -4,8 +4,8 @@ namespace App\Models;
 
 use \Phalcon\Security,
 
-    \Rise\Model,
-    \Rise\Auth\Session;
+    \PhRest\Model,
+    \PhRest\Auth\Session;
 
 /**
  * Class User

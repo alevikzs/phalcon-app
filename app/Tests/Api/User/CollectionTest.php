@@ -2,8 +2,8 @@
 
 namespace App\Tests\Api\User;
 
-use \Rise\ApiTestCase,
-    \Rise\RequestPayload\Collection\Order,
+use \PhRest\ApiTestCase,
+    \PhRest\RequestPayload\Collection\Order,
 
     \App\Models\User,
     \App\Tests\Api\TUserStab;

@@ -4,7 +4,7 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Payload as PayloadController,
+    \PhRest\Controller\Payload as PayloadController,
 
     \App\Models\User,
     \App\RequestPayload\User\Register as RequestPayload;

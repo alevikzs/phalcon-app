@@ -2,7 +2,7 @@
 
 namespace App\Tests\Api\User;
 
-use \Rise\ApiTestCase,
+use \PhRest\ApiTestCase,
 
     \App\Models\User,
     \App\Tests\Api\TUserStab;

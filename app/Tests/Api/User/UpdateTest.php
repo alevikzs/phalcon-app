@@ -4,7 +4,7 @@ namespace App\Tests\Api\User;
 
 use \Phalcon\Security,
 
-    \Rise\ApiTestCase,
+    \PhRest\ApiTestCase,
 
     \App\Fixture\User as UserFixture,
     \App\Models\User,

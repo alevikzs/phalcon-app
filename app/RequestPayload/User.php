@@ -2,7 +2,7 @@
 
 namespace App\RequestPayload;
 
-use \Rise\RequestPayload;
+use \PhRest\RequestPayload;
 
 /**
  * Class User

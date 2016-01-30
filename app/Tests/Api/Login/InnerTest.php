@@ -2,8 +2,8 @@
 
 namespace App\Tests\Api\Login;
 
-use \Rise\ApiTestCase,
-    \Rise\Auth\Session,
+use \PhRest\ApiTestCase,
+    \PhRest\Auth\Session,
 
     \App\Models\User,
     \App\Tests\Api\TUserStab;

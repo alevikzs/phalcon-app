@@ -4,9 +4,9 @@ namespace App\Bootstrap\Web;
 
 use \Phalcon\Db\Adapter\Pdo,
 
-    \Rise\Bootstrap\Web,
-    \Rise\Config\Local,
-    \Rise\Bootstrap\TLive;
+    \PhRest\Bootstrap\Web,
+    \PhRest\Config\Local,
+    \PhRest\Bootstrap\TLive;
 
 /**
  * Class Live

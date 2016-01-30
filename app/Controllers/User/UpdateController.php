@@ -4,8 +4,8 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Payload as PayloadController,
-    \Rise\Exception\User as UserException,
+    \PhRest\Controller\Payload as PayloadController,
+    \PhRest\Exception\User as UserException,
 
     \App\Models\User,
     \App\RequestPayload\User\Update as RequestPayload;

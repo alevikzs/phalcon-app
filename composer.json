@@ -7,10 +7,7 @@
   ],
   "require": {
     "php": ">=5.4",
-    "guzzlehttp/guzzle": "~5.0",
-    "firebase/php-jwt": "~2.1",
-    "videlalvaro/php-amqplib": "2.5.*",
-    "alevikzs/phmap": "^1.0"
+    "alevikzs/phrest": "dev-master"
   },
   "require-dev": {
     "phalcon/devtools": "dev-master",
@@ -18,11 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app",
-      "Rise\\": "rise"
+      "App\\": "app"
     }
-  },
-  "scripts": {
-    "post-install-cmd": "Rise\\Composer::postInstall"
   }
 }

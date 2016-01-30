@@ -1,12 +1,12 @@
 <?php
 
-namespace Rise\Tests\Api;
+namespace PhRest\Tests\Api;
 
-use \Rise\ApiTestCase;
+use \PhRest\ApiTestCase;
 
 /**
  * Class MissingTest
- * @package Rise\Tests\Api
+ * @package PhRest\Tests\Api
  */
 class MissingTest extends ApiTestCase {
 

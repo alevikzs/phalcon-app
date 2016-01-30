@@ -4,9 +4,9 @@ namespace App\Bootstrap\Console;
 
 use \Phalcon\Db\Adapter\Pdo,
 
-    \Rise\Bootstrap\Console,
-    \Rise\Config\Local,
-    \Rise\Bootstrap\TLive;
+    \PhRest\Bootstrap\Console,
+    \PhRest\Config\Local,
+    \PhRest\Bootstrap\TLive;
 
 /**
  * Class Live

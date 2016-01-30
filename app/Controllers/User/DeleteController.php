@@ -4,8 +4,8 @@ namespace App\Controllers\User;
 
 use \Phalcon\Http\Response,
 
-    \Rise\Controller\Simple as SimpleController,
-    \Rise\Exception\User as UserException,
+    \PhRest\Controller\Simple as SimpleController,
+    \PhRest\Exception\User as UserException,
 
     \App\Models\User;
 

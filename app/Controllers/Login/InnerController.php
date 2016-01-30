@@ -2,10 +2,10 @@
 
 namespace App\Controllers\Login;
 
-use \Rise\Http\Response,
-    \Rise\Controller\Payload as PayloadController,
-    \Rise\Exception\User as UserException,
-    \Rise\RequestPayload\Login\Inner as LoginRequestPayload,
+use \PhRest\Http\Response,
+    \PhRest\Controller\Payload as PayloadController,
+    \PhRest\Exception\User as UserException,
+    \PhRest\RequestPayload\Login\Inner as LoginRequestPayload,
 
     \App\Models\User;
 
@@ -13,7 +13,7 @@ use \Rise\Http\Response,
  * Class InnerController
  * @package App\Controllers\Login
  * @method LoginRequestPayload getPayload()
- * @payload(class="\Rise\RequestPayload\Login\Inner")
+ * @payload(class="\PhRest\RequestPayload\Login\Inner")
  */
 class InnerController extends PayloadController {
 

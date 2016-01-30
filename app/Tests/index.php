@@ -7,7 +7,7 @@ include __DIR__ . "/../../vendor/autoload.php";
 
 (new \Phalcon\DI\FactoryDefault())
     ->set('db', function() {
-        return \Rise\Config\Local::get()
+        return \PhRest\Config\Local::get()
             ->getDatabase()
             ->getTestInstance();
     });

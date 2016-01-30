@@ -5,14 +5,14 @@ namespace App\Controllers\User;
 use \Phalcon\Mvc\Model\Criteria,
     \Phalcon\Http\Response,
 
-    \Rise\Controller\Collection,
+    \PhRest\Controller\Collection,
 
     \App\Models\User;
 
 /**
  * Class CollectionController
  * @package App\Controllers\User
- * @payload(class="\Rise\RequestPayload\Collection")
+ * @payload(class="\PhRest\RequestPayload\Collection")
  */
 class CollectionController extends Collection {
 

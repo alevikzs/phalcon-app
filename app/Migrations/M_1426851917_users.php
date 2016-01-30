@@ -4,7 +4,7 @@ namespace App\Migrations;
 
 use \Phalcon\Db\Column,
 
-    \Rise\Migration;
+    \PhRest\Migration;
 
 /**
  * Class M_1426851917_users

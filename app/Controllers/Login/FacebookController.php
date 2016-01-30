@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Login;
 
-use \Rise\Http\Response,
+use \PhRest\Http\Response,
 
-    \Rise\Controller\Simple;
+    \PhRest\Controller\Simple;
 
 /**
  * Class FacebookController
