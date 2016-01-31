@@ -1,4 +1,4 @@
-#PhRest#
+#Phalcon REST API Application#
 
 ##About##
 
