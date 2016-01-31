@@ -1,5 +1,5 @@
 {
-  "name": "alevikzs/phalcon-app",
+  "name": "alevikzs/phrest-app",
   "description": "Phalcon application based on PhRest and PhMap",
   "keywords": ["phalcon", "application", "rest api", "json rest api", "phrest", "phmap"],
   "type": "application",
