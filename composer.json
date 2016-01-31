@@ -1,4 +1,9 @@
 {
+  "name": "alevikzs/phalcon-app",
+  "description": "Phalcon application based on PhRest and PhMap",
+  "keywords": ["phalcon", "application", "rest api", "json rest api", "phrest", "phmap"],
+  "type": "application",
+  "license": "MIT",
   "authors": [
     {
       "name": "Alexey Novikov",
