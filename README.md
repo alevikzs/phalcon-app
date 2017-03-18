@@ -1,15 +1,15 @@
-#Phalcon REST API Application#
+# Phalcon REST API Application
 
-##About##
+## About
 
 [Phalcon](https://phalconphp.com) application based on [PhRest](https://github.com/alevikzs/phrest) and [PhMap](https://github.com/alevikzs/phmap).
 
-##Requirements##
+## Requirements
 
 * PHP >= 5.4 && < 7.0;
 * Phalcon >= 2.0.
 
-##The MIT License (MIT)##
+## The MIT License (MIT)
 
 **Copyright (c) 2016 Alexey Novikov <alekseeey@gmail.com>**
 
